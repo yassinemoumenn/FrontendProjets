@@ -1,0 +1,45 @@
+.subscribe {
+  position: relative;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+input {
+  height: 40px;
+  background-color: #2e313a !important;
+  box-shadow: none !important;
+  border: none;
+  padding-right: 50px;
+  color: #fff !important;
+}
+.submit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 12px;
+  font-size: 20px;
+  width: 50px;
+  text-align: center;
+  color: #acacac !important;
+}
+.footer-alt {
+  padding: 15px 0;
+  background-color: #2e313a;
+}
+.copy-rights {
+  margin-bottom: 0;
+  line-height: 36px;
+}
+.footer1 {
+  padding: 50px 0;
+  background-color: #272a33;
+}
+h4 {
+  color: #ffffff;
+}
+@media (max-width: 1024px) {
+  .float-right.pull-none {
+    float: none !important;
+    text-align: center;
+  }
+}

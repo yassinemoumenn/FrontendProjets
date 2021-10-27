@@ -1,0 +1,22 @@
+<div class="header">
+  <h1 mat-dialog-title>{{ data.title | translate }}</h1>
+</div>
+
+<div mat-dialog-content>
+  <p class="dialog-message">{{ data.message | translate }}</p>
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-cancel" style="margin-right: 10px" (click)="cancel()">
+    {{ data.cancelText | translate }}
+  </button>
+  <button mat-raised-button color="primary" (click)="confirm($event.target)">
+    {{ !isloading ? (data.confirmText | translate) : '' }}
+    <span
+      *ngIf="isloading"
+      style="color: transparent"
+      class="spinner spinner-primary"
+    >
+      {{ data.confirmText | translate }}
+    </span>
+  </button>
+</div>

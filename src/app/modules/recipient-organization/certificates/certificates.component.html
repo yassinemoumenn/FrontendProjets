@@ -1,0 +1,33 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Recipients Certificates</h3>
+    </div>
+  </div>
+  <div *ngIf="!EmptyList">
+    <app-view-certificates
+      [displayedRows$]="displayedRows$"
+    ></app-view-certificates>
+    <app-pagination
+      [length]="length"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      [pageSize]="nbrElementinPage"
+      (pageEvent)="paginationCategory({ pageEvent: $event })"
+    ></app-pagination>
+  </div>
+
+  <div *ngIf="EmptyList">
+    <app-empty-list
+      [Image]="'/src/assets/media/img/emptyListImg.jpg'"
+      [Title]="'Welcome!'"
+      [Description]="
+        'There are no recipient added yet! ' +
+        '\n' +
+        ' Kickstart your business by adding your first recipient.'
+      "
+      [LabelButton]="'Add REcipient'"
+      (ButtonClickEvent)="EmptyListClickEvent({ Event: $event })"
+    >
+    </app-empty-list>
+  </div>
+</div>

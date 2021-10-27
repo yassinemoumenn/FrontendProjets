@@ -1,0 +1,179 @@
+<div class="responsivStyle table-responsive">
+  <mat-action-row *ngFor="let org of displayedRows$; let i = index">
+    <mat-accordion style="width: 100%; margin: 2px">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="height: 70px; font-size: 17px">
+          <mat-panel-title>
+            <!-- <mat-icon class="premary" style="font-size: 17px">add</mat-icon> -->
+            <strong>
+              Organization name: {{ org.organizationInfo.Name }}
+            </strong></mat-panel-title
+          >
+          <mat-panel-description>
+            <span
+              *ngIf="org.organizationInfo.statu === 'PENDING'"
+              class="label label-lg label-light-info label-inline"
+              >{{ org.organizationInfo.statu }}</span
+            >
+            <span
+              *ngIf="org.organizationInfo.statu === 'ACTIVATED'"
+              class="label label-lg label-light-success label-inline"
+              >Active</span
+            >
+            <span
+              *ngIf="org.organizationInfo.statu === 'BLOCKED'"
+              class="label label-lg label-light-danger label-inline"
+              >{{ org.organizationInfo.statu }}</span
+            >
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-action-row>
+          <mat-accordion style="width: 100%; margin: 7px; padding: 7px">
+            <mat-expansion-panel *ngFor="let grp of org.group" hideToggle>
+              <mat-expansion-panel-header style="height: 30px">
+                <mat-panel-title>
+                  <strong> groups: {{ grp.groupName }} </strong>
+                </mat-panel-title>
+
+                <mat-panel-description>
+                  <div
+                    *ngIf="grp.categories.length > 0"
+                    [matMenuTriggerFor]="menu"
+                    class="btn btn-link-primary font-weight-bold d-flex align-items-center justify-content-center"
+                  >
+                    <span class="mr-2"> Categories </span>
+                    <i class="flaticon2-down" style="font-size: 0.8rem"></i>
+                  </div>
+                  <span
+                    class="style-text style-cell d-block w-100 text-center"
+                    *ngIf="grp.categories.length <= 0"
+                    >- - - -</span
+                  >
+                  <mat-menu
+                    #menu="matMenu"
+                    class="bg-light position-relative p-0"
+                  >
+                    <ul>
+                      <li
+                        *ngFor="let cat of grp.categories"
+                        style="height: 35px"
+                      >
+                        <div
+                          class="d-flex align-items-center position-absolute w-100 p-2 parent row"
+                          (click)="fullRecipientFields(cat)"
+                        >
+                          <div class="style-text style-cell col-6">
+                            {{ cat?.name }}
+                          </div>
+                          <div class="col-6 border-left-status">
+                            <span
+                              class="badge font-weight-bold text-white"
+                              [ngClass]="
+                                cat?.active ? 'badge-success' : 'badge-warning'
+                              "
+                            >
+                              {{ cat?.active ? 'ACTIVE' : 'PENDING' }}
+                            </span>
+                          </div>
+                          <div class="border-left-status w-50 px-2">
+                            <span
+                              *ngIf="cat.active === true; else PendingCateg"
+                              [inlineSVG]="
+                                './assets/media/svg/icons/Code/Done-circle.svg'
+                              "
+                              class="svg-icon svg-icon-md svg-icon-success"
+                            ></span>
+                            <ng-template #PendingCateg>
+                              <span
+                                [inlineSVG]="
+                                  './assets/media/svg/icons/Code/Error-circle.svg'
+                                "
+                                class="svg-icon svg-icon-md svg-icon-warning"
+                              ></span>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </mat-menu>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <!--CATEGORIES-->
+              <!-- <ng-container matColumnDef="categories">
+  <th mat-header-cell *matHeaderCellDef>Categories Status</th>
+  <td mat-cell *matCellDef="let recipient"> -->
+
+              <!-- </td>
+</ng-container> -->
+
+              <!--**********-->
+              <!-- <div
+                *ngFor="let c of grp.categories"
+                style="padding-bottom: 8px; position: relative; left: 16px"
+              >
+                <mat-icon (click)="edit(c)" class="edit" color="primary"
+                  >edit</mat-icon
+                >
+                <mat-form-field
+                  class="no-line text-center"
+                  style="height: 20px"
+                >
+                  <mat-label
+                    style="
+                      color: rgba(0, 0, 0, 0.87);
+                      font-weight: 300;
+                      font-size: 14px;
+                      font-family: Roboto, sans-serif;
+                    "
+                  >
+                    {{ c.name }}</mat-label
+                  >
+
+                  <mat-select matNativeControl class="mySelect">
+                    <option
+                      class="padding option-font-size"
+                      label="Certificate Fields"
+                    ></option>
+                    <mat-option
+                      *ngFor="let field of c.fields.certificate"
+                      [disabled]="true"
+                    >
+                      <div class="d-flex justify-content-between">
+                        <div style="color: #3699ff; font-size: 15px">
+                          {{ field.name }}:
+                        </div>
+
+                        <div>
+                          <span>{{ field.value }}</span>
+                        </div>
+                      </div>
+                    </mat-option>
+                    <option
+                      label="Recipient Fields"
+                      class="option-font-size"
+                    ></option>
+                    <mat-option
+                      [disabled]="true"
+                      *ngFor="let field of c.fields.recipient"
+                    >
+                      <div class="d-flex justify-content-between">
+                        <div style="color: #3699ff; font-size: 15px">
+                          {{ field.name }}:
+                        </div>
+
+                        <div>
+                          <span>{{ field.value }}</span>
+                        </div>
+                      </div>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div> -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-action-row>
+</div>

@@ -1,0 +1,169 @@
+<div class="card card-custom">
+  <div class="card-header py-3">
+    <div class="card-title align-items-start flex-column">
+      <h3 class="card-label font-weight-bolder text-dark">
+        {{ 'USER_PROFILE.OVERVIEW.PERSONAL_INFO.HEADER.title' | translate }}
+      </h3>
+      <span class="text-muted font-weight-bold font-size-sm mt-1">
+        {{
+          'USER_PROFILE.OVERVIEW.PERSONAL_INFO.HEADER.subTitle' | translate
+        }}</span
+      >
+    </div>
+    <div class="card-toolbar">
+      <app-button
+        [label]="
+          'USER_PROFILE.OVERVIEW.PERSONAL_INFO.HEADER.btnEdit' | translate
+        "
+        (buttonClick)="EditPersonalInfo()"
+      >
+      </app-button>
+    </div>
+  </div>
+  <div class="card-body p-9">
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted">
+        {{
+          'USER_PROFILE.OVERVIEW.PERSONAL_INFO.BODY.fullName' | translate
+        }}</label
+      >
+      <div class="col-lg-8">
+        <span class="font-weight-bold text-dark">{{
+          ((user | async)?.firstname ?? null | capitalizeFirstLetter) +
+            ' ' +
+            ((user | async)?.lastname | uppercase)
+        }}</span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted"
+        >{{
+          'USER_PROFILE.OVERVIEW.PERSONAL_INFO.BODY.contactPhone' | translate
+        }}
+        <i
+          class="fas fa-exclamation-circle"
+          title="Phone number must be active"
+        ></i
+      ></label>
+      <div class="col-lg-8 d-flex align-items-center">
+        <span class="font-weight-bold text-dark mr-2">
+          {{
+            (user | async)?.phone?.placeHolder
+              ? (user | async)?.phone?.placeHolder
+              : 'none'
+          }}
+        </span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted"
+        >{{
+          'USER_PROFILE.OVERVIEW.PERSONAL_INFO.BODY.contactEmail' | translate
+        }}
+      </label>
+      <div class="col-lg-8 d-flex align-items-center">
+        <span class="font-weight-bold text-dark mr-2">
+          {{ (user | async)?.email ? (user | async)?.email : 'none' }}
+        </span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted"
+        >{{ 'USER_PROFILE.OVERVIEW.PERSONAL_INFO.BODY.country' | translate }}
+        <i class="fas fa-exclamation-circle" title="Country of origination"></i
+      ></label>
+      <div class="col-lg-8">
+        <span class="font-weight-bold text-dark">{{
+          (user | async)?.address?.country ?? 'none'
+        }}</span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted"
+        >{{ 'USER_PROFILE.OVERVIEW.PERSONAL_INFO.BODY.birthday' | translate }}
+      </label>
+      <div class="col-lg-8">
+        <span class="font-weight-bold text-dark">{{
+          ((user | async)?.birthday | date: 'longDate') ?? 'none'
+        }}</span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted">{{
+        'USER_PROFILE.OVERVIEW.PERSONAL_INFO.BODY.communication' | translate
+      }}</label>
+      <div class="col-lg-8">
+        <span class="font-weight-bold text-dark">
+          {{ GetCommuniocationWay(user | async) }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="(user | async)?.role === 'ADMIN'"
+  class="card card-custom mt-5 mb-5"
+>
+  <div class="card-header py-3">
+    <div class="card-title align-items-start flex-column">
+      <h3 class="card-label font-weight-bolder text-dark">
+        {{ 'USER_PROFILE.OVERVIEW.ORGANIZATION_INFO.HEADER.title' | translate }}
+      </h3>
+      <span class="text-muted font-weight-bold font-size-sm mt-1">
+        {{
+          'USER_PROFILE.OVERVIEW.ORGANIZATION_INFO.HEADER.subTitle' | translate
+        }}</span
+      >
+    </div>
+    <div class="card-toolbar">
+      <app-button [label]="'Edit'" (click)="EditOrganizationInfo()">
+      </app-button>
+    </div>
+  </div>
+
+  <div class="card-body p-9">
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted">
+        {{ 'USER_PROFILE.OVERVIEW.ORGANIZATION_INFO.BODY.name' | translate }}
+      </label>
+      <div class="col-lg-8">
+        <span class="font-weight-bold text-dark">{{
+          (organization | async)?.name
+        }}</span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted">
+        {{ 'USER_PROFILE.OVERVIEW.ORGANIZATION_INFO.BODY.address' | translate }}
+      </label>
+      <div class="col-lg-8 d-flex align-items-center">
+        <span class="font-weight-bold text-dark mr-2">
+          {{ (organization | async)?.location }}
+        </span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted">
+        {{ 'USER_PROFILE.OVERVIEW.ORGANIZATION_INFO.BODY.webSite' | translate }}
+      </label>
+      <div class="col-lg-8 d-flex align-items-center">
+        <span class="font-weight-bold text-dark mr-2">
+          <a href="{{ (organization | async)?.website }}" target="_blank">{{
+            (organization | async)?.website
+          }}</a>
+          <span *ngIf="!(organization | async)?.website">none</span>
+        </span>
+      </div>
+    </div>
+    <div class="row mb-7">
+      <label class="col-lg-4 font-weight-bold text-muted"
+        >{{ 'USER_PROFILE.OVERVIEW.ORGANIZATION_INFO.BODY.sector' | translate }}
+      </label>
+      <div class="col-lg-8">
+        <span class="font-weight-bold text-dark">{{
+          (organization | async)?.domain ?? 'none'
+        }}</span>
+      </div>
+    </div>
+  </div>
+</div>

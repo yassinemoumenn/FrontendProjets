@@ -1,0 +1,232 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <h3 class="modal-title">
+    {{ title }} <small>&nbsp;&nbsp; {{ subTitle }}</small>
+  </h3>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<div class="modal-body p-md-5 ScrollBar">
+  <div class="row" style="justify-content: center">
+    <div class="col-10">
+      <form [formGroup]="multipleUploadForm">
+        <div class="row" style="align-items: baseline">
+          <div class="col-12 col-md-4 p-3">
+            <h5>Download Files:</h5>
+          </div>
+          <div class="col-12 col-md-3 p-3">
+            <app-select
+              [label]="'Choose a category'"
+              [itemsObservable]="categoriesObservable"
+              [ref]="'Observable'"
+              [formControl]="Category1"
+            ></app-select>
+          </div>
+          <div class="col-12 col-md-3 p-3">
+            <app-select
+              [label]="'Choose a format'"
+              [items]="fileFormat"
+              [formControl]="FileFormat"
+            ></app-select>
+          </div>
+          <div class="col-12 col-md-2 p-3">
+            <button
+              mat-mini-fab
+              color="primary"
+              aria-label="DownLoad File "
+              style="border-radius: 10px"
+              [disabled]="
+                multipleUploadForm.controls.fileFormatControl.errors
+                  ?.required ||
+                multipleUploadForm.controls.categories1Control.errors?.required
+              "
+              (click)="downloadFile(); $event.preventDefault()"
+            >
+              <mat-icon>download</mat-icon>
+            </button>
+          </div>
+        </div>
+        <hr />
+        <div
+          class="row"
+          style="align-items: baseline"
+          *ngIf="UploadFor === 'certificate'"
+        >
+          <div class="col-12 col-md-4 p-3">
+            <h5>Fill Details :</h5>
+          </div>
+          <div class="col-12 col-md-3 p-3">
+            <app-select
+              [label]="'Choose a Category'"
+              [itemsObservable]="categoriesObservable"
+              [ref]="'Observable'"
+              [formControl]="Category2"
+              (optionSelected)="selectCategory($event)"
+            ></app-select>
+          </div>
+          <div class="col-12 col-md-3 p-3">
+            <app-select
+              [label]="'choose a design'"
+              [itemsObservable]="designsObservable"
+              [ref]="'Observable'"
+              [formControl]="Design"
+              [isDisabled]="isDisabledDesigns"
+            ></app-select>
+          </div>
+        </div>
+        <div
+          class="row"
+          style="align-items: baseline"
+          *ngIf="UploadFor === 'recipient'"
+        >
+          <div class="col-12 col-md-4 p-3">
+            <h5>Options :</h5>
+          </div>
+          <div class="col-12 col-md-8 p-3">
+            <mat-radio-group aria-label="Select an option" class="row">
+              <mat-radio-button value="1" class="col-md-6 col-12">
+                Have a reject list
+              </mat-radio-button>
+              <mat-radio-button value="2" class="col-md-6 col-12">
+                Force account creation</mat-radio-button
+              >
+            </mat-radio-group>
+            <span class="text-muted mTop-1"
+              >What to do when my file is lacking data ?</span
+            >
+          </div>
+        </div>
+        <div class="row mt-2" style="align-items: baseline">
+          <div class="col-12 col-md-4 p-3">
+            <h5>Upload Files :</h5>
+          </div>
+          <div class="col-12 col-md-8 p-3">
+            <input
+              type="file"
+              hidden
+              #uploader
+              name="File Upload"
+              id="txtFileUpload"
+              [multiple]="true"
+              (change)="OnFileChange($event)"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            />
+            <app-button
+              [isDisabled]="isButtonDisabled"
+              [label]="'Attach Files'"
+              [color]="'primary'"
+              type="button"
+              [isLoading]="isloading"
+              (buttonClick)="uploader.click(); $event.preventDefault()"
+              style="margin: 0.25em 0.25em 0 0"
+            >
+            </app-button>
+            <app-button
+              [label]="'Upload ALL '"
+              [color]="'primary'"
+              type="button"
+              [isLoading]="isloading"
+              (buttonClick)="uploadAll(); $event.preventDefault()"
+              style="margin: 0.25em 0.25em 0 0"
+              *ngIf="files.length > 1"
+            >
+            </app-button>
+            <app-button
+              [label]="'Remove All '"
+              [color]="'warn'"
+              type="button"
+              [isLoading]="isloading"
+              (buttonClick)="canselAll(); $event.preventDefault()"
+              style="margin: 0.25em 0.25em 0 0"
+              *ngIf="files.length > 1"
+            >
+            </app-button>
+            <p class="text-muted mTop-1">
+              Only Excel and csv files are allowed for upload
+              <br />
+              MaxSize: 1MB / MaxCount: 3Files
+            </p>
+            <div class="col-md-12 col-12">
+              <p
+                style="padding: 0 0.5em"
+                class="text-danger mTop-1"
+                *ngIf="maxCountExceeded === true"
+              >
+                <b>Error: </b>the maximum number of Files supported exceeded !.
+              </p>
+              <div
+                class="row mTop-1"
+                style="
+                  align-items: baseline;
+                  background-color: rgba(197, 220, 233, 0.404);
+                  padding: 0.5em 1em;
+                "
+                *ngFor="let file of files"
+              >
+                <div class="col-md-4 col-6">
+                  <small>{{ file.name }} </small>
+                  <small>({{ file.size }})</small>
+                </div>
+                <div class="col-md-5 col-3" style="padding: 0.25em">
+                  <mat-progress-bar
+                    mode="determinate"
+                    [value]="file.progress"
+                  ></mat-progress-bar>
+                </div>
+                <div class="col-md-3 col-3">
+                  <div class="row">
+                    <app-button
+                      class="col-6"
+                      [ref]="'icon'"
+                      [icon]="'play_arrow'"
+                      (buttonClick)="StartUpload(file); $event.preventDefault()"
+                      [isDisabled]="
+                        file.progress === 100 || file.sizeExceeded === true
+                      "
+                      type="button"
+                    >
+                    </app-button>
+                    <app-button
+                      class="col-6"
+                      [ref]="'icon'"
+                      [icon]="'close'"
+                      (buttonClick)="
+                        CanselUpload(file); $event.preventDefault()
+                      "
+                    >
+                    </app-button>
+                  </div>
+                </div>
+                <p
+                  style="padding: 0 0.5em"
+                  class="text-danger mTop-1"
+                  *ngIf="file.sizeExceeded === true"
+                >
+                  <b>Error: </b> This file is Too large to upload. the maximum
+                  supported size is 1MB !.
+                </p>
+                <p
+                  style="padding: 0 0.5em"
+                  class="text-danger mTop-1"
+                  *ngIf="file.headerchecked === false"
+                >
+                  <b>Error: </b> File headers does not match with
+                  {{ UploadFor }} fields, please re-check your file !.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="row">
+    <div class="col">
+      <app-button [label]="'Cancel'" (buttonClick)="Dismiss($event)">
+      </app-button>
+    </div>
+  </div>
+</div>

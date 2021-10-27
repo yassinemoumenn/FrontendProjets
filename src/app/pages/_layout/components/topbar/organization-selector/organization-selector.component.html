@@ -1,0 +1,37 @@
+<!--begin::Languages-->
+<div class="dropdown" ngbDropdown placement="bottom-right" [autoClose]="true">
+  <!--begin::Toggle-->
+  <div
+    ngbDropdownToggle
+    class="topbar-item"
+    data-toggle="dropdown"
+    data-offset="10px,0px"
+  >
+    <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+      <span
+        [inlineSVG]="'./assets/media/svg/icons/General/Bookmark.svg'"
+        class="svg-icon svg-icon-xl svg-icon-primary"
+        alt="organization"
+      ></span>
+    </div>
+  </div>
+  <!--end::Toggle-->
+
+  <!--begin::Dropdown-->
+  <div
+    ngbDropdownMenu
+    class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right"
+  >
+    <ul class="navi navi-hover py-4">
+      <ng-container *ngFor="let org of organizations">
+        <li class="navi-item">
+          <a href="javascript:;" class="navi-link" (click)="Switch(org)">
+            <span class="navi-text">{{ org.name }}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <!--end::Dropdown-->
+</div>
+<!--end::Languages-->

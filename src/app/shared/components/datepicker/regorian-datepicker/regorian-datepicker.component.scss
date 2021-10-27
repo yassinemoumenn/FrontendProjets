@@ -1,0 +1,19 @@
+::ng-deep ngb-datepicker-navigation-select > .custom-select {
+    width: 105px !important;
+  }
+  
+  ::ng-deep .ngb-dp-day,
+  .ngb-dp-week-number,
+  .ngb-dp-weekday {
+    height: 2rem !important;
+    width: 3rem !important;
+  }
+  
+  ::ng-deep [ngbDatepickerDayView] {
+    width: 3rem !important;
+  }
+  
+  ::ng-deep .ngb-dp-weekday {
+    height: 2rem !important;
+    width: 3rem !important;
+  }

@@ -1,0 +1,239 @@
+<div class="responsivStyle">
+  <table
+    id="#my-table"
+    mat-table
+    [dataSource]="displayedRows$"
+    matSort
+    matSortDirection="desc"
+    class="table table-head-custom table-vertical-center overflow-hidden"
+  >
+    <!-- Certificate Name -->
+    <ng-container matColumnDef="certificateID">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header="name"
+        matSortDirection="desc"
+      >
+        Certificate ID
+      </th>
+      <td mat-cell *matCellDef="let certificate">
+        <span *ngIf="certificate.state.status === 'SIGNED'">
+          {{ certificate.id }}</span
+        >
+        <span *ngIf="certificate.state.status !== 'SIGNED'"> --------</span>
+      </td>
+    </ng-container>
+    <!-- ---------------------------------------- -->
+
+    <ng-container matColumnDef="recipient">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Recipient</th>
+      <td
+        mat-cell
+        *matCellDef="let certificate"
+        class="text-center"
+        style="padding-left: 80px"
+      >
+        <div class="d-flex align-items-center">
+          <div class="mr-3">
+            <img
+              *ngIf="certificate.recipient.picture; else NoPic"
+              class="pic"
+              style="width: 40px; height: 40px"
+              src="{{ certificate.recipient.picture }}"
+              alt="photo"
+            />
+            <ng-template #NoPic>
+              <span
+                class="
+                  pic
+                  bg-light-success
+                  text-success
+                  font-weight-bold font-size-h6
+                "
+              >
+                {{
+                  certificate.recipient.firstname.charAt(0).toUpperCase() +
+                    '' +
+                    certificate.recipient.firstname.charAt(0).toUpperCase()
+                }}
+              </span>
+            </ng-template>
+          </div>
+          <div class="d-flex flex-column style-text style-cell">
+            <span>
+              {{
+                certificate.recipient.firstname +
+                  ' ' +
+                  certificate.recipient.firstname
+              }}</span
+            >
+            <!-- <a
+                class="text-muted font-weight-bold text-hover-primary cursor-pointer style-email style-cell"
+              >
+                {{ certificate.recipient.firstname }}</a
+              > -->
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>EMAIL</th>
+      <td mat-cell *matCellDef="let certificate">
+        <a
+          class="
+            text-muted
+            font-weight-bold
+            text-hover-primary
+            cursor-pointer
+            style-email style-cell
+          "
+        >
+          {{ certificate.recipient.email | capitalizeFirstLetter }}</a
+        >
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="State">
+      <th mat-header-cell *matHeaderCellDef>STATUS</th>
+      <td mat-cell *matCellDef="let certificate">
+        <span
+          *ngIf="certificate.state.status === 'CREATED'"
+          class="label label-lg label-light-info label-inline"
+          >{{ certificate.state.status }}</span
+        >
+        <span
+          *ngIf="certificate.state.status === 'EXPIRED'"
+          class="label label-lg label-light-success label-inline"
+          >{{ certificate.state.status }}</span
+        >
+        <span
+          *ngIf="certificate.state.status === 'ISSUED'"
+          class="label label-lg label-light-danger label-inline"
+          >{{ certificate.state.status }}</span
+        >
+        <span
+          *ngIf="certificate.state.status === 'SIGNED'"
+          class="label label-lg label-light-danger label-inline"
+          >{{ certificate.state.status }}</span
+        >
+        <span
+          *ngIf="certificate.state.status === 'REJECTED'"
+          class="label label-lg label-light-danger label-inline"
+          >{{ certificate.state.status }}</span
+        >
+        <span
+          *ngIf="certificate.state.status === 'REVOKED'"
+          class="label label-lg label-light-danger label-inline"
+          >{{ certificate.state.status }}</span
+        >
+      </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="category">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header="name"
+          matSortDirection="desc"
+        >
+          Category
+        </th>
+        <td mat-cell *matCellDef="let certificate">Category Name</td>
+      </ng-container> -->
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let certificate">
+        <div class="text-center d-flex justify-content-center">
+          <fieldset style="border: none">
+            <a
+              class="
+                btn btn-icon btn-light btn-hover-primary btn-sm
+                mx-3
+                edlitIcon
+              "
+              (click)="openDialog(content, certificate.design)"
+            >
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'"
+                class="svg-icon svg-icon-md svg-icon-primary"
+              ></span>
+            </a>
+          </fieldset>
+          <fieldset style="border: none">
+            <a
+              class="
+                btn btn-icon btn-light btn-hover-primary btn-sm
+                mx-3
+                edlitIcon
+              "
+            >
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
+                class="svg-icon svg-icon-md svg-icon-primary"
+              ></span>
+            </a>
+          </fieldset>
+
+          <fieldset style="border: none">
+            <a
+              class="
+                btn btn-icon btn-light btn-hover-danger btn-sm
+                mx-3
+                edlitIcon
+              "
+            >
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                class="svg-icon svg-icon-md svg-icon-danger"
+              ></span>
+            </a>
+          </fieldset>
+        </div>
+      </td>
+    </ng-container>
+    <!-- ---------------------------------------- -->
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>
+
+<ng-template #content>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ NameDesign | capitalizeFirstLetter }}</h4>
+    <span
+      aria-hidden="true"
+      aria-label="Close"
+      class="close cursor"
+      (click)="close()"
+    >
+      &times;
+    </span>
+  </div>
+
+  <div>
+    <div style="height: 40px" class="d-flex align-items-center p-0">
+      <div class="row w-100" *ngIf="hasVerso">
+        <div class="col-4 d-flex justify-content-center">
+          <mat-icon class="cursor side" (click)="RectoVErso()"
+            >arrow_back</mat-icon
+          >
+        </div>
+        <div
+          class="col-4 d-flex justify-content-center align-items-center side"
+        >
+          {{ side }}
+        </div>
+        <div class="col-4 d-flex justify-content-center">
+          <mat-icon class="cursor side" (click)="RectoVErso()"
+            >arrow_forward</mat-icon
+          >
+        </div>
+      </div>
+    </div>
+    <div id="DivToShowRecto" style="position: relative"></div>
+  </div>
+</ng-template>

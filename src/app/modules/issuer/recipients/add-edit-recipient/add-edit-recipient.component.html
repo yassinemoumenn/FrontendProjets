@@ -1,0 +1,270 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{ title | translate }}
+  </b>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+
+<div class="modal-body p-md-5">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="recipientFG">
+        <div class="row">
+          <div class="col-12 col-md-6" *ngIf="action === 'add'">
+            <app-input
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Username' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Username' | translate
+              "
+              [type]="'text'"
+              [formControl]="Username"
+              [isRequired]="true"
+              [ref]="'suffix'"
+              [showSpinner]="showSpinnerUsername"
+              [icon]="
+                !showSpinnerUsername
+                  ? Username.touched
+                    ? Username.invalid
+                      ? 'error'
+                      : 'check_circle'
+                    : 'account_box'
+                  : ''
+              "
+              [iconColor]="
+                Username.touched
+                  ? Username.invalid
+                    ? 'text-danger'
+                    : 'text-success'
+                  : undefined
+              "
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Email' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Email' | translate
+              "
+              [type]="'email'"
+              [formControl]="Email"
+              [ref]="'suffix'"
+              [showSpinner]="showSpinnerEmail"
+              [icon]="
+                !showSpinnerEmail
+                  ? (Email.touched && Phone.value === '') ||
+                    (Email.touched && Phone.value !== '' && Email.value !== '')
+                    ? Email.invalid
+                      ? 'error'
+                      : 'check_circle'
+                    : 'email'
+                  : ''
+              "
+              [iconColor]="
+                (Email.touched && Phone.value === '') ||
+                (Email.touched && Phone.value !== '' && Email.value !== '')
+                  ? Email.invalid
+                    ? 'text-danger'
+                    : 'text-success'
+                  : undefined
+              "
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6" *ngIf="action === 'edit'">
+            <app-input
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Phone' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Phone' | translate
+              "
+              [ref]="'phone'"
+              (countryChanged)="CountryChanged($event)"
+              [formControl]="Phone"
+              [showSpinner]="showSpinnerPhone"
+              [icon]="
+                !showSpinnerPhone
+                  ? Phone.touched && Phone.value !== ''
+                    ? Phone.invalid
+                      ? 'error'
+                      : 'check_circle'
+                    : 'phone'
+                  : ''
+              "
+              [iconColor]="
+                Phone.touched && Phone.value !== ''
+                  ? Phone.invalid
+                    ? 'text-danger'
+                    : 'text-success'
+                  : undefined
+              "
+            >
+            </app-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <app-input
+              [isRequired]="true"
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.FirstName' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.FirstName' | translate
+              "
+              [formControl]="FirstName"
+              [ref]="'suffix'"
+              [icon]="
+                FirstName.touched
+                  ? FirstName.invalid
+                    ? 'error'
+                    : 'check_circle'
+                  : 'account_circle'
+              "
+              [iconColor]="
+                FirstName.touched
+                  ? FirstName.invalid
+                    ? 'text-danger'
+                    : 'text-success'
+                  : undefined
+              "
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-input
+              [isRequired]="true"
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.LastName' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.LastName' | translate
+              "
+              [formControl]="LastName"
+              [ref]="'suffix'"
+              [icon]="
+                LastName.touched
+                  ? LastName.invalid
+                    ? 'error'
+                    : 'check_circle'
+                  : 'account_circle'
+              "
+              [iconColor]="
+                LastName.touched
+                  ? LastName.invalid
+                    ? 'text-danger'
+                    : 'text-success'
+                  : undefined
+              "
+            >
+            </app-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6" *ngIf="action === 'add'">
+            <app-input
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Phone' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Phone' | translate
+              "
+              [ref]="'phone'"
+              (countryChanged)="CountryChanged($event)"
+              [formControl]="Phone"
+              [showSpinner]="showSpinnerPhone"
+              [icon]="
+                !showSpinnerPhone
+                  ? Phone.touched && Phone.value !== ''
+                    ? Phone.invalid
+                      ? 'error'
+                      : 'check_circle'
+                    : 'phone'
+                  : ''
+              "
+              [iconColor]="
+                Phone.touched && Phone.value !== ''
+                  ? Phone.invalid
+                    ? 'text-danger'
+                    : 'text-success'
+                  : undefined
+              "
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Occupation' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Occupation' | translate
+              "
+              [type]="'text'"
+              [isRequired]="false"
+              [formControl]="Occupation"
+              [ref]="'suffix'"
+              [icon]="
+                Occupation.touched
+                  ? Occupation.invalid
+                    ? 'error'
+                    : 'check_circle'
+                  : 'account_circle'
+              "
+              [iconColor]="
+                Occupation.touched
+                  ? Occupation.invalid
+                    ? 'text-danger'
+                    : 'text-success'
+                  : undefined
+              "
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-select
+              [isRequired]="true"
+              [label]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Categories' | translate
+              "
+              [placeholder]="
+                'ISSUER.RECIPIENT.BODY.AddEditRecipient.Categories' | translate
+              "
+              [items]="GetCategories"
+              [formControl]="Categories"
+              [isMultiple]="true"
+            ></app-select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="'ISSUER.RECIPIENT.BODY.AddEditRecipient.CancelButton' | translate"
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [isDisabled]="!recipientFG.valid"
+    [label]="'ISSUER.RECIPIENT.BODY.AddEditRecipient.ConfirmButton' | translate"
+    [color]="'primary'"
+    [cssClasses]="['px-5']"
+    [isLoading]="isLoading"
+    (buttonClick)="Submit($event)"
+  >
+  </app-button>
+</div>

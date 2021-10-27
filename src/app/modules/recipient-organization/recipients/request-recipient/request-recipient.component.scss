@@ -1,0 +1,107 @@
+// Recipient pic
+%picPlaceholder {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 100%;
+  line-height: 40px;
+  text-align: center;
+}
+.no-pic {
+  @extend %picPlaceholder;
+}
+.pic {
+  @extend %picPlaceholder;
+}
+
+//Remove Default toolTip in Icons
+.svg-icon {
+  pointer-events: none;
+}
+// Styling All Columns in DataTale
+.mat-column-select,
+.mat-column-recipientID,
+.mat-column-recipient,
+.mat-column-phone {
+  padding: 5px !important;
+}
+.mat-column-categories {
+  text-align: left !important;
+  margin: 0 !important;
+  padding: 1px !important;
+}
+.mat-column-actions {
+  text-align: center !important;
+  padding: 0 !important;
+  width: 70px;
+  div {
+    margin: 0;
+  }
+}
+.mat-column-select {
+  text-align: center !important;
+}
+
+table th {
+  color: #b5b5c3 !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+//Styling checkbox
+
+%checkbox {
+  box-shadow: none;
+  border: 1px solid transparent;
+  height: 18px;
+  width: 18px;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 0.42rem;
+  display: flex;
+  align-items: center;
+}
+
+//Disale Ripple in checkbox
+::ng-deep .mat-checkbox-ripple {
+  .mat-ripple-element {
+    background-color: #fff !important;
+    box-shadow: none !important;
+  }
+}
+
+//style inside checkbox (after check)
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+::ng-deep .mat-accent.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #3699ff !important; // customize your color here
+  @extend %checkbox;
+}
+//style initial checkbox
+.mat-checkbox {
+  background-color: #ebedf3 !important;
+  @extend %checkbox;
+}
+// border checkbox
+::ng-deep .mat-checkbox-frame {
+  border-color: #ebedf3;
+}
+// style text inside DataTable
+.style-text {
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  color: #595d6e;
+}
+.style-email {
+  margin-top: 3px;
+  display: inline-block;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #74788d;
+}
+.style-cell {
+  font-size: 13px;
+}

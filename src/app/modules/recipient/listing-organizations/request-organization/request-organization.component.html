@@ -1,0 +1,88 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <h3 class="modal-title">
+    {{ title }} <small>&nbsp;&nbsp; {{ subTitle }}</small>
+  </h3>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+
+<div class="modal-body" style="margin: 10px 80px">
+  <form [formGroup]="requestForm">
+    <div class="row">
+      <div class="col-md-4" *ngIf="organizationType === 'recipient'">
+        <app-select
+          [label]="'Recipient-organization'"
+          [placeholder]="'Choose a recipient-organization'"
+          [items]="RecipientOrganizations"
+          [values]="['name']"
+          [formControl]="Organization"
+          (optionSelected)="selectOrganization($event)"
+        ></app-select>
+      </div>
+      <div class="col-md-4" *ngIf="organizationType === 'issuer'">
+        <app-select
+          [label]="'Issuer-organization'"
+          [placeholder]="'Choose an issuer-organization'"
+          [items]="IssuerOrganization"
+          [values]="['name']"
+          [formControl]="Organization"
+          (optionSelected)="selectOrganization($event)"
+        ></app-select>
+      </div>
+      <div class="col-md-4" *ngIf="organizationType === 'issuer'">
+        <app-select
+          [label]="'Groups'"
+          [placeholder]="'Choose a Group'"
+          [items]="myGroups"
+          [values]="['name']"
+          [formControl]="Group"
+          [isDisabled]="
+            requestForm.controls.organizationControl.errors?.required
+          "
+          (optionSelected)="selectGroup($event)"
+        ></app-select>
+      </div>
+      <div class="col-md-4" *ngIf="organizationType === 'issuer'">
+        <app-select
+          [label]="'Categories'"
+          [placeholder="'Choose a Category'"
+          [items]="GetListOfCategories"
+          [values]="['name']"
+          [formControl]="Category"
+          [isMultiple]="true"
+          [isDisabled]="
+            requestForm.controls.organizationControl.errors?.required ||
+            requestForm.controls.groupControl.errors?.required
+          "
+        ></app-select>
+        <span class="spinner" *ngIf="isloading"></span>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="'Cancel'"
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+
+  <app-button
+    [label]="'Send Request'"
+    [color]="'primary'"
+    (click)="submitForm()"
+    [isDisabled]="
+      requestForm.controls.organizationControl.errors?.required ||
+      requestForm.controls.groupControl.errors?.required ||
+      requestForm.controls.categoryControl.errors?.required
+    "
+  >
+  </app-button>
+</div>

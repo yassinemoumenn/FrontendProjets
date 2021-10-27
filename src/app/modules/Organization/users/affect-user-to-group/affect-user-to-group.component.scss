@@ -1,0 +1,14 @@
+%picPlaceholder {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  border-radius: 100%;
+  line-height: 60px;
+  text-align: center;
+}
+.no-pic {
+  @extend %picPlaceholder;
+}
+.pic {
+  @extend %picPlaceholder;
+}

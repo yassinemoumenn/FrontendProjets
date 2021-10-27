@@ -1,0 +1,327 @@
+<!-- Filer & Search Bloc -->
+<div class="row">
+  <div class="col-12">
+    <form>
+      <div class="row">
+        <!-- Search -->
+        <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+          <app-input
+            [label]="'ISSUER.RECIPIENT.BODY.ViewRecipients.Search' | translate"
+            [placeholder]="
+              'ISSUER.RECIPIENT.BODY.ViewRecipients.Search' | translate
+            "
+            [ref]="'suffix'"
+            [icon]="'search'"
+            (typingStopped)="ApplySearch($event)"
+          >
+          </app-input>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Display Data in Angular Material DataTable -->
+<div class="row">
+  <div class="col-12">
+    <!-- Hidden Bloc to Delete Checked Recipients -->
+    <div class="row">
+      <div
+        class="col-12 col-md-10 offset-md-1"
+        [@AnimationHiddenBloc]="isShow ? 'start' : 'end'"
+      >
+        <div
+          class="
+            hidden-bolc
+            border
+            rounded
+            shadow-sm
+            p-2
+            d-flex
+            justify-content-between
+            align-items-center
+          "
+        >
+          <div>
+            <span>{{
+              numRowsSelected +
+                ' ' +
+                (numRowsSelected > 1
+                  ? ('ISSUER.RECIPIENT.BODY.ViewRecipients.RowsSelected'
+                    | translate)
+                  : ('ISSUER.RECIPIENT.BODY.ViewRecipients.RowSelected'
+                    | translate))
+            }}</span>
+          </div>
+          <div>
+            <app-button
+              [label]="
+                'ISSUER.RECIPIENT.BODY.ViewRecipients.DeleteButton' | translate
+              "
+              [backgroundColor]="'#f64e60'"
+              [fontColor]="'#fff'"
+              [isDisabled]="!btnDeleteSelectedDisabled"
+              (buttonClick)="Delete(undefined)"
+            >
+            </app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DataTabe -->
+    <div class="row">
+      <div class="col-12 p-0 table-responsive">
+        <table
+          mat-table
+          [dataSource]="recipientsDataSource"
+          class="mat-elevation-z0"
+          style="width: 100%"
+        >
+          <!-- Select multiple -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox
+                [disabled]="
+                  recipientsDataSource.filteredData.length === 0 ? true : false
+                "
+                (change)="$event ? AllChecked() : null"
+                [checked]="selection.hasValue() && IsAllSelected()"
+              >
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let recipient">
+              <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="RecipientChecked(recipient)"
+                [checked]="selection.isSelected(recipient.id)"
+                [aria-label]="CheckboxLabel(recipient)"
+              >
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <!-- Recipient ID -->
+          <ng-container matColumnDef="recipientID">
+            <th mat-header-cell *matHeaderCellDef>Recipient Id</th>
+            <td
+              mat-cell
+              *matCellDef="let recipient"
+              class="style-text style-cell"
+            >
+              {{ recipient.id }}
+            </td>
+          </ng-container>
+
+          <!-- Recipient First Name & Last Name & Email -->
+          <ng-container matColumnDef="recipient">
+            <th mat-header-cell *matHeaderCellDef>Recipient</th>
+            <td mat-cell *matCellDef="let recipient">
+              <div class="d-flex align-items-center">
+                <div class="mr-3">
+                  <img
+                    *ngIf="recipient.picture; else NoPic"
+                    class="pic"
+                    style="width: 40px; height: 40px"
+                    src="{{ recipient.picture }}"
+                    alt="photo"
+                  />
+                  <ng-template #NoPic>
+                    <span
+                      class="
+                        no-pic
+                        bg-light-success
+                        text-success
+                        font-weight-bold font-size-h6
+                      "
+                    >
+                      {{
+                        recipient.firstname.charAt(0).toUpperCase() +
+                          '' +
+                          recipient.lastname.charAt(0).toUpperCase()
+                      }}
+                    </span>
+                  </ng-template>
+                </div>
+                <div class="d-flex flex-column style-text style-cell">
+                  <span>
+                    {{ recipient.firstname + ' ' + recipient.lastname }}</span
+                  >
+                  <a
+                    class="
+                      text-muted
+                      font-weight-bold
+                      text-hover-primary
+                      cursor-pointer
+                      style-email style-cell
+                    "
+                  >
+                    {{ recipient.email }}</a
+                  >
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Phone -->
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ 'ISSUER.RECIPIENT.BODY.ViewRecipients.Phone' | translate }}
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let recipient"
+              class="style-text style-cell"
+            >
+              {{
+                recipient.phone?.placeHolder === '' ||
+                recipient.phone?.placeHolder === null
+                  ? '- - - No Phone - - -'
+                  : recipient.phone?.placeHolder
+              }}
+            </td>
+          </ng-container>
+
+          <!-- Occupation -->
+          <ng-container matColumnDef="occupation">
+            <th mat-header-cell *matHeaderCellDef>Occupation</th>
+            <td
+              mat-cell
+              *matCellDef="let recipient"
+              class="style-text style-cell"
+            >
+              <span *ngIf="recipient.occupation; else noData"></span>
+              {{ recipient?.occupation }}
+            </td>
+          </ng-container>
+
+          <!-- Status of complete category data -->
+          <ng-container matColumnDef="categories">
+            <th mat-header-cell *matHeaderCellDef>Categories Status</th>
+            <td mat-cell *matCellDef="let recipient">
+              <a
+                *ngIf="recipient.categories.length > 0"
+                [matMenuTriggerFor]="menu"
+                class="
+                  btn btn-link-primary
+                  font-weight-bold
+                  d-flex
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <span class="mr-2"> Categories </span>
+                <i class="flaticon2-down" style="font-size: 0.8rem"></i>
+              </a>
+              <span
+                class="style-text style-cell d-block w-100 text-center"
+                *ngIf="recipient.categories.length <= 0"
+                >- - - -</span
+              >
+              <mat-menu #menu="matMenu" class="bg-light position-relative p-0">
+                <ul>
+                  <li *ngFor="let cat of recipient.categories">
+                    <div
+                      class="
+                        d-flex
+                        align-items-center
+                        position-absolute
+                        w-100
+                        p-2
+                        parent
+                        row
+                      "
+                      (click)="fullRecipientFields(recipient, cat)"
+                    >
+                      <div class="style-text style-cell col-6">
+                        {{ cat?.name }}
+                      </div>
+                      <div class="col-4 border-left-status">
+                        <span
+                          class="badge font-weight-bold text-white"
+                          [ngClass]="
+                            cat?.active ? 'badge-success' : 'badge-warning'
+                          "
+                        >
+                          {{ cat?.active ? 'ACTIVE' : 'PENDING' }}
+                        </span>
+                      </div>
+                      <div class="col-2 border-left-status">
+                        <span
+                          *ngIf="cat.active === true; else PendingCateg"
+                          [inlineSVG]="
+                            './assets/media/svg/icons/Code/Done-circle.svg'
+                          "
+                          class="svg-icon svg-icon-md svg-icon-success"
+                        ></span>
+                        <ng-template #PendingCateg>
+                          <span
+                            [inlineSVG]="
+                              './assets/media/svg/icons/Code/Error-circle.svg'
+                            "
+                            class="svg-icon svg-icon-md svg-icon-warning"
+                          ></span>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let recipient">
+              <div class="d-flex justify-content-center">
+                <div>
+                  <a
+                    class="btn btn-icon btn-light btn-hover-info btn-sm mx-1"
+                    (click)="AssignCategory(recipient)"
+                  >
+                    <span
+                      [inlineSVG]="
+                        './assets/media/svg/icons/Navigation/Plus.svg'
+                      "
+                      class="svg-icon svg-icon-md svg-icon-info"
+                    ></span>
+                  </a>
+                </div>
+                <div>
+                  <a
+                    class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+                    (click)="Edit(recipient)"
+                  >
+                    <span
+                      [inlineSVG]="
+                        './assets/media/svg/icons/Communication/Write.svg'
+                      "
+                      class="svg-icon svg-icon-md svg-icon-primary"
+                    ></span>
+                  </a>
+                </div>
+                <div>
+                  <a
+                    class="btn btn-icon btn-light btn-hover-danger btn-sm mx-1"
+                    (click)="Delete(recipient.id)"
+                  >
+                    <span
+                      [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                      class="svg-icon svg-icon-md svg-icon-danger"
+                    ></span>
+                  </a>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="GetDisplayedColumns()"></tr>
+          <tr mat-row *matRowDef="let row; columns: GetDisplayedColumns()"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ng-template #noData>
+    <span class="text-muted">none</span>
+  </ng-template>
+</div>

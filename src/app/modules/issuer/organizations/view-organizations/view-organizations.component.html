@@ -1,0 +1,88 @@
+<div class="responsivStyle">
+  <table
+    id="#my-table"
+    mat-table
+    [dataSource]="displayedRows$"
+    class="table table-head-custom table-vertical-center overflow-hidden"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        {{ 'ISSUER.ORGANIZATION.NAME' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let organization">
+        {{ organization.name | capitalizeFirstLetter }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="groups">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        {{ 'ISSUER.ORGANIZATION.GROUP' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let organization" class="text-center">
+        {{ organization.IssuerGroup | capitalizeFirstLetter }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="domain">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        {{ 'ISSUER.ORGANIZATION.SECTOR' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let organization" class="text-center">
+        <span *ngIf="organization.domain; else noData"
+          >{{ organization.domain | capitalizeFirstLetter }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        {{ 'ISSUER.ORGANIZATION.STATE' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let organization" class="text-center">
+        <span
+          *ngIf="getOrganizationStat(organization.id) === 'PENDING'"
+          class="label label-lg label-light-info label-inline"
+          >PENDING</span
+        >
+        <span
+          *ngIf="getOrganizationStat(organization.id) === 'ACTIVATED'"
+          class="label label-lg label-light-success label-inline"
+          >Active</span
+        >
+        <span
+          *ngIf="getOrganizationStat(organization.id) === 'BLOCKED'"
+          class="label label-lg label-light-danger label-inline"
+          >BLOCKED</span
+        >
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="webSite">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        {{ 'ISSUER.ORGANIZATION.SITE' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let organization" class="text-center">
+        <a
+          *ngIf="organization.website != ''; else noData"
+          [href]="organization.website"
+          target="_blank"
+        >
+          {{ organization.website.replace('https://', '') }}
+        </a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Address">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        {{ 'ISSUER.ORGANIZATION.ADDRESS' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let organization" class="text-center">
+        {{ organization.location | capitalizeFirstLetter }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+  <ng-template #noData>
+    <span class="text-center text-muted">none</span>
+  </ng-template>
+</div>

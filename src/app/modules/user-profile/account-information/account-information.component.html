@@ -1,0 +1,193 @@
+<ng-container *ngIf="user">
+  <div class="card card-custom" [formGroup]="formGroup">
+    <!-- begin::Loading -->
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="progress progress-modal">
+        <div
+          class="
+            progress-bar progress-bar-striped progress-bar-animated
+            bg-primary
+          "
+          role="progressbar"
+          style="width: 100%"
+          aria-valuenow="100"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+    </ng-container>
+    <!-- end::Loading -->
+    <!--begin::Header-->
+    <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark">
+          {{ 'USER_PROFILE.ACCOUNT_SETTINGS.HEADER.title' | translate }}
+        </h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1">{{
+          'USER_PROFILE.ACCOUNT_SETTINGS.HEADER.subTitle' | translate
+        }}</span>
+      </div>
+      <div class="card-toolbar">
+        <app-button
+          [isLoading]="btnIsLoading"
+          [label]="
+            'USER_PROFILE.ACCOUNT_SETTINGS.HEADER.btnSaveChange' | translate
+          "
+          [isDisabled]="formGroup.invalid || !formGroup.dirty"
+          [ngClass]="
+            formGroup.invalid || !formGroup.dirty
+              ? 'cursor-default'
+              : 'cursor-pointer'
+          "
+          [cssClasses]="['mr-2']"
+          (buttonClick)="btnIsLoading = true; save()"
+        >
+        </app-button>
+        <app-button
+          [label]="'USER_PROFILE.ACCOUNT_SETTINGS.HEADER.btnCancel' | translate"
+          [cssClasses]="['ml-2']"
+          [backgroundColor]="'#f3f6f9'"
+          [fontColor]="'#7e8299'"
+          (buttonClick)="cancel()"
+        >
+        </app-button>
+      </div>
+    </div>
+    <!--end::Header-->
+    <!--begin::Form-->
+    <div class="form">
+      <div class="card-body">
+        <div class="row">
+          <label class="col-xl-3"></label>
+          <div class="col-lg-9 col-xl-6">
+            <h5 class="font-weight-bold mb-6">
+              {{
+                'USER_PROFILE.ACCOUNT_SETTINGS.BODY.accountNotification'
+                  | translate
+              }}
+            </h5>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label class="col-xl-3 col-lg-3 col-form-label p-0">
+            {{
+              'USER_PROFILE.ACCOUNT_SETTINGS.BODY.emailNotification' | translate
+            }}
+          </label>
+          <div class="col-lg-9 col-xl-6">
+            <span class="switch switch-sm">
+              <label>
+                <input type="checkbox" formControlName="emailNotification" />
+                <span></span>
+              </label>
+            </span>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label class="col-xl-3 col-lg-3 col-form-label p-0">{{
+            'USER_PROFILE.ACCOUNT_SETTINGS.BODY.phoneNotification' | translate
+          }}</label>
+          <div class="col-lg-9 col-xl-6">
+            <span class="switch switch-sm">
+              <label>
+                <input type="checkbox" formControlName="phoneNotification" />
+                <span></span>
+              </label>
+            </span>
+          </div>
+        </div>
+
+        <!--begin::Form Group-->
+        <div class="separator separator-dashed my-5"></div>
+        <!--begin::Form Group-->
+        <div class="row">
+          <label class="col-xl-3"></label>
+          <div class="col-lg-9 col-xl-6">
+            <h5 class="font-weight-bold mb-6">
+              {{ 'USER_PROFILE.ACCOUNT_SETTINGS.BODY.security' | translate }}
+            </h5>
+          </div>
+        </div>
+        <!--begin::Form Group-->
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label"
+            >{{
+              'USER_PROFILE.ACCOUNT_SETTINGS.BODY.loginVerification' | translate
+            }}
+            <sup
+              class="text-danger font-weight-bolder"
+              style="font-size: 1rem"
+              *ngIf="this.user.accountSettings === null"
+              >*</sup
+            ></label
+          >
+          <div class="col-lg-9 col-xl-6">
+            <span class="switch switch-sm">
+              <label>
+                <input
+                  type="checkbox"
+                  [required]="this.user.accountSettings === null"
+                  #check
+                  formControlName="twoFactorAuthentication"
+                  (change)="SwitchLoginVerification(check.checked)"
+                />
+                <span></span>
+              </label>
+            </span>
+            <p class="form-text text-muted pt-2">
+              {{
+                'USER_PROFILE.ACCOUNT_SETTINGS.BODY.textLoginVerification'
+                  | translate
+              }}
+              <a class="font-weight-bold cursor-pointer">{{
+                'USER_PROFILE.ACCOUNT_SETTINGS.BODY.learnMore' | translate
+              }}</a
+              >.
+            </p>
+          </div>
+        </div>
+        <!--begin::Form Group-->
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">{{
+            'USER_PROFILE.ACCOUNT_SETTINGS.BODY.passwordResetVerification'
+              | translate
+          }}</label>
+          <div class="col-lg-9 col-xl-6">
+            <div class="checkbox-inline">
+              <label class="checkbox m-0">
+                <input
+                  type="checkbox"
+                  formControlName="passwordResetVerification"
+                />
+                <span></span
+                >{{
+                  'USER_PROFILE.ACCOUNT_SETTINGS.BODY.checkboxText' | translate
+                }}</label
+              >
+            </div>
+            <p class="form-text text-muted py-2">
+              {{
+                'USER_PROFILE.ACCOUNT_SETTINGS.BODY.textPasswordReset'
+                  | translate
+              }}
+              <a class="font-weight-boldk cursor-pointer">{{
+                'USER_PROFILE.ACCOUNT_SETTINGS.BODY.learnMore' | translate
+              }}</a
+              >.
+            </p>
+            <button
+              type="button"
+              class="btn btn-light-danger font-weight-bold btn-sm"
+            >
+              {{
+                'USER_PROFILE.ACCOUNT_SETTINGS.BODY.deactivateYourAccount'
+                  | translate
+              }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end::Form-->
+  </div>
+</ng-container>

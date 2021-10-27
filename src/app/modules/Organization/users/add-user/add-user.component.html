@@ -1,0 +1,346 @@
+<div>
+  <form [formGroup]="UserForm">
+    <div class="modal-body">
+      <div class="row">
+        <!-- FirstName -->
+        <div class="col-md-4">
+          <app-input
+            (change)="inputChanged($event)"
+            [isRequired]="true"
+            [label]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.FirstName'
+                | translate
+            "
+            [placeholder]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.FirstName'
+                | translate
+            "
+            [cssClasses]="['inputWhidth']"
+            [formControl]="FirstName"
+            [ref]="'suffix'"
+            [icon]="
+              FirstName.touched
+                ? FirstName.invalid
+                  ? 'error'
+                  : 'check_circle'
+                : 'account_circle'
+            "
+            [iconColor]="
+              FirstName.touched
+                ? FirstName.invalid
+                  ? 'text-danger'
+                  : 'text-success'
+                : undefined
+            "
+          >
+          </app-input>
+        </div>
+        <!--  ------------ -->
+
+        <!-- lastname -->
+        <div class="col-md-4">
+          <app-input
+            (change)="inputChanged($event)"
+            [isRequired]="true"
+            [label]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.LastName' | translate
+            "
+            [placeholder]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.LastName' | translate
+            "
+            [cssClasses]="['inputWhidth']"
+            [formControl]="LastName"
+            [ref]="'suffix'"
+            [icon]="
+              LastName.touched
+                ? LastName.invalid
+                  ? 'error'
+                  : 'check_circle'
+                : 'account_circle'
+            "
+            [iconColor]="
+              LastName.touched
+                ? LastName.invalid
+                  ? 'text-danger'
+                  : 'text-success'
+                : undefined
+            "
+          >
+          </app-input>
+        </div>
+        <!--  ------------ -->
+
+        <!-- lastname -->
+        <div class="col-md-4">
+          <app-input
+            (change)="inputChanged($event)"
+            [isRequired]="true"
+            [label]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.Username' | translate
+            "
+            [placeholder]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.Username' | translate
+            "
+            [type]="'text'"
+            [cssClasses]="['inputWhidth']"
+            [formControl]="Username"
+            [ref]="'suffix'"
+            [showSpinner]="showSpinnerUsername"
+            [icon]="
+              !showSpinnerUsername
+                ? Username.touched
+                  ? Username.invalid
+                    ? 'error'
+                    : 'check_circle'
+                  : 'account_box'
+                : ''
+            "
+            [iconColor]="
+              Username.touched
+                ? Username.invalid
+                  ? 'text-danger'
+                  : 'text-success'
+                : undefined
+            "
+          >
+          </app-input>
+        </div>
+        <!--  ------------ -->
+      </div>
+
+      <br />
+      <div class="row">
+        <!-- email-->
+        <div class="col-md-6">
+          <app-input
+            (change)="inputChanged($event)"
+            [label]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.Email' | translate
+            "
+            [placeholder]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.Email' | translate
+            "
+            [type]="'email'"
+            [formControl]="Email"
+            [ref]="'suffix'"
+            [showSpinner]="showSpinnerEmail"
+            [icon]="
+              !showSpinnerEmail
+                ? (Email.touched && Phone.value === '') ||
+                  (Email.touched && Phone.value !== '' && Email.value !== '')
+                  ? Email.invalid
+                    ? 'error'
+                    : 'check_circle'
+                  : 'email'
+                : ''
+            "
+            [iconColor]="
+              (Email.touched && Phone.value === '') ||
+              (Email.touched && Phone.value !== '' && Email.value !== '')
+                ? Email.invalid
+                  ? 'text-danger'
+                  : 'text-success'
+                : undefined
+            "
+          >
+          </app-input>
+        </div>
+        <!--  ------------ -->
+        <!-- Date of birth-->
+        <div class="col-md-6">
+          <app-input
+            (change)="phoneChanged($event)"
+            [label]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.Phone' | translate
+            "
+            [placeholder]="
+              'RECIPIENTORGANIZATION.BODY.AddEditRecipient.Phone' | translate
+            "
+            [ref]="'phone'"
+            (countryChanged)="CountryChanged($event)"
+            [formControl]="Phone"
+            [showSpinner]="showSpinnerPhone"
+            [icon]="
+              !showSpinnerPhone
+                ? Phone.touched && Phone.value !== ''
+                  ? Phone.invalid
+                    ? 'error'
+                    : 'check_circle'
+                  : 'phone'
+                : ''
+            "
+            [iconColor]="
+              Phone.touched && Phone.value !== ''
+                ? Phone.invalid
+                  ? 'text-danger'
+                  : 'text-success'
+                : undefined
+            "
+          >
+          </app-input>
+        </div>
+        <!-- ----------- -->
+      </div>
+
+      <div class="row">
+        <!-- email-->
+        <div class="col-md-6">
+          <app-datepicker
+            (pickedDateEvent)="inputChanged($event)"
+            [label]="'ORGANIZATION.USERS.ADDUSER.DATEOFBIRTH' | translate"
+            [placeholder]="'ORGANIZATION.USERS.ADDUSER.DATEOFBIRTH' | translate"
+            [formControl]="Birthday"
+            [isRequired]="true"
+            [maxDate]="maxDate"
+            [minDate]="minDate"
+            [icon]="
+              Birthday.touched
+                ? Birthday.invalid
+                  ? 'error'
+                  : 'check_circle'
+                : 'date_range'
+            "
+            [iconColor]="
+              Birthday.touched
+                ? Birthday.invalid
+                  ? 'text-danger'
+                  : 'text-success'
+                : undefined
+            "
+          >
+          </app-datepicker>
+        </div>
+        <!--  ------------ -->
+        <!-- Date of birth-->
+        <div class="col-md-6">
+          <app-input
+            (change)="inputChanged($event)"
+            [isRequired]="false"
+            [label]="'Occupation'"
+            placeholder="Occupation"
+            [formControl]="Occupation"
+            [ref]="'suffix'"
+            [icon]="
+              Occupation.touched
+                ? Occupation.invalid
+                  ? 'error'
+                  : 'check_circle'
+                : 'work'
+            "
+            [iconColor]="
+              Occupation.touched
+                ? Occupation.invalid
+                  ? 'text-danger'
+                  : 'text-success'
+                : undefined
+            "
+          >
+          </app-input>
+        </div>
+        <!-- ----------- -->
+      </div>
+
+      <br />
+      <div class="row">
+        <!-- Role -->
+        <div class="col-md-6">
+          <app-select
+            formControlName="role"
+            [label]="'Role'"
+            placeholder="Select a role"
+            [items]="roles"
+            (optionSelected)="SelectRole($event)"
+          ></app-select>
+        </div>
+        <div class="col-md-6">
+          <app-select
+            *ngIf="!isMultiple"
+            [label]="'ORGANIZATION.USERS.ADDUSER.SELECTGROUP' | translate"
+            [placeholder]="'ORGANIZATION.USERS.ADDUSER.SELECTGROUP' | translate"
+            [ref]="'Observable'"
+            [itemsObservable]="groupsWitoutIssuer$"
+            formControlName="GroupesOfOrganization"
+            (optionSelected)="groupSElected({ user: $event })"
+            [required]="true"
+            [isDisabled]="UserForm.value.role === ''"
+            [isMultiple]="false"
+          ></app-select>
+          <app-select
+            *ngIf="isMultiple"
+            [label]="'ORGANIZATION.USERS.ADDUSER.SELECTGROUPS' | translate"
+            [placeholder]="
+              'ORGANIZATION.USERS.ADDUSER.SELECTGROUPS' | translate
+            "
+            [ref]="'Observable'"
+            [itemsObservable]="groups$"
+            formControlName="GroupesOfOrganization"
+            (optionSelected)="groupSElected({ user: $event })"
+            [required]="true"
+            [isDisabled]="UserForm.value.role === ''"
+            [isMultiple]="true"
+          ></app-select>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-md-6"
+          *ngIf="UserForm.value.role === 'RECIPIENT' && isgroupSelected"
+        >
+          <app-select
+            [label]="'ORGANIZATION.USERS.ADDUSER.SELECTCATS' | translate"
+            [placeholder]="'ORGANIZATION.USERS.ADDUSER.SELECTCATS' | translate"
+            [ref]="'Observable'"
+            [itemsObservable]="categories$"
+            formControlName="categories"
+            (optionSelected)="categorySelected({ category: $event })"
+            [isMultiple]="true"
+          ></app-select>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        modal-footerthis.UserForm.controls['phone'].invalid
+        &&
+        p-3
+        d-flex
+        justify-content-center justify-content-md-end
+      "
+    >
+      <app-button
+        mat-dialog-close
+        label="{{ 'ORGANIZATION.CANCELBUTTON' | translate }}"
+        [backgroundColor]="'#f3f6f9'"
+        [fontColor]="'#7e8299'"
+      >
+      </app-button>
+      <app-button
+        *ngIf="newUser; else update"
+        [color]="'primary'"
+        label="{{ 'ORGANIZATION.SUBMITBUTTON' | translate }}"
+        [cssClasses]="['ml-2', 'px-5']"
+        [isLoading]="isLoading"
+        (buttonClick)="onConfirmClick()"
+        [isDisabled]="!UserForm.valid"
+      >
+      </app-button>
+      <ng-template #update>
+        <app-button
+          [color]="'primary'"
+          label="{{ 'ORGANIZATION.SUBMITBUTTON' | translate }}"
+          [isLoading]="isLoading"
+          (buttonClick)="onConfirmClick()"
+          [cssClasses]="['ml-3', 'px-5']"
+          [isDisabled]="
+            isUpdatedisabled ||
+            UserForm.invalid ||
+            Email.invalid ||
+            Phone.invalid ||
+            Username.invalid
+          "
+        >
+        </app-button>
+      </ng-template>
+    </div>
+  </form>
+</div>

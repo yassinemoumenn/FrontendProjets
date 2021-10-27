@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-custom gutter-b">
+        <div class="card-header">
+          <div class="card-title">
+            <h3 class="card-label">
+              {{ 'SUBUSER.TITLEMAINPAGE' | translate }}
+            </h3>
+          </div>
+          <div class="card-toolbar">
+            <div class="row">
+              <div class="col-auto p-0">
+                <app-button
+                  [label]="'SUBUSER.BTNADDSUBISSUER' | translate"
+                  [color]="'primary'"
+                  (click)="OpenDialogAdd()"
+                >
+                </app-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Add - Edit Sub Issuer Template -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateAddEdit>
+                <app-add-subissuer
+                  [data]="dataSendToEditAddCompo.data"
+                  [positions]="dataSendToEditAddCompo.positions"
+                  [permissions]="dataSendToEditAddCompo.permissions"
+                  [title]="dataSendToEditAddCompo.title"
+                  [action]="dataSendToEditAddCompo.action"
+                  [_subIssuerFG]="subIssuerFG"
+                  (dismissDialog)="Dismiss($event)"
+                  (addSubIssuer)="AddSubIssuer($event)"
+                  (editSubIssuer)="EditSubIssuer($event)"
+                ></app-add-subissuer>
+              </ng-template>
+            </div>
+          </div>
+          <!-- Display Sub Issuers -->
+          <div class="row">
+            <div class="col-12">
+              <app-view-subissuer
+                [_paginator]="paginator"
+                [subIssuers]="subIssuers"
+                [positions]="FillPositionsFromSource()"
+                (openDialiogToEdit)="OpenDialogToEdit($event)"
+                (openDialiogToDelete)="OpenDialiogToDelete($event)"
+                (openDialiogToDeleteSelectedItems)="
+                  OpenDialiogToDeleteSelectedItems($event)
+                "
+                (applySearch)="ApplySearch($event)"
+                (optionSelectedFilter)="OptionSelectedFilter($event)"
+              ></app-view-subissuer>
+            </div>
+          </div>
+          <!-- Pagination -->
+          <div class="row">
+            <div class="col-12">
+              <app-pagination
+                [length]="resultsLength"
+                [isLoading]="isLoading"
+                (pageEvent)="OnPaginatonPaged($event)"
+              ></app-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

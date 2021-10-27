@@ -1,0 +1,282 @@
+<div class="current" data-kt-stepper-element="content">
+  <!--begin::Wrapper-->
+  <div class="w-100">
+    <!--begin::Heading-->
+    <div class="pb-10 pb-lg-15">
+      <!--begin::Title-->
+      <h2
+        style="text-align: center !important"
+        class="fw-bolder align-items-center text-dark"
+      >
+        Choose an organization type
+        <i
+          class="fas fa-exclamation-circle ms-2 fs-7"
+          data-bs-toggle="tooltip"
+          title=""
+          data-bs-original-title="Billing is issued based on your selected account type"
+          aria-label="Billing is issued based on your selected account type"
+        ></i>
+      </h2>
+      <!--end::Title-->
+      <!--begin::Notice-->
+
+      <!--end::Notice-->
+    </div>
+    <!--end::Heading-->
+    <!--begin::Input group-->
+    <div
+      class="
+        fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-valid
+        mb-5
+      "
+    >
+      <!--begin::Row-->
+      <div class="row">
+        <!--begin::Col-->
+        <div class="col-lg-4">
+          <!--begin::Option-->
+          <input
+            type="radio"
+            class="btn-check"
+            name="account_type"
+            value="ISSUERORGANIZATION"
+            checked="checked"
+            id="kt_create_account_form_account_type_personal"
+          />
+          <label
+            class="
+              btn btn-outline btn-outline-dashed btn-outline-default
+              p-7
+              d-flex
+              align-items-center
+              mb-10
+            "
+            (click)="changeAccount('ISSUERORGANIZATION')"
+            for="kt_create_account_form_account_type_personal"
+          >
+            <!--begin::Svg Icon | path: icons/duotone/Interface/Briefcase.svg-->
+            <span class="svg-icon svg-icon-primary svg-icon-2x"
+              ><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Code/Compiling.svg--><svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                version="1.1"
+              >
+                <g
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <rect x="0" y="0" width="24" height="24" />
+                  <path
+                    d="M2.56066017,10.6819805 L4.68198052,8.56066017 C5.26776695,7.97487373 6.21751442,7.97487373 6.80330086,8.56066017 L8.9246212,10.6819805 C9.51040764,11.267767 9.51040764,12.2175144 8.9246212,12.8033009 L6.80330086,14.9246212 C6.21751442,15.5104076 5.26776695,15.5104076 4.68198052,14.9246212 L2.56066017,12.8033009 C1.97487373,12.2175144 1.97487373,11.267767 2.56066017,10.6819805 Z M14.5606602,10.6819805 L16.6819805,8.56066017 C17.267767,7.97487373 18.2175144,7.97487373 18.8033009,8.56066017 L20.9246212,10.6819805 C21.5104076,11.267767 21.5104076,12.2175144 20.9246212,12.8033009 L18.8033009,14.9246212 C18.2175144,15.5104076 17.267767,15.5104076 16.6819805,14.9246212 L14.5606602,12.8033009 C13.9748737,12.2175144 13.9748737,11.267767 14.5606602,10.6819805 Z"
+                    fill="#000000"
+                    opacity="0.3"
+                  />
+                  <path
+                    d="M8.56066017,16.6819805 L10.6819805,14.5606602 C11.267767,13.9748737 12.2175144,13.9748737 12.8033009,14.5606602 L14.9246212,16.6819805 C15.5104076,17.267767 15.5104076,18.2175144 14.9246212,18.8033009 L12.8033009,20.9246212 C12.2175144,21.5104076 11.267767,21.5104076 10.6819805,20.9246212 L8.56066017,18.8033009 C7.97487373,18.2175144 7.97487373,17.267767 8.56066017,16.6819805 Z M8.56066017,4.68198052 L10.6819805,2.56066017 C11.267767,1.97487373 12.2175144,1.97487373 12.8033009,2.56066017 L14.9246212,4.68198052 C15.5104076,5.26776695 15.5104076,6.21751442 14.9246212,6.80330086 L12.8033009,8.9246212 C12.2175144,9.51040764 11.267767,9.51040764 10.6819805,8.9246212 L8.56066017,6.80330086 C7.97487373,6.21751442 7.97487373,5.26776695 8.56066017,4.68198052 Z"
+                    fill="#000000"
+                  />
+                </g></svg
+              ><!--end::Svg Icon--></span
+            >
+            <!--end::Svg Icon-->
+            <!--begin::Info-->
+            <span class="d-block fw-bold text-start">
+              <span class="text-dark fw-bolder d-block fs-4 mb-2"
+                >Issuer Organization</span
+              >
+              <span class="text-gray-400 fw-bold fs-6"
+                ><b>Create Institution account<br /> </b
+              ></span>
+            </span>
+            <!--end::Info-->
+          </label>
+          <!--end::Option-->
+          <div class="fv-plugins-message-container invalid-feedback"></div>
+        </div>
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-lg-4">
+          <!--begin::Option-->
+          <input
+            type="radio"
+            class="btn-check"
+            name="account_type"
+            value="RECIPIENTORGANIZATION"
+            id="kt_create_account_form_account_type_corporate"
+          />
+          <label
+            class="
+              btn btn-outline btn-outline-dashed btn-outline-default
+              p-7
+              d-flex
+              align-items-center
+            "
+            for="kt_create_account_form_account_type_corporate"
+            (click)="changeAccount('RECIPIENTORGANIZATION')"
+          >
+            <!--begin::Svg Icon | path: icons/duotone/Interface/User.svg-->
+            <span class="svg-icon svg-icon-primary svg-icon-2x"
+              ><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Files/File-cloud.svg--><svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                version="1.1"
+              >
+                <g
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <polygon points="0 0 24 0 24 24 0 24" />
+                  <path
+                    d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
+                    fill="#000000"
+                    fill-rule="nonzero"
+                    opacity="0.3"
+                  />
+                  <path
+                    d="M8.63657261,15.4632487 C7.65328954,14.8436137 7,13.7480988 7,12.5 C7,10.5670034 8.56700338,9 10.5,9 C12.263236,9 13.7219407,10.3038529 13.9645556,12 L15,12 C16.1045695,12 17,12.8954305 17,14 C17,15.1045695 16.1045695,16 15,16 L10,16 C9.47310652,16 8.99380073,15.7962529 8.63657261,15.4632487 Z"
+                    fill="#000000"
+                  />
+                </g></svg
+              ><!--end::Svg Icon--></span
+            >
+            <!--end::Svg Icon-->
+            <!--begin::Info-->
+            <span class="d-block fw-bold text-start">
+              <span class="text-dark fw-bolder d-block fs-4 mb-2"
+                >Recipient Organization</span
+              >
+              <span class="text-gray-400 fw-bold fs-6"
+                ><b>Create Institution account<br /> </b
+              ></span>
+            </span>
+            <!--end::Info-->
+          </label>
+          <!--end::Option-->
+        </div>
+        <!--end::Col-->
+        <div class="col-lg-4">
+          <!--begin::Option-->
+          <input
+            type="radio"
+            class="btn-check"
+            name="account_type"
+            value="VERIFIERORGANIZATION"
+            id="kt_create_account_form_account_type_verifier"
+          />
+          <label
+            class="
+              btn btn-outline btn-outline-dashed btn-outline-default
+              p-7
+              d-flex
+              align-items-center
+            "
+            for="kt_create_account_form_account_type_verifier"
+            (click)="changeAccount('VERIFIERORGANIZATION')"
+          >
+            <!--begin::Svg Icon | path: icons/duotone/Interface/User.svg-->
+
+            <span class="svg-icon svg-icon-primary svg-icon-2x"
+              ><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Communication/Clipboard-check.svg--><svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                version="1.1"
+              >
+                <g
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <rect x="0" y="0" width="24" height="24" />
+                  <path
+                    d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z"
+                    fill="#000000"
+                    opacity="0.3"
+                  />
+                  <path
+                    d="M10.875,15.75 C10.6354167,15.75 10.3958333,15.6541667 10.2041667,15.4625 L8.2875,13.5458333 C7.90416667,13.1625 7.90416667,12.5875 8.2875,12.2041667 C8.67083333,11.8208333 9.29375,11.8208333 9.62916667,12.2041667 L10.875,13.45 L14.0375,10.2875 C14.4208333,9.90416667 14.9958333,9.90416667 15.3791667,10.2875 C15.7625,10.6708333 15.7625,11.2458333 15.3791667,11.6291667 L11.5458333,15.4625 C11.3541667,15.6541667 11.1145833,15.75 10.875,15.75 Z"
+                    fill="#000000"
+                  />
+                  <path
+                    d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z"
+                    fill="#000000"
+                  />
+                </g></svg
+              ><!--end::Svg Icon--></span
+            >
+
+            <!--end::Svg Icon-->
+            <!--begin::Info-->
+            <span class="d-block fw-bold text-start">
+              <span class="text-dark fw-bolder d-block fs-4 mb-2"
+                >Verifier Organization</span
+              >
+              <span class="text-gray-400 fw-bold fs-6"
+                ><b>Create Institution account<br /> </b
+              ></span>
+            </span>
+            <!--end::Info-->
+          </label>
+          <!--end::Option-->
+        </div>
+        <button
+          type="button"
+          class="btn btn-lg btn-primary mt-5"
+          style="margin-left: auto"
+          data-kt-stepper-action="next"
+          routerLink="/auth/register/organization"
+        >
+          Continue
+          <!--begin::Svg Icon | path: icons/duotone/Navigation/Right-2.svg-->
+          <span class="svg-icon svg-icon-4 ms-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              version="1.1"
+            >
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <polygon points="0 0 24 0 24 24 0 24" />
+                <rect
+                  fill="#000000"
+                  opacity="0.5"
+                  transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000)"
+                  x="7.5"
+                  y="7.5"
+                  width="2"
+                  height="9"
+                  rx="1"
+                />
+                <path
+                  d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                  fill="#000000"
+                  fill-rule="nonzero"
+                  transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"
+                />
+              </g>
+            </svg>
+          </span>
+          <!--end::Svg Icon-->
+        </button>
+      </div>
+      <!--end::Row-->
+    </div>
+    <!--end::Input group-->
+  </div>
+  <!--end::Wrapper-->
+</div>

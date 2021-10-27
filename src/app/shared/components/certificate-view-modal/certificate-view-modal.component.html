@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <span aria-hidden="true" aria-label="Close" class="close cursor" (click)="close($event)">
+        &times;
+    </span>
+</div>
+
+<div>
+    <div style="height: 40px" class="d-flex align-items-center p-0">
+        <div class="row w-100" *ngIf="hasVerso">
+            <div class="col-4 d-flex justify-content-center">
+                <mat-icon class="cursor side" (click)="RectoVErso()">arrow_back</mat-icon>
+            </div>
+            <div class="col-4 d-flex justify-content-center align-items-center side">
+                {{ side }}
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <mat-icon class="cursor side" (click)="RectoVErso()">arrow_forward</mat-icon>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="Recto" [innerHTML]="page1 | safe :'html'" style="position: relative"></div>
+    <div *ngIf="!Recto" [innerHTML]="page2 | safe :'html'" style="position: relative"></div>
+</div>

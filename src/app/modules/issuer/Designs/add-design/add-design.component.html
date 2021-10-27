@@ -1,0 +1,143 @@
+<div class="card">
+  <div class="card-header">
+    <form [formGroup]="designForm">
+      <div class="container-fluid">
+        <section class="row">
+          <div class="col-md-2" style="position: relative; top: 10px">
+            <app-input
+              [label]="'ISSUER.DESIGN.DESIGNNAME' | translate"
+              placeholder="Enter design name"
+              formControlName="name"
+            >
+            </app-input>
+          </div>
+
+          <div class="col-md-2" style="position: relative; top: 10px">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label> {{ 'ISSUER.DESIGN.CATEGORY' | translate }}</mat-label>
+              <mat-select
+                formControlName="category"
+                [placeholder]="'ISSUER.DESIGN.CATEGORY' | translate"
+                (selectionChange)="changeCategory($event)"
+              >
+                <mat-option
+                  *ngFor="let category of categories; let i = index"
+                  [value]="category.id"
+                >
+                  {{ category.name }}
+                </mat-option>
+              </mat-select>
+
+              <mat-error
+                *ngIf="
+                  this.designForm.controls.category.errors &&
+                  (this.designForm.controls.category.touched ||
+                    this.designForm.controls.category.dirty)
+                "
+                >{{ 'ISSUER.DESIGN.ERROR' | translate }}</mat-error
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2" style="position: relative; top: 10px">
+            <app-select
+              [label]="'ISSUER.DESIGN.SIDE' | translate"
+              [placeholder]="'ISSUER.DESIGN.SIDE' | translate"
+              [items]="[
+                'ISSUER.DESIGN.RECTO' | translate,
+                'ISSUER.DESIGN.VERSO' | translate
+              ]"
+              (optionSelected)="RectoVerso($event)"
+              formControlName="Side"
+            ></app-select>
+          </div>
+
+          <div class="col-md-2" style="position: relative; top: 10px">
+            <app-select
+              [label]="'ISSUER.DESIGN.SHAPES' | translate"
+              [placeholder]="'ISSUER.DESIGN.SHAPES' | translate"
+              [items]="shapes"
+              (optionSelected)="shapeStyle($event)"
+              formControlName="shapes"
+            ></app-select>
+          </div>
+
+          <div class="col-md-2" style="position: relative; top: 20px">
+            <app-button
+              [label]="'ISSUER.DESIGN.Customize_shape' | translate"
+              (buttonClick)="OpenCustomizeShipe(content)"
+              [isDisabled]="designForm.controls['shapes'].invalid"
+            >
+            </app-button>
+          </div>
+        </section>
+      </div>
+    </form>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div id="gjs"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <pre>{{ Shipe.value | json }}</pre> -->
+
+<ng-template #content let-c="close" let-d="dismiss" style="overflow: auto">
+  <div class="modal-header">
+    <h4 class="modal-title" style="padding-right: 70px">
+      Customize your shape
+    </h4>
+
+    <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="closePupUp()">
+    </app-button>
+  </div>
+  <div class="modal-body">
+    <form id="BOX" [formGroup]="Shipe">
+      <div class="myform-group">
+        <label>Custom Shape</label>
+        <div class="Box" style="display: flex">
+          <div class="col-md-4" style="position: relative; bottom: 25px">
+            <app-input
+              label="whidth"
+              placeholder="Enter design whidth"
+              formControlName="whidth"
+              type="number"
+            >
+            </app-input>
+          </div>
+
+          <div class="col-md-4" style="position: relative; bottom: 25px">
+            <app-input
+              label="hieght"
+              placeholder="Enter design hieght"
+              formControlName="hiegth"
+              type="number"
+            >
+            </app-input>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <app-button
+      [label]="'ISSUER.CATEGORY.CLOSE' | translate"
+      (buttonClick)="closePupUp()"
+      backgroundColor="#ffffff"
+      fontColor="#000000"
+    >
+    </app-button>
+
+    <app-button
+      color="primary"
+      label="Apply"
+      (buttonClick)="ApplyShipe()"
+      [isDisabled]="Shipe.invalid"
+    >
+    </app-button>
+  </div>
+</ng-template>

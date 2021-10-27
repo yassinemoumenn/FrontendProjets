@@ -1,0 +1,179 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">
+        {{ 'ORGANIZATION.USERS.LISTING.TITLE' | translate }}
+      </h3>
+    </div>
+    <div class="card-toolbar">
+      <div class="dropdown dropdown-inline" ngbDropdown>
+        <div
+          class="
+            symbol symbol-60 symbol-xxl-100
+            mr-5
+            align-self-start align-self-xxl-center
+          "
+        >
+          <button
+            class="btn btn-info"
+            ngbDropdownToggle
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="mdi mdi-format-list-bulleted-type"></i>
+            Actions
+            <i class="mdi mdi-chevron-down"></i>
+          </button>
+        </div>
+
+        <div
+          class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+          ngbDropdownMenu
+        >
+          <ul class="navi">
+            <li class="navi-item">
+              <a (click)="OpencreatUser()" class="navi-link cursor-pointer">
+                <span class="navi-icon"><i class="flaticon2-plus"></i></span>
+                <span class="navi-text">
+                  {{ 'ORGANIZATION.USERS.ADDUSER.ADDTITLE' | translate }}
+                </span>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a
+                (click)="OpenDialogToInviteUsers()"
+                class="navi-link cursor-pointer"
+              >
+                <span class="navi-icon"><i class="fas fa-user-plus"></i></span>
+                <span class="navi-text">
+                  {{ 'ORGANIZATION.USERS.LISTING.INVITE' | translate }}
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="users.length === 0">
+    <app-empty-list
+      [Image]="'../../../../../assets/media/svg/misc/Recipient.svg'"
+      [Title]="'ORGANIZATION.USERS.AMPRYPAGE.TITLE' | translate"
+      [Description]="'ORGANIZATION.USERS.AMPRYPAGE.DESC' | translate"
+      [LabelButton]="'ORGANIZATION.USERS.AMPRYPAGE.BUTTONLABEL' | translate"
+      (ButtonClickEvent)="EmptyListClickEvent({ Event: $event })"
+    >
+    </app-empty-list>
+  </div>
+  <div *ngIf="users.length !== 0" class="card-body p-lg-15">
+    <!--  -->
+    <!-- Filer & Search Bloc -->
+    <div class="row mt-2">
+      <div class="col-12">
+        <form>
+          <div class="row">
+            <!-- Search -->
+            <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1 mr-5">
+              <app-input
+                [label]="'ORGANIZATION.USERS.LISTING.SEARSH' | translate"
+                [placeholder]="'ORGANIZATION.USERS.LISTING.SEARSH' | translate"
+                [ref]="'suffix'"
+                [icon]="'search'"
+                [formControl]="searchControl"
+                (typingStopped)="ApplySearch($event)"
+              >
+              </app-input>
+            </div>
+            <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1 ml-5">
+              <!-- Filter -->
+              <app-select
+                [label]="'ORGANIZATION.USERS.LISTING.FILTER' | translate"
+                [placeholder]="'ORGANIZATION.USERS.LISTING.FILTER' | translate"
+                [items]="FilterOptions"
+                (optionSelected)="filterUsers($event)"
+              ></app-select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <app-view-users
+      [curentOrg]="curentOrg"
+      [displayedRows$]="displayedRows$"
+      (UserToUpdate)="OpenUpdateUser({ userToUpdate: $event })"
+      (UserToDElete)="DEleteUser({ catToUpdat: $event })"
+      (changeStateEvent)="changeState($event)"
+      (affectToGroupEvent)="openAffectUser($event)"
+      (ImpersonateEvent)="impersonateAccount($event)"
+    ></app-view-users>
+    <app-pagination
+      [length]="length"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      [pageSize]="nbrElementinPage"
+      (pageEvent)="paginationCategory({ pageEvent: $event })"
+    ></app-pagination>
+  </div>
+</div>
+
+<!-- Add and Update user Modal -->
+
+<ng-template #content let-c="close " let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="newUser; else update">
+      {{ 'ORGANIZATION.USERS.ADDUSER.ADDTITLE' | translate }}
+    </h4>
+    <ng-template #update>
+      <h4 class="modal-title">
+        {{ 'ORGANIZATION.USERS.ADDUSER.UPDATETITLE' | translate }}
+      </h4>
+    </ng-template>
+    <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="close()">
+    </app-button>
+  </div>
+
+  <app-add-user
+    [UserForm]="UserForm"
+    [GroupesOfOrganization]="GroupesOfOrganization"
+    [GroupeswhithoutIssuer]="GroupeswhithoutIssuer"
+    [Categories]="Categories"
+    [newUser]="newUser"
+    [showSpinnerEmail]="showSpinnerEmail"
+    [showSpinnerUsername]="showSpinnerUsername"
+    [showSpinnerPhone]="showSpinnerPhone"
+    (AddNewUser)="AddNewUser({ cat: $event })"
+    (UpdateUser)="UpdateUser({ cat: $event })"
+    (selectCategory)="SelectCategory({ cat: $event })"
+    [userToUpdate]="userToupdate"
+  ></app-add-user>
+</ng-template>
+
+<!-- Invite Users -->
+<div class="row">
+  <div class="col-12">
+    <ng-template #templateInviteUsers>
+      <app-invite-user
+        [allUsers]="Allusers"
+        [groups]="GroupesOfOrganization"
+        (inviteUsersEvent)="InviteUsers($event)"
+        (dismissDialog)="close()"
+      ></app-invite-user>
+    </ng-template>
+  </div>
+</div>
+
+<!-- Affect user To Group(s) -->
+
+<div class="row">
+  <div class="col-12">
+    <ng-template #templateAffectUser>
+      <app-affect-user
+        [UserForm]="affectToGroupFrom"
+        [user]="userToaffect"
+        [groups]="affectGroups"
+        (affectUserEvent)="AffectUser($event)"
+        (dismissDialog)="close()"
+      ></app-affect-user>
+    </ng-template>
+  </div>
+</div>

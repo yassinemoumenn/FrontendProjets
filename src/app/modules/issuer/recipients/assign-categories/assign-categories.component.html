@@ -1,0 +1,49 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{ 'ISSUER.RECIPIENT.BODY.AssignCategories.Title' | translate }}
+    {{ recipientName }}
+  </b>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<div class="modal-body p-md-5">
+  <div class="row">
+    <div class="col-12">
+      <form>
+        <app-select
+          [label]="
+            'ISSUER.RECIPIENT.BODY.AssignCategories.Categories' | translate
+          "
+          [placeholder]="
+            'ISSUER.RECIPIENT.BODY.AssignCategories.Categories' | translate
+          "
+          [items]="categoriesName"
+          [formControl]="CategoriesFC"
+          [isMultiple]="true"
+        ></app-select>
+      </form>
+    </div>
+  </div>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="'ISSUER.RECIPIENT.BODY.AssignCategories.CancelButton' | translate"
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [label]="'ISSUER.RECIPIENT.BODY.AssignCategories.ConfirmButton' | translate"
+    [color]="'primary'"
+    [isDisabled]="!CategoriesFC.valid"
+    [isLoading]="isLoading"
+    [cssClasses]="['px-4']"
+    (buttonClick)="SaveChange()"
+  >
+  </app-button>
+</div>

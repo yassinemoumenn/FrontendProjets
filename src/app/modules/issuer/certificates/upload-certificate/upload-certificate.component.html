@@ -1,0 +1,10 @@
+<app-multiple-upload
+  [categoriesObservable]="category$"
+  [designsObservable]="AllDesigns$"
+  [recipientsObservable]="recipientToUpload$"
+  [title]="'ISSUER.CERTIFICATE.UPLOAD.HEADER.Title' | translate"
+  [subTitle]="'ISSUER.CERTIFICATE.UPLOAD.HEADER.SubTitle' | translate"
+  [_multipleUploadForm]="uploadCertificatesForm"
+  (dismissDialog)="Dismiss($event)"
+  (uploadObject)="uploadObject($event)"
+></app-multiple-upload>

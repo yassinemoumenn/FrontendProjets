@@ -1,0 +1,50 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">
+        {{ 'ORGANIZATION.REQUESTS.LISTING.TITLE' | translate }}
+      </h3>
+    </div>
+  </div>
+  <div *ngIf="requests.length === 0">
+    <app-empty-list
+      [Image]="'../../../../../assets/media/svg/misc/Recipient.svg'"
+      Title="{{ 'ORGANIZATION.REQUESTS.EMPTYPAGE.TITLE' | translate }}"
+      Description="{{ 'ORGANIZATION.REQUESTS.EMPTYPAGE.DESC' | translate }}"
+    >
+    </app-empty-list>
+  </div>
+  <div *ngIf="requests.length !== 0" class="card-body p-lg-15">
+    <div class="row mt-2">
+      <div class="col-12">
+        <form>
+          <div class="row">
+            <!-- Search -->
+            <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+              <app-input
+                [label]="'ORGANIZATION.USERS.LISTING.SEARSH' | translate"
+                [placeholder]="'ORGANIZATION.USERS.LISTING.SEARSH' | translate"
+                [ref]="'suffix'"
+                [icon]="'search'"
+                (typingStopped)="ApplySearch($event)"
+              >
+              </app-input>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <app-view-requests
+      [curentOrg]="curentOrg"
+      [displayedRows$]="displayedRows$"
+      (cancelEvent)="cancelRequest($event)"
+      (approveEvent)="approveRequest($event)"
+    ></app-view-requests>
+    <app-pagination
+      [length]="requests.length"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      [pageSize]="nbrElementinPage"
+      (pageEvent)="paginationCategory({ pageEvent: $event })"
+    ></app-pagination>
+  </div>
+</div>

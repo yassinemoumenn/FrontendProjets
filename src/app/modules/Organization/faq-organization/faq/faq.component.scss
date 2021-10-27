@@ -1,0 +1,138 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #eff2f5;
+  border-radius: 0.475rem;
+}
+.card-body {
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
+}
+
+.text-black-50 {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+.bg-light {
+  background-color: #f5f8fa !important;
+}
+@media (min-width: 992px) {
+  .w-lg-275px {
+    width: 275px !important;
+  }
+  .flex-lg-row {
+    flex-direction: row !important;
+  }
+  .flex-lg-column {
+    flex-direction: column !important;
+  }
+  .me-lg-20 {
+    margin-right: 5rem !important;
+    background-color: rgba(235, 224, 224, 0.15);
+    border-radius: 8px;
+  }
+  .p-lg-15 {
+    padding: 3.75rem !important;
+  }
+}
+@media (min-width: 1200px) {
+  .fs-2x {
+    font-size: 2rem !important;
+  }
+}
+.bg-light {
+  --bg-color: 245, 248, 250;
+}
+.bg-light-primary {
+  background-color: #ecf8ff !important;
+}
+.bg-light-primary.hoverable:hover {
+  background-color: #cdedff !important;
+}
+.flex-column-fluid {
+  flex: 1 0 auto;
+}
+@media (min-width: 992px) {
+  .flex-lg-column-auto {
+    flex: none;
+  }
+  .flex-lg-column-fluid {
+    flex: 1 0 auto;
+  }
+  .flex-lg-row-auto {
+    flex: 0 0 auto;
+  }
+}
+.text-gray-600 {
+  color: #7e8299 !important;
+}
+.text-gray-700 {
+  color: #5e6278 !important;
+}
+.text-gray-800 {
+  color: #3f4254 !important;
+}
+
+.menu-item {
+  display: block;
+  padding: 0;
+}
+.menu-item .menu-link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  flex: 0 0 100%;
+  padding: 0.65rem 1rem;
+  transition: none;
+  outline: 0 !important;
+  &:hover {
+    color: #009ef7 !important;
+  }
+}
+
+.menu-item .menu-link .menu-title {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+.menu-item .menu-link {
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 104%;
+}
+
+.menu-column {
+  flex-direction: column;
+  width: 100%;
+}
+.menu-rounded .menu-link {
+  border-radius: 0.475rem;
+}
+.menu-title-gray-700 .menu-item .menu-link {
+  color: #5e6278;
+}
+.menu-title-gray-700 .menu-item .menu-link .menu-title {
+  color: #5e6278;
+}
+.menu-active-bg-light-primary .menu-item .menu-link.active {
+  transition: color 0.2s ease, background-color 0.2s ease;
+  background-color: #ecf8ff;
+  color: #009ef7;
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+  text-align: left;
+}
+.fw-bold {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+  text-align: left;
+}

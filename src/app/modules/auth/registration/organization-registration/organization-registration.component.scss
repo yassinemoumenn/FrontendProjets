@@ -1,0 +1,38 @@
+@import '../../../../../assets/sass/pages/wizard/wizard-1';
+
+:host {
+  width: 100%;
+  @media (min-width: 992px) {
+    .login-form {
+      width: 100%;
+      max-width: 450px;
+
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+  }
+  .pointer {
+    cursor: pointer;
+  }
+
+  .error-text {
+    color: #f64e60;
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+}
+
+::ng-deep .iti {
+  width: 100% !important;
+}
+
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}

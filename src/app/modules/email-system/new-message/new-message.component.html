@@ -1,0 +1,46 @@
+<div class="container-fluid p-0 border">
+	<form [formGroup]="messageForm" novalidate>
+		<div class="d-flex align-items-center border p-3 " style="height:50px; background-color: #1e1e2d;">
+			<div class="d-flex justify-content-between ml-3 mr-2 " style="width: 100%;">
+				<div class="inbox__title ">New Message</div>
+				<div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:;" (click)="onDismiss()">
+						<i class="flaticon2-cross"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex align-items-center border p-3 " style="height: 70px;">
+			<div class="d-flex justify-content-between ml-3 mr-2 " style="width: 100%;">
+				<div class="kt-inbox__text">To:
+					<input class="kt-inbox__to ml-4 pl-2" type="text" formControlName="recipient">
+                    <div *ngIf="getControl.recipient.touched && getControl.recipient.invalid" class="text-danger">
+                   </div>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex align-items-center border p-3 " style="height: 70px;">
+			<input class="kt-inbox__subject ml-4 pl-2" placeholder="Subject" type="text" formControlName="title">
+            <div *ngIf="getControl.title.touched && getControl.title.invalid" class="text-danger">
+            </div>
+ 		</div>
+		<div class="d-flex align-items-center border p-3 " style="height: 300px;">
+			<textarea class="kt-inbox__message ml-4 pl-2" placeholder="Type message ..." type="text" formControlName="body"></textarea>
+		    <div *ngIf="getControl.body.touched && getControl.body.invalid" class="text-danger">
+			</div>
+        </div>
+		<div class="d-flex align-items-center border p-3 " style="height: 70px;">
+			<div class="d-flex justify-content-between ml-3 mr-2 " style="width: 100%;">
+                <div>
+					<div *ngIf="hasFormErrors" class="kt-font-danger">All fields are required &#10071;</div>
+				</div>
+				<div>
+					<a href="javascript:;" class="btn btn-success font-weight-bold mr-2" (click)="onSubmit()">
+						Send <i class="flaticon2-paperplane"></i>
+					</a>
+			    </div>
+		  </div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,133 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{ 'ISSUER.RECIPIENT.BODY.InviteRecipients.Title' | translate }}
+  </b>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+
+<div class="modal-body p-md-5">
+  <div class="row">
+    <div class="col-12">
+      <h5>{{ 'ISSUER.RECIPIENT.BODY.InviteRecipients.Label' | translate }}</h5>
+      <mat-form-field class="w-100 mt-4" appearance="outline">
+        <mat-chip-list #chipList aria-label="Recipient selection">
+          <mat-chip
+            *ngFor="let recip of _recipients"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(recip)"
+          >
+            {{ recip.firstname + ' ' + recip.lastname }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="{{
+              'ISSUER.RECIPIENT.BODY.InviteRecipients.Placeholder' | translate
+            }}"
+            #recipientInput
+            [formControl]="recipCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (keyup)="onKeyUp()"
+          />
+
+          <div
+            [ngClass]="spinnerIsShow ? 'd-block' : 'd-none'"
+            class="spinner-border"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </mat-chip-list>
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
+        >
+          <mat-option
+            *ngFor="let recipient of filteredRecipients | async"
+            [value]="recipient.id"
+            [ngClass]="emptyList ? 'd-none' : 'd-block'"
+          >
+            <div class="d-flex align-items-center">
+              <div class="mr-3">
+                <img
+                  *ngIf="recipient.picture; else NoPic"
+                  class="pic"
+                  style="width: 40px; height: 40px"
+                  src="{{ recipient.picture }}"
+                  alt="photo"
+                />
+                <ng-template #NoPic>
+                  <span
+                    class="
+                      no-pic
+                      bg-light-success
+                      text-success
+                      font-weight-bold font-size-h6
+                    "
+                  >
+                    {{
+                      recipient.firstname.charAt(0).toUpperCase() +
+                        '' +
+                        recipient.lastname.charAt(0).toUpperCase()
+                    }}
+                  </span>
+                </ng-template>
+              </div>
+              <div class="d-flex flex-column">
+                <span
+                  appHighlight
+                  [searchedWord]="recipCtrl.value"
+                  [content]="recipient.firstname + ' ' + recipient.lastname"
+                  [classToApply]="'font-weight-bold'"
+                >
+                </span>
+              </div>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <form>
+        <app-select
+          [isDisabled]="_recipients.length === 0"
+          [label]="
+            'ISSUER.RECIPIENT.BODY.InviteRecipients.Categories' | translate
+          "
+          [placeholder]="
+            'ISSUER.RECIPIENT.BODY.InviteRecipients.Categories' | translate
+          "
+          [items]="GetCategories"
+          [formControl]="Categories"
+          [isMultiple]="true"
+        ></app-select>
+      </form>
+    </div>
+  </div>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="'ISSUER.RECIPIENT.BODY.InviteRecipients.CancelButton' | translate"
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [isDisabled]="!(_recipients.length > 0 && categoriesFC.value.length > 0)"
+    [label]="'ISSUER.RECIPIENT.BODY.InviteRecipients.InviteButton' | translate"
+    [color]="'primary'"
+    [cssClasses]="['px-5']"
+    (buttonClick)="InviteRecipients()"
+  >
+  </app-button>
+</div>

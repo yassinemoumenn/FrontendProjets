@@ -1,0 +1,288 @@
+<!-- start table -->
+<div class="responsivStyle">
+  <form [formGroup]="VerifierForm">
+    <table
+      mat-table
+      [dataSource]="certificates$"
+      class="table table-head-custom table-vertical-center overflow-hidden"
+    >
+      <!-- Issuer Column -->
+      <ng-container matColumnDef="Issuer">
+        <th mat-header-cell *matHeaderCellDef style="padding-right: 13px">
+          {{ 'RECIPIENT.CERTIFICATES.ISSUER' | translate }}
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let certificate"
+          style="
+            padding-right: 13px;
+            padding-left: 13px;
+            padding-top: 13px;
+            padding-bottom: 13px;
+          "
+        >
+          <div class="d-flex align-items-center">
+            <div class="mr-3">
+              <img
+                *ngIf="certificate.issuer.picture !== null; else NoPic"
+                class="pic"
+                style="width: 40px; height: 40px"
+                src="{{ certificate.issuer.picture }}"
+                alt="photo"
+              />
+              <ng-template #NoPic>
+                <span
+                  class="
+                    no-pic
+                    bg-light-success
+                    text-success
+                    font-weight-bold font-size-h6
+                  "
+                >
+                  {{
+                    certificate.issuer.firstname.charAt(0).toUpperCase() +
+                      '' +
+                      certificate.issuer.lastname.charAt(0).toUpperCase()
+                  }}
+                </span>
+              </ng-template>
+            </div>
+            <div class="d-flex flex-column style-text style-cell">
+              <span>
+                {{
+                  certificate.issuer.firstname +
+                    ' ' +
+                    certificate.issuer.lastname
+                }}</span
+              >
+              <a
+                class="
+                  text-muted
+                  font-weight-bold
+                  text-hover-primary
+                  cursor-pointer
+                  style-email style-cell
+                "
+              >
+                {{ certificate.issuer.email | capitalizeFirstLetter }}</a
+              >
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <!-- State Column -->
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef style="padding-right: 13px">
+          {{ 'RECIPIENT.CERTIFICATES.STATE' | translate }}
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let certificate"
+          style="padding-right: 13px; padding-left: 13px"
+        >
+          <span
+            class="label font-weight-bold label-lg label-inline"
+            [ngClass]="
+              certificate.state.status === 'ISSUED'
+                ? 'label label-lg label-light-success label-inline'
+                : certificate.state.status === 'CREATED'
+                ? 'label label-lg label-light-warning label-inline'
+                : certificate.state.status === 'REJECTED'
+                ? 'label label-lg label-light-dark label-inline'
+                : certificate.state.status === 'REVOKED'
+                ? 'label label-lg label-light-danger label-inline'
+                : certificate.state.status === 'SIGNED'
+                ? 'label label-lg label-light-info label-inline'
+                : 'label label-lg label-light-primary label-inline'
+            "
+            ngbTooltip="{{ certificate.state.createdAt }}"
+          >
+            {{ certificate.state.status }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="Category">
+        <th mat-header-cell *matHeaderCellDef style="padding-right: 13px">
+          {{ 'RECIPIENT.CERTIFICATES.CATEGORY' | translate }}
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let certificate"
+          style="padding-right: 13px; padding-left: 13px"
+        >
+          <span class="font-weight-bold">
+            {{ certificate.category.name | capitalizeFirstLetter }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- organization Column -->
+      <ng-container matColumnDef="organization">
+        <th mat-header-cell *matHeaderCellDef style="padding-right: 13px">
+          {{ 'RECIPIENT.CERTIFICATES.ORGANIZATION' | translate }}
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let certificate"
+          style="padding-right: 13px; padding-left: 13px"
+        >
+          <span class="font-weight-bold">
+            {{ certificate.organization | capitalizeFirstLetter }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          center
+          style="padding-right: 13px"
+        >
+          Action
+        </th>
+        <td mat-cell *matCellDef="let certificate">
+          <a
+            [ngClass]="
+              certificate.state.status === 'EXPIRED'
+                ? 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1'
+                : 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1 disabled'
+            "
+          >
+            <button
+              ngxClipboard
+              mat-icon-button
+              mat-button
+              [cbContent]="certificate.id"
+              matTooltip="copy certificate ID"
+            >
+              <mat-icon> content_copy </mat-icon>
+            </button>
+          </a>
+
+          <a
+            class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+            matTooltip="
+          show certificate"
+            [ngClass]="
+              certificate.state.status === 'EXPIRED'
+                ? 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1'
+                : 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1 disabled'
+            "
+            (click)="openViewDialog(viewContent, certificate)"
+          >
+            <span
+              [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'"
+              class="svg-icon svg-icon-md svg-icon-primary"
+            ></span>
+          </a>
+
+          <a
+            [ngClass]="
+              certificate.state.status === 'EXPIRED'
+                ? 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1'
+                : 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1 disabled'
+            "
+            matTooltip="
+          print certificate"
+          >
+            <app-print-certificate
+              [Certificate]="certificate"
+              (buttonClick)="Printcertificate(certificate)"
+            ></app-print-certificate>
+          </a>
+
+          <a
+            [routerLink]="['/verification', certificate.id]"
+            target="_blank"
+            routerLinkActive="active"
+            class=""
+            [ngClass]="
+              certificate.state.status === 'EXPIRED'
+                ? 'btn btn-icon btn-light btn-hover-success btn-sm mx-1'
+                : 'btn btn-icon btn-light btn-hover-success btn-sm mx-1 disabled'
+            "
+            matTooltip="
+          verify certificate"
+          >
+            <span
+              [inlineSVG]="'./assets/media/svg/icons/Code/Done-circle.svg'"
+              class="svg-icon svg-icon-md svg-icon-success"
+            ></span>
+          </a>
+
+          <a
+            class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+            [ngClass]="
+              certificate.state.status === 'EXPIRED'
+                ? 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1'
+                : 'btn btn-icon btn-light btn-hover-primary btn-sm mx-1 disabled'
+            "
+            matTooltip="
+          shaire certificate"
+          >
+            <button
+              mat-icon-button
+              mat-button
+              [matMenuTriggerFor]="menu"
+              #menuTrigger
+            >
+              <!-- -->
+              <mat-icon> share </mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu" [hasBackdrop]="false">
+              <div class="row">
+                <a
+                  [href]="
+                    'https://www.facebook.com/sharer/sharer.php?u=http://v4.doccerts.com/verification/' +
+                    certificate.id
+                  "
+                  target="_blanc"
+                  class="btn btn shaire"
+                >
+                  <i class="flaticon-facebook-letter-logo text-primary"> </i>
+                </a>
+
+                <a
+                  [href]="
+                    'https://twitter.com/intent/tweet?url=v4.doccerts.com/verification/' +
+                    certificate.id
+                  "
+                  target="_blanc"
+                  class="btn btn shaire"
+                >
+                  <i class="flaticon-twitter-logo text-info"></i
+                ></a>
+
+                <a
+                  [href]="
+                    'https://www.linkedin.com/sharing/share-offsite/?url=v4.doccerts.com/verification/' +
+                    certificate.id
+                  "
+                  target="_blanc"
+                  class="btn btn shaire"
+                >
+                  <i class="flaticon-linkedin-logo text-primary"></i
+                ></a>
+              </div>
+            </mat-menu>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </form>
+</div>
+
+<ng-template #viewContent let-c="close" let-d="dismiss">
+  <app-certificate-view-modal
+    [_data]="certificate"
+    (closeModal)="Dismiss($event)"
+  ></app-certificate-view-modal>
+</ng-template>

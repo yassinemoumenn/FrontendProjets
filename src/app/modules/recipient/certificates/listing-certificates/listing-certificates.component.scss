@@ -1,0 +1,27 @@
+// Sub issuer pic
+%picPlaceholder {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 100%;
+  line-height: 40px;
+  text-align: center;
+}
+.no-pic {
+  @extend %picPlaceholder;
+}
+.pic {
+  @extend %picPlaceholder;
+}
+.responsivStyle {
+  overflow-x: auto;
+}
+::ng-deep .mat-menu-panel {
+  overflow: hidden !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+::ng-deep .shaire:hover {
+  background-color: blanchedalmond !important;
+}

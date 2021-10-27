@@ -1,0 +1,355 @@
+<form action="">
+  <div class="row">
+    <!-- Filter -->
+    <div class="col-12 col-sm-4 col-md-3 p-0 pr-sm-1">
+      <app-select
+        [label]="'ISSUER.CERTIFICATE.VIEW.FILTER' | translate"
+        [placeholder]="'ISSUER.CERTIFICATE.VIEW.FILTER' | translate"
+        [items]="filterStateCertificate"
+        (optionSelected)="OptionSelectedFilterViewCertificate($event)"
+      ></app-select>
+    </div>
+    <!-- Search -->
+    <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+      <app-input
+        [label]="'ISSUER.CERTIFICATE.SEARCH' | translate"
+        [placeholder]="'ISSUER.CERTIFICATE.SEARCH' | translate"
+        [ref]="'suffix'"
+        [icon]="'search'"
+        (typingStopped)="ApplySearchViewCertificate($event)"
+      >
+      </app-input>
+    </div>
+  </div>
+</form>
+<!-- Begin View Certificate table-->
+<div class="table-responsive angular-bootstrap-table">
+  <table
+    mat-table
+    [dataSource]="certificateData$"
+    class="table table-head-custom table-vertical-center overflow-hidden"
+  >
+    <!-- Recipient Column -->
+    <ng-container matColumnDef="Recipient">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Recipient' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let certificate">
+        <div class="d-flex align-items-center">
+          <div class="mr-3">
+            <img
+              *ngIf="certificate.recipient.picture; else NoPic"
+              src="{{ certificate.recipient.picture }}"
+              alt="photo"
+              class="pic"
+              style="width: 40px; height: 40px"
+            />
+            <ng-template #NoPic>
+              <span
+                class="
+                  no-pic
+                  bg-light-success
+                  text-success
+                  font-weight-bold font-size-h6
+                "
+              >
+                {{
+                  certificate.recipient.firstname.charAt(0).toUpperCase() +
+                    '' +
+                    certificate.recipient.lastname.charAt(0).toUpperCase()
+                }}
+              </span>
+            </ng-template>
+          </div>
+          <div class="d-flex flex-column style-text">
+            <a>
+              {{
+                certificate.recipient.firstname +
+                  ' ' +
+                  certificate.recipient.lastname
+              }}</a
+            >
+            <a class="text-hover-primary cursor-pointer style-email">
+              {{ certificate.recipient.email | capitalizeFirstLetter }}</a
+            >
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <!-- Category Column -->
+    <ng-container matColumnDef="Category">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Category' | translate }}
+      </th>
+      <td class="style-cell" mat-cell *matCellDef="let certificate">
+        {{ certificate.category.name | capitalizeFirstLetter }}
+      </td>
+    </ng-container>
+    <!-- Design Column -->
+    <ng-container matColumnDef="Design">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Design' | translate }}
+      </th>
+      <td class="style-cell" mat-cell *matCellDef="let certificate">
+        {{ certificate.design.name | capitalizeFirstLetter }}
+      </td>
+    </ng-container>
+    <!-- Signers -->
+    <ng-container matColumnDef="Signers">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Signers.Title' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let certificate">
+        <div *ngIf="certificate.category.signers.length > 0; else noData">
+          <a
+            [matMenuTriggerFor]="menu"
+            class="
+              btn btn-link-primary
+              font-weight-bold
+              d-flex
+              align-items-center
+            "
+          >
+            <span class="mr-2">
+              {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Signers.Title' | translate }}
+            </span>
+            <i class="flaticon2-down" style="font-size: 0.8rem"></i>
+          </a>
+          <mat-menu #menu="matMenu" class="bg-light position-relative p-0">
+            <ul>
+              <li *ngFor="let signer of certificate.category.signersData">
+                <div
+                  class="
+                    d-flex
+                    align-items-center
+                    position-absolute
+                    w-100
+                    bg-white
+                    p-2
+                  "
+                >
+                  <div class="border-right w-100 style-text style-cell">
+                    <div class="d-flex align-items-center">
+                      <div class="mr-3">
+                        <img
+                          *ngIf="signer.picture; else NoPic"
+                          src="{{ signer.picture }}"
+                          alt="photo"
+                          class="pic"
+                          style="width: 10px; height: 10px"
+                        />
+                        <ng-template #NoPic>
+                          <span
+                            class="
+                              no-pic
+                              bg-light-success
+                              text-success
+                              font-weight-bold font-size-h6
+                            "
+                          >
+                            {{
+                              signer.firstName.charAt(0).toUpperCase() +
+                                '' +
+                                signer.lastName.charAt(0).toUpperCase()
+                            }}
+                          </span>
+                        </ng-template>
+                      </div>
+                      <div class="d-flex flex-column style-text">
+                        <a> {{ signer.firstName + ' ' + signer.lastName }}</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border-left w-50 px-2">
+                    <span
+                      *ngIf="certificate.signers.length > 0; else unsigned"
+                      class="badge badge-success font-weight-bold"
+                    >
+                      {{
+                        'ISSUER.CERTIFICATE.VIEW.BODY.Signers.Signed'
+                          | translate
+                      }}
+                    </span>
+                    <ng-template #unsigned>
+                      <span class="badge badge-danger font-weight-bold">
+                        {{
+                          'ISSUER.CERTIFICATE.VIEW.BODY.Signers.Unsigned'
+                            | translate
+                        }}
+                      </span>
+                    </ng-template>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </mat-menu>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Status.Title' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let certificate">
+        <span [ngSwitch]="certificate.state.status">
+          <span
+            class="label label-lg label-light-success label-inline"
+            *ngSwitchCase="'ISSUED'"
+            matTooltip="{{ certificate.state.issuedAt | date }}"
+          >
+            {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Status.Issued' | translate }}</span
+          >
+          <span
+            class="label label-lg label-light-warning label-inline"
+            *ngSwitchCase="'CREATED'"
+            matTooltip="{{ certificate.state.createdAt | date }}"
+          >
+            {{
+              'ISSUER.CERTIFICATE.VIEW.BODY.Status.Created' | translate
+            }}</span
+          >
+          <span
+            class="label label-lg label-light-dark label-inline"
+            *ngSwitchCase="'REJECTED'"
+            matTooltip="{{ certificate.state.rejectedAt | date }}"
+          >
+            {{
+              'ISSUER.CERTIFICATE.VIEW.BODY.Status.Rejected' | translate
+            }}</span
+          >
+          <span
+            class="label label-lg label-light-danger label-inline"
+            *ngSwitchCase="'REVOKED'"
+            matTooltip="{{ certificate.state.revokedAt | date }}"
+          >
+            {{
+              'ISSUER.CERTIFICATE.VIEW.BODY.Status.Revoked' | translate
+            }}</span
+          >
+          <span
+            class="label label-lg label-light-info label-inline"
+            *ngSwitchCase="'SIGNED'"
+            matTooltip="{{ certificate.state.signedAt | date }}"
+          >
+            {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Status.Signed' | translate }}</span
+          >
+          <span
+            class="label label-lg label-light-primary label-inline"
+            *ngSwitchCase="'EXPIRED'"
+            matTooltip="{{ certificate.state.expiredAt | date }}"
+          >
+            {{
+              'ISSUER.CERTIFICATE.VIEW.BODY.Status.Expired' | translate
+            }}</span
+          >
+          <span *ngSwitchDefault>
+            {{ certificate.state.status | capitalizeFirstLetter }}</span
+          >
+        </span>
+      </td>
+    </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.VIEW.BODY.Actions.Title' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let certificate">
+        <a
+          [ngClass]="certificate.state.status === 'ISSUED' ? '' : 'disabled'"
+          class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+          [matTooltip]="
+            'ISSUER.CERTIFICATE.VIEW.BODY.Actions.ViewCertificate' | translate
+          "
+          (click)="openViewDialog(viewContent, certificate)"
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'"
+            class="svg-icon svg-icon-md svg-icon-primary"
+          ></span>
+        </a>
+        <a
+          [ngClass]="certificate.state.status === 'ISSUED' ? '' : 'disabled'"
+          class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+          [matTooltip]="
+            'ISSUER.CERTIFICATE.VIEW.BODY.Actions.PrintCertificate' | translate
+          "
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Devices/Printer.svg'"
+            class="svg-icon svg-icon-md svg-icon-primary"
+          ></span>
+        </a>
+        <a
+          [ngClass]="certificate.state.status === 'ISSUED' ? '' : 'disabled'"
+          [routerLink]="['/verification', certificate.certificateID]"
+          target="_blank"
+          routerLinkActive="active"
+          class="btn btn-icon btn-light btn-hover-success btn-sm mx-1"
+          [matTooltip]="
+            'ISSUER.CERTIFICATE.VIEW.BODY.Actions.VerifyCertificate' | translate
+          "
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Code/Done-circle.svg'"
+            class="svg-icon svg-icon-md svg-icon-success"
+          ></span>
+        </a>
+        <a
+          [ngClass]="certificate.state.status === 'ISSUED' ? '' : 'disabled'"
+          class="btn btn-icon btn-light btn-hover-danger btn-sm mx-1"
+          (click)="openRevokeDialog(revokeContent, certificate.id)"
+          [matTooltip]="
+            'ISSUER.CERTIFICATE.VIEW.BODY.Actions.RevokeCertificate' | translate
+          "
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Code/Stop.svg'"
+            class="svg-icon svg-icon-md svg-icon-danger"
+          ></span>
+        </a>
+        <a
+          [ngClass]="
+            certificate.state.status === 'CREATED' &&
+            certificate.signers.length === 0
+              ? ''
+              : 'disabled'
+          "
+          class="btn btn-icon btn-light btn-hover-danger btn-sm mx-1"
+          [matTooltip]="
+            'ISSUER.CERTIFICATE.VIEW.BODY.Actions.DeleteCertificate' | translate
+          "
+          (click)="OnDeleteClicked(certificate.id)"
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Code/Error-circle.svg'"
+            class="svg-icon svg-icon-md svg-icon-danger"
+          ></span>
+        </a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsViewCertificate"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsViewCertificate"></tr>
+  </table>
+  <div class="table-responsive angular-bootstrap-table"></div>
+</div>
+<!-- End View Certificate table-->
+<!-- Begin Modal of revoke certificate-->
+<ng-template #revokeContent let-c="close" let-d="dismiss">
+  <app-revoke-certificate
+    (revokeForm)="OnRevokeClicked({ reason: $event })"
+  ></app-revoke-certificate>
+</ng-template>
+<!-- End Modal of revoke certificate -->
+<!-- Begin Modal of view certificate-->
+<ng-template #viewContent let-c="close" let-d="dismiss">
+  <app-certificate-view-modal
+    [_data]="certificate"
+    (closeModal)="Dismiss($event)"
+  ></app-certificate-view-modal>
+</ng-template>
+<ng-template #noData>
+  <span class="text-muted">none</span>
+</ng-template>
+<!-- End Modal of view certificate -->

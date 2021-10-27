@@ -1,0 +1,109 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{ title | translate }}
+  </b>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<div class="modal-body p-md-5">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="signerFG">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <app-input
+              [isRequired]="true"
+              [label]="'First name'"
+              [placeholder]="'First name'"
+              [formControl]="FirstName"
+              [icon]="'account_circle'"
+              [ref]="'suffix'"
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-input
+              [isRequired]="true"
+              [label]="'Last name'"
+              [placeholder]="'Last name'"
+              [formControl]="LastName"
+              [icon]="'account_circle'"
+              [ref]="'suffix'"
+            >
+            </app-input>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="'Phone'"
+              [ref]="'phone'"
+              [icon]="'phone'"
+              [formControl]="Phone"
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="'Email'"
+              [placeholder]="'Email'"
+              [type]="'email'"
+              [formControl]="Email"
+              [ref]="'suffix'"
+              [icon]="'email'"
+            >
+            </app-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <app-datepicker
+              [label]="'Date of birth'"
+              [placeholder]="'Date of birth'"
+              [formControl]="Birthday"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
+              [isRequired]="true"
+            ></app-datepicker>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="'Occupation'"
+              [placeholder]="'Occupation'"
+              [type]="'text'"
+              [isRequired]="true"
+              [formControl]="Occupation"
+              [ref]="'suffix'"
+              [icon]="'location_on'"
+            >
+            </app-input>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="'Cancel'"
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [isDisabled]="!signerFG.valid"
+    [label]="'Confirm'"
+    [color]="'primary'"
+    [cssClasses]="['px-5']"
+    [isLoading]="isLoading"
+    (buttonClick)="Submit($event)"
+  >
+  </app-button>
+</div>

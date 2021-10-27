@@ -1,0 +1,1937 @@
+<div class="post d-flex flex-column-fluid" id="kt_post">
+  <div id="kt_content_container" class="container">
+    <div class="card">
+      <div class="card-body p-lg-15">
+        <div class="d-flex flex-column flex-lg-row">
+          <!-- SideBar -->
+          <div
+            class="flex-column flex-lg-row-auto w-100 w-lg-275px mb-10 me-lg-20"
+          >
+            <!-- User SideBar -->
+            <div class="mb-15">
+              <h4 class="text-black mb-5 mt-3 ml-4">
+                {{ 'ORGANIZATION.FAQ.USERS' | translate }}
+              </h4>
+              <div
+                class="
+                  menu
+                  menu-rounded
+                  menu-column
+                  menu-title-gray-700
+                  menu-state-title-primary
+                  menu-active-bg-light-primary
+                "
+              >
+                <!-- Admin  -->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="selectedItem = 'admin'; selected('admin')"
+                    [ngClass]="{
+                      active: selectedItem === 'admin',
+                      disable: selectedItem === 'admin'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.ADMIN.TITLE' | translate }}</a
+                  >
+                </div>
+                <!-- Issuer  -->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="selectedItem = 'issuer'; selected('issuer')"
+                    [ngClass]="{
+                      active: selectedItem === 'issuer',
+                      disable: selectedItem === 'issuer'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.ISSUER.TITLE' | translate }}</a
+                  >
+                </div>
+                <!-- Signer  -->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="selectedItem = 'signer'; selected('signer')"
+                    [ngClass]="{
+                      active: selectedItem === 'signer',
+                      disable: selectedItem === 'signer'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.SIGNER.TITLE' | translate }}</a
+                  >
+                </div>
+                <!-- Recipient  -->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="selectedItem = 'recipient'; selected('recipient')"
+                    [ngClass]="{
+                      active: selectedItem === 'recipient',
+                      disable: selectedItem === 'recipient'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.RECIPIENT.TITLE' | translate }}</a
+                  >
+                </div>
+                <!-- Verifier -->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="selectedItem = 'verifier'; selected('verifier')"
+                    [ngClass]="{ active: selectedItem === 'verifier' }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.VERIFIER.TITLE' | translate }}</a
+                  >
+                </div>
+                <!-- Sub-User -->
+                <div class="menu-item">
+                  <a
+                    (click)="selectedItem = 'subUser'; selected('subUser')"
+                    [ngClass]="{
+                      active: selectedItem === 'subUser',
+                      disable: selectedItem === 'subUser'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.SUBUSER.TITLE' | translate }}</a
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Resources SideBar -->
+            <div class="mb-7 mt-7">
+              <h4 class="text-black mb-7 mt-3 ml-4">
+                {{ 'ORGANIZATION.FAQ.RESSOURCES' | translate }}
+              </h4>
+              <div
+                class="
+                  menu
+                  menu-rounded
+                  menu-column
+                  menu-title-gray-700
+                  menu-state-title-primary
+                  menu-active-bg-light-primary
+                "
+              >
+                <!-- Category-->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="selectedItem = 'category'; selected('category')"
+                    [ngClass]="{
+                      active: selectedItem === 'category',
+                      disable: selectedItem === 'category'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.CATEGORY.TITLE' | translate }}</a
+                  >
+                </div>
+                <!-- Certificate-->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="
+                      selectedItem = 'certificate'; selected('certificate')
+                    "
+                    [ngClass]="{
+                      active: selectedItem === 'certificate',
+                      disable: selectedItem === 'certificate'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.CERTIFICATE.TITLE' | translate }}</a
+                  >
+                </div>
+                <!-- Blockchain-->
+                <div class="menu-item mb-1">
+                  <a
+                    (click)="
+                      selectedItem = 'blockchain'; selected('blockchain')
+                    "
+                    [ngClass]="{
+                      active: selectedItem === 'blockchain',
+                      disable: selectedItem === 'blockchain'
+                    }"
+                    class="menu-link py-3"
+                    >{{ 'ORGANIZATION.FAQ.BLOCKCHAIN.TITLE' | translate }}</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Content-->
+          <div class="flex-lg-row-fluid" [ngSwitch]="elementSelected">
+            <!-- content admin-->
+            <div class="mb-13" *ngSwitchCase="'admin'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.ADMIN.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.ADMIN.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-17 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-17"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-17"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.ADMIN.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-18 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-18"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-18"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.ADMIN.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content issuer-->
+            <div class="mb-13" *ngSwitchCase="'issuer'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.ISSUER.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.ISSUER.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-1 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-1"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-1"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-1"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                            class="cls-1"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.ISSUER.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-2 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-2"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-2"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.ISSUER.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content signer-->
+            <div class="mb-13" *ngSwitchCase="'signer'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.SIGNER.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.SIGNER.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-3 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-3"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-3"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.SIGNER.D1' | translate }}
+                    </div>
+                  </div>
+
+                  <div class="separator separator-dashed"></div>
+                </div>
+
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-4 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-4"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-4"
+                          />
+                        </svg>
+                      </span>
+
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.SIGNER.D2' | translate }}
+                    </div>
+                  </div>
+
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content recipient-->
+            <div class="mb-13" *ngSwitchCase="'recipient'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.RECIPIENT.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  <A></A> {{ 'ORGANIZATION.FAQ.RECIPIENT.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-5 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-5"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-5"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.RECIPIENT.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-6 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-6"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-6"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.RECIPIENT.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content verifier-->
+            <div class="mb-13" *ngSwitchCase="'verifier'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.VERIFIER.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.VERIFIER.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-7 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-7"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-7"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.VERIFIER.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-8 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-8"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-8"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.VERIFIER.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content subUser-->
+            <div class="mb-13" *ngSwitchCase="'subUser'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.SUBUSER.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.SUBUSER.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-9 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-9"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-9"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.SUBUSER.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-10 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-10"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-10"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.SUBUSER.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content category-->
+            <div class="mb-13" *ngSwitchCase="'category'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.CATEGORY.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.CATEGORY.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-11 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-11"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-11"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.CATEGORY.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-12 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-12"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-12"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.CATEGORY.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content certificate-->
+            <div class="mb-13" *ngSwitchCase="'certificate'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.CERTIFICATE.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.CERTIFICATE.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-13 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-13"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-13"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.CERTIFICATE.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-14 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-14"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-14"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.CERTIFICATE.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+            <!-- content blockchain-->
+            <div class="mb-13" *ngSwitchCase="'blockchain'" [@enter]>
+              <div class="mb-15">
+                <h4 class="fs-2x text-gray-800 w-bolder mb-6">
+                  {{ 'ORGANIZATION.FAQ.BLOCKCHAIN.TITLE' | translate }}
+                </h4>
+                <p class="fw-bold fs-4 text-gray-600 mb-2">
+                  {{ 'ORGANIZATION.FAQ.BLOCKCHAIN.DESC' | translate }}
+                </p>
+              </div>
+              <div class="mb-15">
+                <h3 class="text-gray-800 w-bolder mb-4">
+                  {{ 'ORGANIZATION.FAQ.FUNCTIONALITIES' | translate }}
+                </h3>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="Collapsed = !Collapsed"
+                      [attr.aria-expanded]="!Collapsed"
+                    >
+                      <span
+                        *ngIf="!Collapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-15 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-15"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-15"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="Collapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div
+                    [ngbCollapse]="Collapsed"
+                    class="collapse show fs-6 ps-10"
+                  >
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.BLOCKCHAIN.D1' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+                <div class="m-0">
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      collapsible
+                      py-3
+                      toggle
+                      collapsed
+                      mb-0
+                    "
+                  >
+                    <div
+                      class="
+                        btn btn-sm btn-icon btn-active-color-primary
+                        ms-n3
+                        me-2
+                      "
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                    >
+                      <span
+                        *ngIf="!isCollapsed"
+                        class="svg-icon svg-icon-primary svg-icon-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <defs>
+                            <style>
+                              .cls-16 {
+                                fill: #009ef7;
+                                fill-rule: evenodd;
+                                cursor: pointer;
+                              }
+                            </style>
+                          </defs>
+                          <path
+                            opacity="0.25"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                            class="cls-16"
+                          />
+                          <path
+                            d="M8 13C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H8Z"
+                            fill="#12131A"
+                            class="cls-16"
+                          />
+                        </svg>
+                      </span>
+                      <span *ngIf="isCollapsed" class="svg-icon svg-icon-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            opacity="0.25"
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.54184 2.36899C4.34504 2.65912 2.65912 4.34504 2.36899 6.54184C2.16953 8.05208 2 9.94127 2 12C2 14.0587 2.16953 15.9479 2.36899 17.4582C2.65912 19.655 4.34504 21.3409 6.54184 21.631C8.05208 21.8305 9.94127 22 12 22C14.0587 22 15.9479 21.8305 17.4582 21.631C19.655 21.3409 21.3409 19.655 21.631 17.4582C21.8305 15.9479 22 14.0587 22 12C22 9.94127 21.8305 8.05208 21.631 6.54184C21.3409 4.34504 19.655 2.65912 17.4582 2.36899C15.9479 2.16953 14.0587 2 12 2C9.94127 2 8.05208 2.16953 6.54184 2.36899Z"
+                            fill="#12131A"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M12 17C12.5523 17 13 16.5523 13 16V13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H13V8C13 7.44772 12.5523 7 12 7C11.4477 7 11 7.44772 11 8V11H8C7.44772 11 7 11.4477 7 12C7 12.5523 7.44771 13 8 13H11V16C11 16.5523 11.4477 17 12 17Z"
+                            fill="#12131A"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <h4 class="text-gray-700 fw-bolder me-3 mb-0">
+                      {{ 'ORGANIZATION.FAQ.HOWITWORKS' | translate }}
+                    </h4>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="collapse fs-6 ps-10">
+                    <div class="mb-4 text-gray-600 fw-bold fs-6">
+                      {{ 'ORGANIZATION.FAQ.BLOCKCHAIN.D2' | translate }}
+                    </div>
+                  </div>
+                  <div class="separator separator-dashed"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- social media-->
+      </div>
+    </div>
+  </div>
+</div>

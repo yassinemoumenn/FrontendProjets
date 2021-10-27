@@ -1,0 +1,74 @@
+<mat-form-field class="example-full-width" appearance="outline">
+  <mat-icon matSuffix style="cursor: pointer" (click)="ToggelDB()"
+    >date_range</mat-icon
+  >
+  <mat-label>{{ label | lowercase | capitalizeFirstLetter }}</mat-label>
+  <input
+    class="form-control"
+    style="height: 22px"
+    [placeholder]="placeholder"
+    [required]="isRequired"
+    [formControl]="formControl"
+    [formControlName]="formControlName"
+    autocomplete="off"
+    [(ngModel)]="model"
+    name="dp"
+    matInput
+    ngbDatepicker
+    container="body"
+  />
+  <div id="myDIV">
+    <div *ngIf="isHijriDate">
+      <app-hijri-datepicker
+        [placeholder]="placeholder"
+        [formControl]="formControl"
+        [isRequired]="isRequired"
+        [footerTemplate]="footerTemplate"
+        (SelectedDate)="SelectedDate($event)"
+      ></app-hijri-datepicker>
+    </div>
+    <div *ngIf="!isHijriDate">
+      <app-regorian-datepicker
+        [placeholder]="placeholder"
+        [formControl]="formControl"
+        [isRequired]="isRequired"
+        [footerTemplate]="footerTemplate"
+        (SelectedDate)="SelectedDate($event)"
+      ></app-regorian-datepicker>
+    </div>
+  </div>
+
+  <mat-error *ngIf="!formControl.valid && formControl.errors?.required">
+    {{ placeholder }} is required
+  </mat-error>
+  <mat-error *ngIf="!control.valid && control.errors?.requiredInPast">
+    {{ control.errors?.requiredInPast }}
+  </mat-error>
+
+  <mat-error *ngIf="control.hasError('matDatepickerMax')"
+    >Date should be inferior
+  </mat-error>
+
+  <mat-error *ngIf="control.hasError('matDatepickerMin')"
+    >Date should be superior
+  </mat-error>
+</mat-form-field>
+
+<ng-template #footerTemplate>
+  <hr class="my-0" />
+  <button
+    class="btn btn-primary btn-sm m-2 float-left"
+    (click)="model = today; Today()"
+  >
+    Today
+  </button>
+  <button
+    class="btn btn-secondary btn-sm m-2 float-right"
+    (click)="switchDatePiker()"
+  >
+    <div *ngIf="isHijriDate">Gregorian</div>
+    <div *ngIf="!isHijriDate">هجري</div>
+  </button>
+</ng-template>
+
+<div></div>

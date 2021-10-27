@@ -1,0 +1,71 @@
+<ng-container
+  *ngTemplateOutlet="
+    ref === 'text'
+      ? textRef
+      : ref === 'print'
+      ? printRef
+      : ref === 'icon'
+      ? iconRef
+      : imageRef
+  "
+>
+</ng-container>
+
+<!-- Text Button -->
+<ng-template #textRef>
+  <button
+    class="example-full-width"
+    mat-raised-button
+    [color]="color"
+    [disabled]="isDisabled || isLoading"
+    [class.spinner]="isLoading"
+    [ngClass]="cssClasses"
+    [style]="{ 'background-color': backgroundColor, color: fontColor }"
+    (click)="onButtonClick($event)"
+  >
+    {{ label | lowercase | capitalizeFirstLetter }}
+  </button>
+</ng-template>
+
+<!-- Icon Button -->
+<ng-template #iconRef>
+  <button
+    mat-icon-button
+    [color]="color"
+    [disabled]="isDisabled || isLoading"
+    [class.spinner]="isLoading"
+    [style]="{ 'background-color': backgroundColor, color: fontColor }"
+    (click)="onButtonClick($event)"
+  >
+    <mat-icon [class]="cssClasses">{{ icon }}</mat-icon>
+  </button>
+</ng-template>
+
+<!-- Image Button -->
+<ng-template #imageRef>
+  <button
+    mat-mini-fab
+    [color]="color"
+    [disabled]="isDisabled || isLoading"
+    [class.spinner]="isLoading"
+    [style]="{ 'background-color': backgroundColor, color: fontColor }"
+    (click)="onButtonClick($event)"
+  >
+    <mat-icon>{{ image }}</mat-icon>
+  </button>
+</ng-template>
+
+<!-- print Button -->
+<ng-template #printRef>
+  <button
+    class="ButtonPrintHover"
+    mat-icon-button
+    color="primary"
+    [printSectionId]="printSectionId"
+    ngxPrint
+    aria-label="print"
+    (click)="onButtonClick($event)"
+  >
+    <mat-icon>print</mat-icon>
+  </button>
+</ng-template>

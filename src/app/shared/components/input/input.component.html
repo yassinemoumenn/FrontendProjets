@@ -1,0 +1,222 @@
+<ng-container
+  *ngTemplateOutlet="
+    ref === 'prefix'
+      ? prefixRef
+      : ref === 'suffix'
+      ? suffixRef
+      : ref === 'phone'
+      ? phoneRef
+      : noneRef
+  "
+>
+</ng-container>
+
+<ng-template #noneRef>
+  <mat-form-field
+    [ngClass]="cssClasses"
+    [class]="'example-full-width'"
+    [appearance]="appearance"
+  >
+    <mat-label>{{ label | titlecase }}</mat-label>
+    <input
+      #searchInput
+      matInput
+      [type]="type"
+      [formControl]="control"
+      [placeholder]="placeholder"
+      [required]="isRequired"
+      [disabled]="isDisabled"
+      [maxlength]="maxLength ?? ''"
+      [minlength]="minLength"
+      (change)="onTypingStopped()"
+    />
+    <mat-hint *ngIf="hint">{{
+      hint | lowercase | capitalizeFirstLetter
+    }}</mat-hint>
+    <mat-hint *ngIf="maxLength" align="end"
+      >{{ searchInput.value?.length || 0 }}/{{ maxLength }}</mat-hint
+    >
+    <mat-error *ngIf="!control.valid && control.errors?.required">
+      Required Field
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.alreadyTaken">
+      {{ control.errors?.alreadyTaken }}
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.emailInvalid">
+      Email invalid
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.minlength">
+      too short at least 3 character !
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.notValidnames">
+      {{ control.errors?.notValidnames }}
+    </mat-error>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #prefixRef>
+  <mat-form-field
+    [ngClass]="cssClasses"
+    class="example-full-width"
+    [appearance]="appearance"
+  >
+    <mat-label>{{ label | titlecase }}</mat-label>
+    <mat-icon matPrefix>{{ icon }}</mat-icon>
+    <mat-icon
+      *ngIf="iconClickable === 'yes'"
+      class="cursor-pointer text-danger"
+      matSuffix
+      (click)="triggerEvent($event)"
+      >{{ icon }}</mat-icon
+    >
+    <input
+      #searchInput
+      matInput
+      [type]="type"
+      [formControl]="control"
+      [placeholder]="placeholder"
+      [required]="isRequired"
+      [disabled]="isDisabled"
+      [maxlength]="maxLength ?? ''"
+      [minlength]="minLength"
+      (change)="onTypingStopped()"
+    />
+    <mat-hint *ngIf="maxLength" align="end"
+      >{{ searchInput.value?.length || 0 }}/{{ maxLength }}</mat-hint
+    >
+    <mat-error *ngIf="!control.valid && control.errors?.required">
+      Required Field
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.minlength">
+      too short at least 3 character !
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.notValidnames">
+      {{ control.errors?.notValidnames }}
+    </mat-error>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #suffixRef>
+  <mat-form-field
+    [ngClass]="cssClasses"
+    class="example-full-width"
+    [appearance]="appearance"
+  >
+    <mat-label>{{ label | titlecase }}</mat-label>
+    <input
+      #searchInput
+      matInput
+      [type]="type"
+      [formControl]="control"
+      [placeholder]="placeholder"
+      [required]="isRequired"
+      [disabled]="isDisabled"
+      [maxlength]="maxLength ?? ''"
+      [minlength]="minLength"
+      (change)="onTypingStopped()"
+    />
+    <mat-progress-spinner
+      style="display: inline"
+      [diameter]="20"
+      [mode]="'indeterminate'"
+      [value]="'70'"
+      *ngIf="!control.valid && control.touched && showSpinner"
+    >
+    </mat-progress-spinner>
+    <mat-icon *ngIf="iconClickable !== 'yes'" [class]="iconColor" matSuffix>{{
+      icon
+    }}</mat-icon>
+    <mat-icon
+      *ngIf="iconClickable === 'yes'"
+      [class]="'cursor-pointer text-danger'"
+      matSuffix
+      (click)="triggerEvent($event)"
+      >{{ icon }}</mat-icon
+    >
+    <mat-hint *ngIf="maxLength" align="end"
+      >{{ searchInput.value?.length || 0 }}/{{ maxLength }}</mat-hint
+    >
+    <mat-error *ngIf="!control.valid && control.errors?.alreadyTaken">
+      {{ control.errors?.alreadyTaken }}
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.required">
+      {{ 'USER_PROFILE.PERSONAL_INFO.BODY.msgRequired' | translate }}
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.requiredFeild">{{
+      control.errors?.requiredFeild | translate
+    }}</mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.emailInvalid">
+      Email invalid
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.minlength">
+      The field must contain at least 3 characters
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.maxlength">
+      The field should have maximum 100 characters
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.containWhiteSpace">
+      {{ control.errors?.containWhiteSpace }}
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.notValidnames">
+      {{ control.errors?.notValidnames }}
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.pattern">
+      {{ 'USER_PROFILE.CHANGE_PASSWORD.BODY.msgInvalidPassword' | translate }}
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.oldPasswordIncorrect">
+      {{ control.errors?.oldPasswordIncorrect | translate }}
+    </mat-error>
+    <mat-error *ngIf="!control.valid && control.errors?.urlInvalid">
+      {{ control.errors?.urlInvalid }}
+    </mat-error>
+
+    <mat-error *ngIf="!control.valid && control.errors?.ConfirmPassword">
+      {{ 'REGISTRATION.PW_CPW_MATCH' | translate }}
+    </mat-error>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #phoneRef>
+  <form>
+    <mat-form-field
+      [ngClass]="cssClasses"
+      [class]="'example-full-width'"
+      [appearance]="appearance"
+    >
+      <mat-label>{{ label | titlecase }}</mat-label>
+      <ngx-mat-intl-tel-input
+        #phone
+        [formControl]="control"
+        [preferredCountries]="['ma', 'sa', 'ca']"
+        [enableSearch]="true"
+        [enablePlaceholder]="true"
+        (countryChanged)="onCountryChanged($event)"
+      >
+      </ngx-mat-intl-tel-input>
+      <mat-progress-spinner
+        style="display: inline; top: 25%; right: -15px; position: absolute"
+        [diameter]="20"
+        [mode]="'indeterminate'"
+        [value]="'70'"
+        *ngIf="!control.valid && control.touched && showSpinner"
+      >
+      </mat-progress-spinner>
+      <mat-icon [class]="iconColor" matSuffix>{{ icon }}</mat-icon>
+      <mat-hint *ngIf="showPhoneEg"
+        >e.g. {{ phone.selectedCountry.placeHolder }}</mat-hint
+      >
+      <mat-error *ngIf="!control.valid && control.errors?.required"
+        >Required Field</mat-error
+      >
+      <mat-error *ngIf="!control.valid && control.errors?.requiredFeild">{{
+        control.errors?.requiredFeild
+      }}</mat-error>
+      <mat-error *ngIf="control.touched && control.errors?.validatePhoneNumber"
+        >Invalid Number</mat-error
+      >
+      <mat-error *ngIf="!control.valid && control.errors?.alreadyTaken">
+        {{ control.errors?.alreadyTaken }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</ng-template>

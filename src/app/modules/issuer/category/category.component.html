@@ -1,0 +1,104 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">{{ 'ISSUER.CATEGORY.LISTITEL' | translate }}</h3>
+    </div>
+    <div class="card-toolbar">
+      <app-button
+        color="primary"
+        [label]="'ISSUER.CATEGORY.NEWCATEGORYBUTTON' | translate"
+        (buttonClick)="openNewCategory({ Newcat: $event })"
+      >
+      </app-button>
+    </div>
+  </div>
+
+  <div *ngIf="length === 0">
+    <app-empty-list
+      [Image]="'../../../../assets/media/img/emptyListImg.jpg'"
+      [Title]="title"
+      [Description]="Desc"
+      [LabelButton]="labelButton"
+      (ButtonClickEvent)="openNewCategory({ Newcat: $event })"
+    >
+    </app-empty-list>
+  </div>
+  <div *ngIf="length > 0" class="card-body p-lg-15">
+    <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+      <mat-form-field [appearance]="'outline'" class="'example-full-width'">
+        <mat-label>{{ 'ISSUER.CATEGORY.SEARCH' | translate }}</mat-label>
+        <input
+          matInput
+          [formControl]="control"
+          type="text"
+          (change)="ApplySearch($event)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div *ngIf="NoData" style="text-align: center; background-color: #f7f7f7">
+      <!-- <img src="src/assets/media/img/NoDataFaound.png" /> -->
+      <img src="../../../../assets/media/img/NoDataFaound.png" />
+    </div>
+
+    <div *ngIf="!NoData">
+      <app-view-category
+        [displayedRows$]="displayedRows$"
+        (CategoryToDElete)="DEletCat({ catToUpdat: $event })"
+        (OpenCategoryToUpdate)="OpenCategoryToUpdate({ catToUpdat: $event })"
+      ></app-view-category>
+
+      <app-pagination
+        [length]="length"
+        [pageSizeOptions]="[5, 10, 15, 20]"
+        [pageSize]="nbrElementinPage"
+        (pageEvent)="paginationCategory({ pageEvent: $event })"
+      ></app-pagination>
+    </div>
+  </div>
+</div>
+
+<ng-template
+  #content
+  let-c="close "
+  let-d="dismiss"
+  style="
+    max-width: 80vw;
+
+    overflow: auto;
+  "
+>
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="newCertif">
+      {{ 'ISSUER.CATEGORY.ADD_CAT_TITELE' | translate }}
+    </h4>
+    <h4 class="modal-title" *ngIf="!newCertif">
+      {{ 'ISSUER.CATEGORY.UPDATE_CAT_TITELE' | translate }}
+    </h4>
+    <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="close()">
+    </app-button>
+  </div>
+
+  <app-add-category
+    (AddNewCategory)="addNewCat({ cat: $event })"
+    [categoryForm]="categoryForm"
+    [newCertif]="newCertif"
+    [listSigners]="listSigners"
+    [idSigners]="idSigners"
+    [certificateFields]="certificateFields"
+    [recipientFields]="recipientFields"
+    [recipientFieldsNames]="recipientFieldsNames"
+    [certificateFieldsNames]="certificateFieldsNames"
+    (UpdateCategory)="UpDateCat({ catToUpdat: $event })"
+    (AddCertiFields)="AddCertificatFields({ field: $event })"
+    (AddRecipFields)="AddRecipientFields({ field: $event })"
+    (DeleteCeriFiled)="DeleteCertifFiled({ field: $event })"
+    (DeleteRecipFiled)="DeleteRecipientFiled({ field: $event })"
+    [toppingList]="Verifiers"
+    [optionItems]="optionItems"
+    [SignersOptionItems]="SignersOptionItems"
+    [CurntUser]="curentUser"
+    [Organization]="organization"
+    [dialog]="dialog"
+  ></app-add-category>
+</ng-template>

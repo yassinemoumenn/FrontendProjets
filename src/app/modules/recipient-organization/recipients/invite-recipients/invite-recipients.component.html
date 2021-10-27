@@ -1,0 +1,121 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{ 'RECIPIENTORGANIZATION.BODY.InviteRecipients.Title' | translate }}
+  </b>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<form>
+  <div class="modal-body p-md-5">
+    <div class="row">
+      <div class="col-12">
+        <h5>
+          {{ 'RECIPIENTORGANIZATION.BODY.InviteRecipients.Label' | translate }}
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field class="w-100 mt-4" appearance="outline">
+          <mat-chip-list #chipList aria-label="Recipient selection">
+            <mat-chip
+              *ngFor="let recip of _recipients"
+              [selectable]="true"
+              [removable]="true"
+              (removed)="remove(recip)"
+            >
+              {{ recip.firstname + ' ' + recip.lastname }}
+              <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="{{
+                'RECIPIENTORGANIZATION.BODY.InviteRecipients.Placeholder'
+                  | translate
+              }}"
+              #recipientInput
+              [formControl]="recipCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (keyup)="onKeyUp()"
+            />
+          </mat-chip-list>
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selected($event)"
+          >
+            <mat-option
+              *ngFor="
+                let recipient of (filteredRecipients | async)?.data?.content
+              "
+              [value]="recipient"
+              [ngClass]="emptyList ? 'd-none' : 'd-block'"
+            >
+              <div class="d-flex align-items-center">
+                <div class="mr-3">
+                  <img
+                    *ngIf="recipient.picture; else NoPic"
+                    class="pic"
+                    style="width: 40px; height: 40px"
+                    src="{{ recipient.picture }}"
+                    alt="photo"
+                  />
+                  <ng-template #NoPic>
+                    <span
+                      class="
+                        no-pic
+                        bg-light-success
+                        text-success
+                        font-weight-bold font-size-h6
+                      "
+                    >
+                      {{
+                        recipient.firstname.charAt(0).toUpperCase() +
+                          '' +
+                          recipient.lastname.charAt(0).toUpperCase()
+                      }}
+                    </span>
+                  </ng-template>
+                </div>
+                <div class="d-flex flex-column">
+                  <span
+                    appHighlight
+                    [searchedWord]="recipCtrl.value"
+                    [content]="recipient.firstname + ' ' + recipient.lastname"
+                    [classToApply]="'font-weight-bold'"
+                  >
+                  </span>
+                </div>
+              </div>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="
+      'RECIPIENTORGANIZATION.BODY.InviteRecipients.CancelButton' | translate
+    "
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [isDisabled]="!(_recipients.length > 0)"
+    [label]="
+      'RECIPIENTORGANIZATION.BODY.InviteRecipients.InviteButton' | translate
+    "
+    [color]="'primary'"
+    [cssClasses]="['px-5']"
+    (buttonClick)="InviteRecipients()"
+  >
+  </app-button>
+</div>

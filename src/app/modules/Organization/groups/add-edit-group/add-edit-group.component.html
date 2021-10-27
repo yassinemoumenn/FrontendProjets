@@ -1,0 +1,171 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <h3 class="modal-title">
+    <span *ngIf="!sendingCredit; else sendCreditTitle">
+      {{
+        !Updating
+          ? ('ORGANIZATION.GROUPS.FORM.ADDTITLE' | translate)
+          : ('ORGANIZATION.GROUPS.FORM.UPDATETITLE' | translate)
+      }}
+    </span>
+    <ng-template #sendCreditTitle>
+      <span>{{ 'ORGANIZATION.GROUPS.FORM.SENDCREDIT' | translate }} </span>
+    </ng-template>
+  </h3>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<div class="modal-body p-md-5 ScrollBar">
+  <div
+    class="row"
+    style="justify-content: center"
+    *ngIf="!sendingCredit; else sendCreditBody"
+  >
+    <div class="col-10">
+      <form [formGroup]="AddEditForm">
+        <div class="row" style="align-items: baseline">
+          <div class="col-12 col-md-6 p-3">
+            <app-input
+              [label]="'ORGANIZATION.GROUPS.FORM.INPUTS.NAME' | translate"
+              [placeholder]="'ORGANIZATION.GROUPS.FORM.INPUTS.NAME' | translate"
+              [formControl]="Name"
+            >
+            </app-input>
+          </div>
+          <div
+            class="col-12 col-md-6 p-3"
+            [ngClass]="!Updating ? 'd-block' : 'd-none'"
+          >
+            <app-select
+              [label]="'ORGANIZATION.GROUPS.FORM.INPUTS.ISSUER' | translate"
+              [placeholder]="
+                'ORGANIZATION.GROUPS.FORM.INPUTS.ISSUER' | translate
+              "
+              [ref]="'Observable'"
+              [itemsObservable]="issuers$"
+              [formControl]="Issuer"
+            ></app-select>
+          </div>
+          <div
+            class="col-12 col-md-6 p-3"
+            [ngClass]="!Updating ? 'd-block' : 'd-none'"
+          >
+            <app-select
+              [label]="'ORGANIZATION.GROUPS.FORM.INPUTS.SIGNERS' | translate"
+              [placeholder]="
+                'ORGANIZATION.GROUPS.FORM.INPUTS.SIGNERS' | translate
+              "
+              [ref]="'Observable'"
+              [itemsObservable]="signers$"
+              [formControl]="Signers"
+              [isMultiple]="true"
+            ></app-select>
+          </div>
+          <div
+            class="col-12 col-md-6 p-3"
+            [ngClass]="!Updating ? 'd-block' : 'd-none'"
+          >
+            <app-select
+              [label]="'ORGANIZATION.GROUPS.FORM.INPUTS.RECIPIENTS' | translate"
+              [placeholder]="
+                'ORGANIZATION.GROUPS.FORM.INPUTS.RECIPIENTS' | translate
+              "
+              [ref]="'Observable'"
+              [itemsObservable]="recipients$"
+              [formControl]="Recipients"
+              [isMultiple]="true"
+            ></app-select>
+          </div>
+          <div class="col-12 col-md-12">
+            <mat-form-field
+              [appearance]="'outline'"
+              style="width: 100% !important"
+            >
+              <mat-label>Description</mat-label>
+              <textarea
+                [rows]="5"
+                matInput
+                placeholder="Description"
+                [formControl]="Description"
+                class="inputWhidth"
+                style="width: 100% !important"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template #sendCreditBody>
+    <div class="row" style="justify-content: center">
+      <div class="col-10">
+        <form [formGroup]="creditForm">
+          <div class="row" style="align-items: baseline">
+            <div
+              class="col-12 col-md-6 p-3"
+              style="height: 100% !important; top: -0.5em"
+            >
+              <p>
+                <b>
+                  {{ 'ORGANIZATION.GROUPS.FORM.INPUTS.GROUP' | translate }} :
+                  {{ group.name }}</b
+                >
+              </p>
+            </div>
+            <div class="col-12 col-md-6 p-3">
+              <app-input
+                (change)="checkCredit($event)"
+                #credit
+                [label]="'Credit'"
+                [type]="'number'"
+                [cssClasses]="['inputWhidth']"
+                [placeholder]="'Enter Credit'"
+                [formControl]="Credit"
+              >
+              </app-input>
+              <small class="text-danger" *ngIf="isSendDisabled">
+                {{ 'ORGANIZATION.GROUPS.FORM.INPUTS.CREDITERROR' | translate }}
+              </small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    mat-dialog-close
+    label="{{ 'ORGANIZATION.CANCELBUTTON' | translate }}"
+    [backgroundColor]="'#f3f6f9'"
+    [fontColor]="'#7e8299'"
+  >
+  </app-button>
+  <app-button
+    *ngIf="!sendingCredit"
+    [isLoading]="isLoading"
+    [color]="'primary'"
+    label="{{ 'ORGANIZATION.SUBMITBUTTON' | translate }}"
+    [cssClasses]="['px-5']"
+    [isDisabled]="
+      AddEditForm.controls.name.hasError('required') ||
+      AddEditForm.controls.issuerControl.hasError('required') ||
+      AddEditForm.controls.recipientsControl.hasError('required')
+    "
+    (buttonClick)="Updating ? editGroup() : addGroup()"
+  >
+  </app-button>
+  <app-button
+    *ngIf="sendingCredit"
+    [color]="'primary'"
+    [label]="'ORGANIZATION.GROUPS.FORM.SENDCREDIT' | translate"
+    [cssClasses]="['px-5']"
+    [isLoading]="isLoading"
+    (buttonClick)="sendCredit(group)"
+    [isDisabled]="isSendDisabled || NoChange"
+  >
+  </app-button>
+</div>

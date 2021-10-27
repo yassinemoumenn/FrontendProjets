@@ -1,0 +1,88 @@
+<!-- Modal Title -->
+<h1 mat-dialog-title class="d-flex align-items-center justify-content-between">
+  <h5>
+    {{ 'SIGNER.CERTIFICATE.REJECT.HEADER.Title' | translate }} &nbsp;
+    <small>
+      {{ 'SIGNER.CERTIFICATE.REJECT.HEADER.SubTitle' | translate }}</small
+    >
+  </h5>
+
+  <app-button
+    [ref]="'icon'"
+    [icon]="'close'"
+    class="buttonClose"
+    mat-dialog-close
+  >
+  </app-button>
+</h1>
+<!-- End Modal Title -->
+<!-- Separator -->
+<hr />
+<!-- End Separator -->
+<!-- Modal Content-->
+<div mat-dialog-content>
+  <form [formGroup]="rejectCertificatesForm" (ngSubmit)="onRejectForm()">
+    <div class="alert alert-custom alert-default" role="alert">
+      <div class="alert-icon">
+        <i class="flaticon-warning text-primary"></i>
+      </div>
+      <div class="alert-text">
+        {{ 'SIGNER.CERTIFICATE.REJECT.BODY.Alert' | translate }}.
+      </div>
+    </div>
+    <mat-form-field style="width: -moz-available" appearance="outline">
+      <mat-label>{{
+        'SIGNER.CERTIFICATE.REJECT.BODY.Reason' | translate
+      }}</mat-label>
+      <textarea
+        matInput
+        #reason
+        maxlength="100"
+        formControlName="reason"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="5"
+        placeholder="{{
+          'SIGNER.CERTIFICATE.REJECT.BODY.LeaveReason' | translate
+        }}"
+      ></textarea>
+      <mat-hint align="start"
+        ><strong>{{
+          'SIGNER.CERTIFICATE.REJECT.BODY.MatHint' | translate
+        }}</strong>
+      </mat-hint>
+      <mat-hint
+        align="end"
+        [ngStyle]="{ color: reason.value.length < 90 ? 'gray' : 'red' }"
+        >{{ reason.value.length }} / 100</mat-hint
+      >
+      <mat-error *ngIf="rf.reason?.errors?.required">{{
+        'SIGNER.CERTIFICATE.REJECT.BODY.MatError' | translate
+      }}</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<!-- End Modal Content-->
+
+<!-- Modal Actions-->
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    mat-raised-button
+    mat-dialog-close
+    [label]="'SIGNER.CERTIFICATE.REJECT.FOOTER.CancelButton' | translate"
+    [backgroundColor]="'#f3f6f9'"
+    [fontColor]="'#7e8299'"
+  >
+  </app-button>
+  <app-button
+    color="primary"
+    [label]="'SIGNER.CERTIFICATE.REJECT.FOOTER.RejectButton' | translate"
+    [isDisabled]="!rejectCertificatesForm.valid"
+    (buttonClick)="onRejectForm()"
+    [isLoading]="isRevoking"
+  >
+  </app-button>
+</div>
+<!--   End Modal Actions-->

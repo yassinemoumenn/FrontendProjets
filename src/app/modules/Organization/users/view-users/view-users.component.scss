@@ -1,0 +1,74 @@
+.responsivStyle {
+  overflow-x: auto;
+}
+%picPlaceholder {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 100%;
+  line-height: 40px;
+  text-align: center;
+}
+.no-pic {
+  @extend %picPlaceholder;
+}
+.pic {
+  @extend %picPlaceholder;
+}
+
+.svg-icon {
+  pointer-events: none;
+}
+.mat-column-select,
+.mat-column-signerID,
+.mat-column-signer,
+.mat-column-phone {
+  padding: 5px !important;
+}
+table th {
+  color: #b5b5c3 !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+.style-text {
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  color: #595d6e;
+}
+.style-email {
+  margin-top: 3px;
+  display: inline-block;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #74788d;
+}
+.style-cell {
+  font-size: 13px;
+}
+.mdi {
+  font-size: 1.7em !important;
+  font-weight: 300;
+}
+.md1 {
+  color: #3ee4fa !important;
+}
+.md2 {
+  color: #ffa800 !important;
+}
+.md3 {
+  color: #8950fc !important;
+}
+.md4 {
+  font-size: 1.8em !important;
+  color: #74c5ff !important;
+}
+.mdDelete {
+  color: #f64e60 !important;
+}
+.md5 {
+  color: #2b2b2b !important;
+}

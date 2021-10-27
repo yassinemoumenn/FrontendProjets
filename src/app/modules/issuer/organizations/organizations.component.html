@@ -1,0 +1,82 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">{{ 'ISSUER.ORGANIZATION.TITEL' | translate }}</h3>
+    </div>
+
+    <div class="card-toolbar">
+      <app-button
+        color="primary"
+        label="{{ 'ISSUER.ORGANIZATION.REQUESTTITEL' | translate }}"
+        (buttonClick)="RequestOrganization()"
+      >
+      </app-button>
+    </div>
+  </div>
+  <div class="card-body p-lg-15">
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="row">
+            <!-- Search -->
+            <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+              <app-input
+                [label]="'SEARCH'"
+                [placeholder]="'SEARCH'"
+                [ref]="'suffix'"
+                [icon]="'search'"
+                (typingStopped)="ApplySearch($event)"
+              >
+              </app-input>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="NoData" style="text-align: center; background-color: #f7f7f7">
+      <!-- <img src="src/assets/media/img/NoDataFaound.png" /> -->
+      <img src="../../../../assets/media/img/NoDataFaound.png" />
+    </div>
+
+    <div *ngIf="length === 0">
+      <app-empty-list
+        [Image]="'../../../../assets/media/img/emptyListImg.jpg'"
+        [Title]="'Welcome!'"
+        [Description]="
+          'There are no organization added yet! ' +
+          '\n' +
+          ' Kickstart your business by request your first organization.'
+        "
+        [LabelButton]="'Request organization'"
+        (ButtonClickEvent)="RequestOrganization()"
+      >
+      </app-empty-list>
+    </div>
+
+    <div *ngIf="!NoData && length !== 0">
+      <app-view-organizations
+        [displayedRows$]="displayedRows$"
+      ></app-view-organizations>
+      <app-pagination
+        [length]="length"
+        [pageSizeOptions]="[5, 10, 15, 20]"
+        (pageEvent)="paginationCategory({ paginator: $event })"
+      ></app-pagination>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close " let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">
+      {{ 'ISSUER.ORGANIZATION.REQUESTTITEL' | translate }}
+    </h4>
+
+    <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="close()">
+    </app-button>
+  </div>
+  <app-request-organization
+    [ListeOrganizations]="ListOrganizationNonDoesNotBelongToCurrentIssuer"
+    (requestOrganization)="requestOrganization({ org: $event })"
+  ></app-request-organization>
+</ng-template>

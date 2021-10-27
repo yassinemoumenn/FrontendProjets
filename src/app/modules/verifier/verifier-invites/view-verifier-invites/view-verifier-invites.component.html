@@ -1,0 +1,65 @@
+<div class="table-responsive angular-bootstrap-table">
+  <table
+    id="#my-table"
+    mat-table
+    [dataSource]="displayedRows$"
+    class="table table-head-custom table-vertical-center overflow-hidden"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Name</th>
+      <td class="text-center" mat-cell *matCellDef="let invite">
+        {{ invite.name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="domain">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Domain</th>
+      <td class="text-center" mat-cell *matCellDef="let invite">
+        {{ invite.domain }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
+      <td mat-cell *matCellDef="let invite" class="text-center">
+        {{ invite.type }}
+      </td>
+    </ng-container>
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let invite">
+        {{ invite.date | date }}
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let invite">
+        <a
+          class="btn btn-icon btn-light btn-hover-success btn-sm mx-1"
+          [matTooltip]="'ACCEPT'"
+          (click)="OnAcceptClicked(invite)"
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Code/Done-circle.svg'"
+            class="svg-icon svg-icon-md svg-icon-success"
+          ></span>
+        </a>
+        <a
+          class="btn btn-icon btn-light btn-hover-danger btn-sm mx-1"
+          [matTooltip]="'Refuse'"
+          (click)="OnRejectClicked(invite)"
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Code/Error-circle.svg'"
+            class="svg-icon svg-icon-md svg-icon-danger"
+          ></span>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>

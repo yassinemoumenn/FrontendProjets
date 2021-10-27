@@ -1,0 +1,62 @@
+<div class="table-responsive angular-bootstrap-table">
+  <table
+    id="#my-table"
+    mat-table
+    [dataSource]="displayedRows$"
+    class="table table-head-custom table-vertical-center overflow-hidden"
+  >
+    <!-- Group Name column -->
+    <ng-container matColumnDef="group">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Group</th>
+      <td class="text-center" mat-cell *matCellDef="let invite">
+        {{ invite.group.name | capitalizeFirstLetter }}
+      </td>
+    </ng-container>
+    <!-- organization Name column-->
+    <ng-container matColumnDef="organization">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        Organization
+      </th>
+      <td mat-cell *matCellDef="let invite" class="text-center">
+        {{ invite.organization.name | capitalizeFirstLetter }}
+      </td>
+    </ng-container>
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let invite">
+        {{ invite.date | date }}
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let invite">
+        <a
+          class="btn btn-icon btn-light btn-hover-success btn-sm mx-1"
+          [matTooltip]="'ACCEPT'"
+          (click)="OnAcceptClicked(invite.organization.id)"
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Code/Done-circle.svg'"
+            class="svg-icon svg-icon-md svg-icon-success"
+          ></span>
+        </a>
+        <a
+          class="btn btn-icon btn-light btn-hover-danger btn-sm mx-1"
+          [matTooltip]="'Refuse'"
+          (click)="OnRejectClicked(invite.organization.id)"
+        >
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Code/Error-circle.svg'"
+            class="svg-icon svg-icon-md svg-icon-danger"
+          ></span>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>

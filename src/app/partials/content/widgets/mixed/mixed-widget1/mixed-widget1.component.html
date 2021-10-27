@@ -1,0 +1,148 @@
+<div class="card card-custom bg-gray-100 card-stretch gutter-b">
+  <!-- Header -->
+  <div class="card-header border-0 bg-{{ bgColor }} py-5">
+    <h3 class="card-title font-weight-bolder text-white">
+      {{
+        (role + '.DASHBOARD.CARD.STATISTICS.' + Title).split(' ').join('_')
+          | translate
+      }}
+      [{{ state | shortNumber: 2 }}]
+    </h3>
+    <div class="card-toolbar">
+      <div
+        ngbDropdown
+        placement="bottom-right"
+        class="dropdown dropdown-inline"
+        title="Quick actions"
+      ></div>
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="card-body p-0 position-relative overflow-hidden">
+    <!--begin::Chart-->
+    <div
+      id="kt_mixed_widget_1_chart"
+      class="card-rounded-bottom bg-{{ bgColor }}"
+      [style.height]="'200px'"
+    >
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis"
+        [dataLabels]="chartOptions.dataLabels"
+        [stroke]="chartOptions.stroke"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [states]="chartOptions.states"
+        [tooltip]="chartOptions.tooltip"
+        [colors]="chartOptions.colors"
+        [markers]="chartOptions.markers"
+        [plotOptions]="chartOptions.plotOptions"
+      ></apx-chart>
+    </div>
+    <!--end::Chart-->
+    <!--begin::Stats-->
+    <div
+      class="card-spacer mt-n15"
+      *ngIf="TitleChart.length !== 0"
+      id="parent-list"
+    >
+      <!--begin::Row-->
+      <div class="row m-0">
+        <div
+          class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
+          id="chart-1"
+          (click)="onClick('chart-1')"
+          style="cursor: pointer"
+        >
+          <span
+            id="chart-1"
+            [inlineSVG]="Icon[0]"
+            class="svg-icon svg-icon-3x svg-icon-warning d-block my-2"
+          ></span>
+          <a id="chart-1" class="text-warning font-weight-bold font-size-h6">
+            {{
+              (role + '.DASHBOARD.CARD.STATISTICS.' + TitleChart[0])
+                .split(' ')
+                .join('_') | translate
+            }}
+          </a>
+        </div>
+        <div
+          class="col bg-light-primary px-6 py-8 rounded-xl mb-7"
+          id="chart-2"
+          style="cursor: pointer"
+          (click)="onClick('chart-2')"
+        >
+          <span
+            id="chart-2"
+            [inlineSVG]="Icon[1]"
+            class="svg-icon svg-icon-3x svg-icon-primary d-block my-2"
+          ></span>
+
+          <a
+            id="chart-2"
+            class="text-primary font-weight-bold font-size-h6 mt-2"
+          >
+            {{
+              (role + '.DASHBOARD.CARD.STATISTICS.' + TitleChart[1])
+                .split(' ')
+                .join('_') | translate
+            }}
+          </a>
+        </div>
+      </div>
+      <!--end::Row-->
+      <!--begin::Row-->
+      <div class="row m-0">
+        <div
+          class="col bg-light-danger px-6 py-8 rounded-xl mr-7"
+          id="chart-3"
+          style="cursor: pointer"
+          (click)="onClick('chart-3')"
+        >
+          <span
+            id="chart-3"
+            [inlineSVG]="Icon[2]"
+            class="svg-icon svg-icon-3x svg-icon-danger d-block my-2"
+          ></span>
+          <a
+            id="chart-3"
+            class="text-danger font-weight-bold font-size-h6 mt-2"
+          >
+            {{
+              (role + '.DASHBOARD.CARD.STATISTICS.' + TitleChart[2])
+                .split(' ')
+                .join('_') | translate
+            }}
+          </a>
+        </div>
+        <div
+          class="col bg-light-success px-6 py-8 rounded-xl"
+          id="chart-4"
+          style="cursor: pointer"
+          (click)="onClick('chart-4')"
+        >
+          <span
+            id="chart-4"
+            [inlineSVG]="Icon[3]"
+            class="svg-icon svg-icon-3x svg-icon-success d-block my-2"
+          ></span>
+          <a
+            id="chart-4"
+            class="text-success font-weight-bold font-size-h6 mt-2"
+          >
+            {{
+              (role + '.DASHBOARD.CARD.STATISTICS.' + TitleChart[3])
+                .split(' ')
+                .join('_') | translate
+            }}
+          </a>
+        </div>
+      </div>
+      <!--end::Row-->
+    </div>
+    <!--end::Stats-->
+  </div>
+</div>

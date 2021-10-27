@@ -1,0 +1,37 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">
+        {{ 'VERIFIER.VERIFYCERTIFICATE.Title' | translate }}
+      </h3>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form
+      class="form"
+      novalidate="novalidate"
+      id="kt_login_signup_form"
+      [formGroup]="verifyForm"
+    >
+      <div class="row">
+        <app-input
+          class="col-12"
+          [label]="'VERIFIER.VERIFYCERTIFICATE.VerifyInput' | translate"
+          [placeholder]="'VERIFIER.VERIFYCERTIFICATE.VerifyInput' | translate"
+          [type]="'text'"
+          formControlName="certificateID"
+        >
+        </app-input>
+        <app-button
+          class="col-2"
+          [isDisabled]="verifyForm.invalid"
+          [label]="'VERIFIER.VERIFYCERTIFICATE.ButtonLabel' | translate"
+          [routerLink]="['/verification', verifyForm.value.certificateID]"
+          target="_blank"
+        >
+        </app-button>
+      </div>
+    </form>
+  </div>
+</div>

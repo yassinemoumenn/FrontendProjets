@@ -1,0 +1,490 @@
+<nav
+  class="navbar navbar-default"
+  style="background: linear-gradient(to right, #512da8, #711e72)"
+>
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img
+        class="logo-"
+        src="./assets/media/logos/logoDocWhite.png"
+        style="height: 66px; width: 193px"
+      />
+    </a>
+  </div>
+</nav>
+<br />
+<div
+  *ngIf="certificates$ | async; let certificate; else: NoData"
+  class="card-body row justify-content-center"
+  style="width: 100%"
+>
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card card-custom gutter-b">
+          <div class="card-header">
+            <div class="card-title">
+              <h3 class="card-label">Recipient informations</h3>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-8">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="
+                      symbol symbol-60 symbol-xxl-100
+                      mr-5
+                      align-self-start align-self-xxl-center
+                    "
+                  >
+                    <div
+                      *ngIf="certificate.recipient.picture; else NoPic"
+                      class="symbol-label"
+                      [style.backgroundImage]="
+                        'url(' + certificate.recipient.picture + ')'
+                      "
+                    ></div>
+                    <ng-template #NoPic>
+                      <span
+                        class="
+                          symbol-label
+                          bg-light-success
+                          text-success
+                          font-weight-bold font-size-h1
+                        "
+                      >
+                        {{
+                          certificate.recipient.firstname
+                            .charAt(0)
+                            .toUpperCase() +
+                            '' +
+                            certificate.recipient.lastname
+                              .charAt(0)
+                              .toUpperCase()
+                        }}
+                      </span>
+                    </ng-template>
+                  </div>
+                  <div>
+                    <a
+                      class="
+                        font-weight-bolder font-size-h5
+                        text-dark-75 text-hover-primary
+                        cursor-pointer
+                      "
+                    >
+                      {{ certificate.recipient.firstname }}
+                      {{ certificate.recipient.lastname }}
+                    </a>
+                    <div
+                      class="
+                        d-flex
+                        align-items-center
+                        justify-content-between
+                        mb-2
+                      "
+                    >
+                      <a class="text-muted text-hover-primary">
+                        {{ certificate.recipient.email }}</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4">
+                <img [src]="certificate.qrcode" alt="image" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-8">
+        <div class="card card-custom gutter-b">
+          <div class="card-body">
+            <p style="line-height: 3">
+              <span>
+                <mat-icon
+                  style="
+                    color: #57c974;
+                    font-size: 35px;
+                    vertical-align: text-bottom;
+                  "
+                  >verified_user</mat-icon
+                >
+              </span>
+              &nbsp; This digital credential was securely issued through
+              Doccerts and its information is valid.
+            </p>
+          </div>
+        </div>
+        <div class="card card-custom gutter-b">
+          <div class="card-header">
+            <div class="card-title">
+              <h3 class="card-label">Certificate informations</h3>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-wrap align-items-center">
+              <div class="symbol symbol-40 mr-3">
+                <div
+                  class="symbol-label"
+                  [style.backgroundImage]="
+                    'url(../../../../../assets/media/img/view.png)'
+                  "
+                ></div>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                    cursor-pointer
+                  "
+                  (click)="viewClicked(viewContent)"
+                >
+                  view certificate
+                </a>
+              </div>
+            </div>
+            <hr />
+            <div class="d-flex flex-wrap align-items-center">
+              <div class="symbol symbol-40 mr-3">
+                <div
+                  class="symbol-label"
+                  [style.backgroundImage]="
+                    'url(../../../../../assets/media/img/pdf.png)'
+                  "
+                ></div>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                    cursor-pointer
+                  "
+                  (click)="downloadClicked(downloadContent)"
+                >
+                  download as pdf
+                </a>
+              </div>
+            </div>
+            <hr />
+            <div class="d-flex flex-wrap align-items-center">
+              <div class="symbol symbol-40 mr-3">
+                <div
+                  class="symbol-label"
+                  [style.backgroundImage]="
+                    'url(../../../../../assets/media/img/verify.png)'
+                  "
+                ></div>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                    cursor-pointer
+                  "
+                  (click)="verify(verifyCertificate)"
+                >
+                  verify certificate
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="card card-custom gutter-b">
+          <div class="card-header">
+            <div class="card-title">
+              <h3 class="card-label">Important Dates</h3>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-wrap align-items-center mb-10">
+              <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                <button mat-mini-fab color="">
+                  <mat-icon style="color: #b707b7">create</mat-icon>
+                </button>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                  "
+                >
+                  Created:
+                </a>
+              </div>
+              <div class="d-flex align-items-center py-lg-0 py-2">
+                <div class="d-flex flex-column text-right">
+                  <a
+                    class="
+                      btn btn-link-primary
+                      font-weight-bold
+                      d-flex
+                      align-items-center
+                    "
+                  >
+                    {{ certificate.state.createdAt | date }}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="d-flex flex-wrap align-items-center mb-10"
+              *ngIf="certificate.state.signedAt"
+            >
+              <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                <button mat-mini-fab color="">
+                  <i
+                    class="fas fa-signature"
+                    style="font-size: 20px; color: #5b2898"
+                  ></i>
+                </button>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                  "
+                >
+                  Signed:
+                </a>
+              </div>
+              <div class="d-flex align-items-center py-lg-0 py-2">
+                <div class="d-flex flex-column text-right">
+                  <a
+                    class="
+                      btn btn-link-primary
+                      font-weight-bold
+                      d-flex
+                      align-items-center
+                    "
+                  >
+                    {{ certificate.state.signedAt | date }}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-10">
+              <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                <button mat-mini-fab color="">
+                  <i
+                    class="fas fa-certificate"
+                    style="font-size: 20px; color: #6f1f76"
+                  ></i>
+                </button>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                  "
+                >
+                  Issued:
+                </a>
+              </div>
+              <div class="d-flex align-items-center py-lg-0 py-2">
+                <div class="d-flex flex-column text-right">
+                  <a
+                    class="
+                      btn btn-link-primary
+                      font-weight-bold
+                      d-flex
+                      align-items-center
+                    "
+                  >
+                    {{ certificate.state.issuedAt | date }}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-14">
+              <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                <button mat-mini-fab color="">
+                  <i
+                    class="fas fa-hourglass-half"
+                    style="font-size: 20px; color: rgb(153, 54, 202)"
+                  ></i>
+                </button>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                  "
+                  matTooltip="  {{ certificate.state.expiredAt | date }}"
+                >
+                  Expired:
+                </a>
+              </div>
+              <div class="d-flex align-items-center py-lg-0 py-2">
+                <div class="d-flex flex-column text-right">
+                  <span
+                    *ngIf="
+                      !certificate.state.expiredAt &&
+                      certificate.state.status !== 'EXPIRED'
+                    "
+                    ><i
+                      class="far fa-check-circle"
+                      style="
+                        font-size: 25px;
+                        color: green;
+                        vertical-align: text-bottom;
+                      "
+                    ></i>
+                    Valid</span
+                  >
+                  <span
+                    *ngIf="
+                      certificate.state.expiredAt &&
+                      certificate.state.status === 'EXPIRED'
+                    "
+                    ><i
+                      class="fas fa-ban"
+                      style="
+                        font-size: 25px;
+                        color: red;
+                        vertical-align: text-bottom;
+                      "
+                    ></i>
+                    Expired</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-14">
+              <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
+                <button mat-mini-fab color="">
+                  <i
+                    class="fas fa-ban"
+                    style="font-size: 20px; color: rgb(152, 54, 202)"
+                  ></i>
+                </button>
+              </div>
+              <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
+                <a
+                  class="
+                    text-dark-75
+                    font-weight-bolder
+                    text-hover-primary
+                    font-size-lg
+                  "
+                  matTooltip="{{ certificate.state.revokedAt | date }}"
+                >
+                  Revoked:
+                </a>
+              </div>
+              <div class="d-flex align-items-center py-lg-0 py-2">
+                <div class="d-flex flex-column text-right">
+                  <span
+                    *ngIf="
+                      !certificate.state.revokedAt &&
+                      certificate.state.status !== 'REVOKED'
+                    "
+                  >
+                    <i
+                      class="far fa-check-circle"
+                      style="
+                        font-size: 25px;
+                        color: green;
+                        vertical-align: text-bottom;
+                      "
+                    ></i>
+                    Valid</span
+                  >
+                  <span
+                    *ngIf="
+                      certificate.state.revokedAt &&
+                      certificate.state.status === 'REVOKED'
+                    "
+                  >
+                    <i
+                      class="fas fa-ban"
+                      style="
+                        font-size: 25px;
+                        color: red;
+                        vertical-align: text-bottom;
+                      "
+                    ></i>
+                    Revoked</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav
+  class="navbar fixed-bottom"
+  style="background: linear-gradient(to left, #512da8, #711e72)"
+>
+  <div class="container">
+    <a class="nav-brand" style="font-weight: bold; color: white">
+      Doccerts 2021 &copy;
+    </a>
+  </div>
+</nav>
+<!-- Begin Modal of view certificate-->
+<ng-template #viewContent let-c="close" let-d="dismiss">
+  <div *ngIf="certificates$ | async; let certificates">
+    <app-certificate-view-modal
+      [_data]="certificates"
+      (closeModal)="Dismiss($event)"
+    ></app-certificate-view-modal>
+  </div>
+</ng-template>
+
+<ng-template #verifyCertificate let-c="close" let-d="dismiss">
+  <div *ngIf="certificates$ | async; let certificates">
+    <app-verify-certificate-dialog
+      [_data]="certificates"
+      (closeModal)="Dismiss($event)"
+    ></app-verify-certificate-dialog>
+  </div>
+</ng-template>
+
+<!-- End Modal of view certificate -->
+<!-- Begin Modal of download certificate-->
+<ng-template #downloadContent let-c="close" let-d="dismiss">
+  <app-print-certificate></app-print-certificate>
+</ng-template>
+<!-- End Modal of download certificate -->
+<ng-template #NoData>
+  <div class="row justify-content-center" style="width: 100%">
+    <app-empty-list
+      class="col-md-8"
+      [Image]="'../../../../assets/media/svg/misc/no_data.svg'"
+      [Title]="'Not Found'"
+      [Description]="'No certificate found with this ID  ' + certificateID"
+    >
+    </app-empty-list>
+  </div>
+</ng-template>

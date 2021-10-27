@@ -1,0 +1,285 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-end"
+  *nfIf="isInAccountInfo"
+>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<div class="d-flex flex-column flex-root">
+  <div class="d-flex flex-center flex-column flex-column-fluid p-5">
+    <div class="w-lg-600px bg-white rounded p-5 p-lg-15 mx-auto">
+      <form
+        class="form w-100 mb-10"
+        novalidate="novalidate"
+        id="kt_sing_in_two_steps_form"
+        [formGroup]="twoFactorForm"
+      >
+        <div class="text-center mb-10">
+          <img
+            alt="Logo"
+            class="mh-125px"
+            src="../../../../assets/media/logos/logo-1.png"
+          />
+        </div>
+        <div class="text-center mb-10">
+          <h1 class="text-dark mb-3">Two Step Verification</h1>
+          <div class="text-muted fw-bold fs-5 mb-5">
+            {{
+              phoneSubStr || emailSent
+                ? 'Enter the verification code we sent to'
+                : ''
+            }}
+          </div>
+          <div class="fw-bolder text-dark fs-3">
+            {{
+              phoneSubStr && !emailSent
+                ? '******' + phoneSubStr
+                : emailSent
+                ? switchEmailForm.value.email
+                : 'Send the code first'
+            }}
+          </div>
+        </div>
+        <div class="mb-10 px-md-10">
+          <div class="fw-bolder text-start text-dark fs-6 mb-1 ms-1">
+            Type your 6 digit security code
+          </div>
+          <div class="d-flex flex-wrap flex-stack">
+            <input
+              type="text"
+              numbersOnly
+              maxlength="1"
+              class="
+                form-control form-control-solid
+                h-60px
+                w-60px
+                fs-2qx
+                text-center
+                border-primary border-hover
+                mx-1
+                my-2
+              "
+              value=""
+              formControlName="code1"
+              (keyup)="onDigitInput($event)"
+            />
+            <input
+              type="text"
+              numbersOnly
+              maxlength="1"
+              class="
+                form-control form-control-solid
+                h-60px
+                w-60px
+                fs-2qx
+                text-center
+                border-primary border-hover
+                mx-1
+                my-2
+              "
+              value=""
+              formControlName="code2"
+              (keyup)="onDigitInput($event)"
+            />
+            <input
+              type="text"
+              numbersOnly
+              maxlength="1"
+              class="
+                form-control form-control-solid
+                h-60px
+                w-60px
+                fs-2qx
+                text-center
+                border-primary border-hover
+                mx-1
+                my-2
+              "
+              value=""
+              formControlName="code3"
+              (keyup)="onDigitInput($event)"
+            />
+            <input
+              type="text"
+              numbersOnly
+              maxlength="1"
+              class="
+                form-control form-control-solid
+                h-60px
+                w-60px
+                fs-2qx
+                text-center
+                border-primary border-hover
+                mx-1
+                my-2
+              "
+              value=""
+              formControlName="code4"
+              (keyup)="onDigitInput($event)"
+            />
+            <input
+              type="text"
+              numbersOnly
+              maxlength="1"
+              class="
+                form-control form-control-solid
+                h-60px
+                w-60px
+                fs-2qx
+                text-center
+                border-primary border-hover
+                mx-1
+                my-2
+              "
+              value=""
+              formControlName="code5"
+              (keyup)="onDigitInput($event)"
+            />
+            <input
+              type="text"
+              numbersOnly
+              maxlength="1"
+              class="
+                form-control form-control-solid
+                h-60px
+                w-60px
+                fs-2qx
+                text-center
+                border-primary border-hover
+                mx-1
+                my-2
+              "
+              value=""
+              formControlName="code6"
+              (keyup)="onDigitInput($event)"
+            />
+          </div>
+        </div>
+        <div class="d-none" [ngClass]="isInAccountInfo ? 'd-none' : 'd-block'">
+          <div class="d-flex flex-center d-none">
+            <button
+              [disabled]="!twoFactorForm.valid"
+              type="button"
+              id="kt_sing_in_two_steps_submit"
+              class="btn btn-lg btn-primary fw-bolder"
+              (click)="
+                switchEmailForm.value.email ? verifyCodeEmail() : verifyCode()
+              "
+            >
+              <span class="indicator-label">Submit</span>
+              <span class="indicator-progress"
+                >Please wait...
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span
+              ></span>
+            </button>
+          </div>
+        </div>
+        <div class="d-none" [ngClass]="isInAccountInfo ? 'd-block' : 'd-none'">
+          <div class="d-flex flex-center d-none">
+            <button
+              [disabled]="!twoFactorForm.valid"
+              type="button"
+              id="kt_sing_in_two_steps_submit"
+              class="btn btn-lg btn-primary fw-bolder"
+              (click)="
+                switchEmailForm.value.email
+                  ? verifyCodeEmailAccountInfo()
+                  : verifyCodeAccountInfo()
+              "
+            >
+              <span class="indicator-label">Submit Acc</span>
+              <span class="indicator-progress"
+                >Please wait...
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span
+              ></span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <div class="text-center fw-bold fs-5">
+        <span class="text-muted me-1">Didn’t get the code ?</span>
+        <a
+          (click)="ResendCodeVerification()"
+          class="link-primary fw-bolder fs-5 me-1 cursor-pointer"
+          >Resend</a
+        >
+      </div>
+      <div class="text-center fw-bold fs-5">
+        <span class="text-muted me-1">Switch to email?</span>
+        <a
+          (click)="openSwitchEmail(content)"
+          class="link-primary fw-bolder fs-5 me-1 cursor-pointer"
+          >Send</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content>
+  <!-- Modal Title -->
+  <h1
+    mat-dialog-title
+    class="d-flex align-items-center justify-content-between"
+  >
+    <h5>
+      Two Step Verification &nbsp;<small
+        >Enter the email to sent you a verification code</small
+      >
+    </h5>
+    <app-button
+      [ref]="'icon'"
+      [icon]="'close'"
+      class="buttonClose"
+      (buttonClick)="DismissEmail($event)"
+    >
+    </app-button>
+  </h1>
+  <!-- End Modal Title -->
+  <!-- Separator -->
+  <hr />
+  <!-- End Separator -->
+  <!-- Modal Content-->
+  <div mat-dialog-content>
+    <form class="form" [formGroup]="switchEmailForm">
+      <app-input
+        [label]="'Email'"
+        [placeholder]="'Email'"
+        formControlName="email"
+        [type]="'email'"
+        [appearance]="'outline'"
+      >
+      </app-input>
+    </form>
+  </div>
+  <!-- End Modal Content-->
+  <!-- Modal Actions-->
+  <div
+    class="
+      modal-footer
+      p-3
+      d-flex
+      justify-content-center justify-content-md-end
+    "
+  >
+    <app-button
+      mat-raised-button
+      [label]="'Cancel'"
+      [backgroundColor]="'#f3f6f9'"
+      [fontColor]="'#7e8299'"
+      (buttonClick)="DismissEmail($event)"
+    >
+    </app-button>
+    <app-button
+      color="primary"
+      [label]="'Send'"
+      [isDisabled]="switchEmailForm.invalid"
+      (click)="sendCodeVerificationEmail()"
+    >
+    </app-button>
+  </div>
+  <!--   End Modal Actions-->
+</ng-template>

@@ -1,0 +1,47 @@
+.style-text {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  transition: color 0.3s ease;
+  color: #595d6e;
+}
+.style-email {
+  margin-top: 3px;
+  display: inline-block;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #74788d;
+}
+.style-cell {
+  font-size: 13px;
+}
+%picPlaceholder {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 100%;
+  line-height: 40px;
+  text-align: center;
+}
+.no-pic {
+  @extend %picPlaceholder;
+}
+.pic {
+  @extend %picPlaceholder;
+}
+::ng-deep .mat-menu-panel {
+  min-width: 300px !important;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-top: 5px !important;
+  padding-bottom: 10px !important;
+}
+ul {
+  padding: 0;
+  li:not(:first-child) {
+    margin-top: 20px;
+  }
+}

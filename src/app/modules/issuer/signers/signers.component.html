@@ -1,0 +1,192 @@
+<div
+  class="container-fluid"
+  [ngClass]="resultsLength > 0 || search !== '' ? 'd-block' : 'd-none'"
+>
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-custom gutter-b">
+        <div class="card-header">
+          <div class="card-title">
+            <h3 class="card-label">Signers</h3>
+          </div>
+          <div class="card-toolbar">
+            <div class="dropdown dropdown-inline" ngbDropdown>
+              <button
+                class="btn btn-primary"
+                ngbDropdownToggle
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="mdi mdi-format-list-bulleted-type"></i>
+                Export
+                <i class="mdi mdi-chevron-down"></i>
+              </button>
+              <div
+                class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+                ngbDropdownMenu
+              >
+                <ul class="navi">
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="openDialogToExportData('exel')"
+                    >
+                      <span class="navi-icon"
+                        ><i class="fas fa-file-excel"></i
+                      ></span>
+                      <span class="navi-text">Excel</span>
+                    </a>
+                  </li>
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="openDialogToExportData('csv')"
+                    >
+                      <span class="navi-icon"
+                        ><i class="navi-icon fas fa-file-csv"></i
+                      ></span>
+                      <span class="navi-text">CSV</span>
+                    </a>
+                  </li>
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="openDialogToExportData('pdf')"
+                    >
+                      <span class="navi-icon"
+                        ><i class="navi-icon fas fa-file-pdf"></i
+                      ></span>
+                      <span class="navi-text">PDF</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            &nbsp;&nbsp;
+            <div class="dropdown dropdown-inline" ngbDropdown>
+              <button
+                class="btn btn-primary"
+                ngbDropdownToggle
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="mdi mdi-format-list-bulleted-type"></i>
+                Actions
+                <i class="mdi mdi-chevron-down"></i>
+              </button>
+              <div
+                class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+                ngbDropdownMenu
+              >
+                <ul class="navi">
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="openDialogAdd()"
+                    >
+                      <span class="navi-icon"
+                        ><i class="flaticon2-plus"></i
+                      ></span>
+                      <span class="navi-text">New Signer</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Add - Edit Recipient Template -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateAddEdit>
+                <app-add-edit-signer
+                  [data]="dataSendToEditAddCompo.data"
+                  [title]="dataSendToEditAddCompo.title"
+                  [action]="dataSendToEditAddCompo.action"
+                  [_signerFG]="signerFG"
+                  (dismissDialog)="dismiss($event)"
+                  (addSigner)="addSigner($event)"
+                  (editSigner)="editSigner($event)"
+                ></app-add-edit-signer>
+              </ng-template>
+            </div>
+          </div>
+          <!-- Display Recipients -->
+          <div class="row">
+            <div class="col-12">
+              <app-view-signers
+                [signers]="signers"
+                (_applySearch)="applySearch($event)"
+                (openDialiogToEdit)="openDialogToEdit($event)"
+                (openDialiogToDelete)="openDialiogToDelete($event)"
+                (openDialiogToDeleteSelectedItems)="
+                  openDialiogToDeleteSelectedItems($event)
+                "
+              ></app-view-signers>
+            </div>
+          </div>
+
+          <!-- If there is no data -->
+          <div class="row" *ngIf="resultsLength === 0 && search !== ''">
+            <div
+              class="col-12 d-flex justify-content-center p-3 font-weight-bold"
+            >
+              No Data
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="row">
+            <div class="col-12">
+              <app-pagination
+                [length]="resultsLength"
+                [isLoading]="isLoading"
+                (pageEvent)="OnPaginatonPaged($event)"
+              ></app-pagination>
+            </div>
+          </div>
+
+          <!-- Export Data -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #exportData>
+                <app-export
+                  [exportTo]="exportTo"
+                  [DATA]="SIGNERS"
+                  [fileName]="'Signers'"
+                  [headers]="[
+                    'userId',
+                    'firstname',
+                    'lastname',
+                    'email',
+                    'Date of birth',
+                    'phone'
+                  ]"
+                  (dismissDialog)="dismiss($event)"
+                ></app-export>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- If there isn't data -->
+<div
+  class="row"
+  [ngClass]="resultsLength === 0 && search === '' ? 'd-block' : 'd-none'"
+>
+  <div class="col-12">
+    <app-empty-list
+      [Title]="'Welcome!'"
+      [Description]="'There are no signer added yet'"
+      [LabelButton]="'Add Signer'"
+      [Image]="'../../../../../assets/media/svg/misc/Recipient.svg'"
+      (ButtonClickEvent)="openDialogAdd()"
+    ></app-empty-list>
+  </div>
+</div>

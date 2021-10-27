@@ -1,0 +1,39 @@
+<div class="row message pt-3 pb-3">
+  <div class="col-3">
+    <div class="d-flex row align-items-center ml-2">
+      <div
+        *ngIf="receiver"
+        class="d-flex row align-items-center"
+        style="margin-left: 0.5rem"
+      >
+        &nbsp;TO &nbsp;
+        <div class="inbox-message-name">{{ receiver }}</div>
+        &nbsp;
+      </div>
+      <div
+        *ngIf="sender"
+        class="d-flex row align-items-center"
+        style="margin-left: 0.5rem"
+      >
+        &nbsp; FROM &nbsp;
+        <div class="inbox-message-name">{{ sender }}</div>
+        &nbsp;
+      </div>
+    </div>
+  </div>
+  <div class="col-7">
+    <div class="d-flex align-items-center">
+      <p class="inbox-message-msg">
+        <span class="inbox-message-subject">{{ message.title }} -</span>
+        {{ message.body }}
+      </p>
+    </div>
+  </div>
+  <div class="col-2 p-0">
+    <div class="d-flex align-items-center">
+      <div class="text-center" style="width: 100%">
+        <div class="inbox-message-time">{{ message.date }}</div>
+      </div>
+    </div>
+  </div>
+</div>

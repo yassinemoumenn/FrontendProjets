@@ -1,0 +1,17 @@
+<div class="kt-portlet">
+  <div class="kt-portlet__body">
+    <div class="container-fluid p-0">
+      <div
+        class="d-flex flex-column align-items-center"
+        *ngIf="!isLoading && messages.length == 0"
+      >
+        <div class="empty-inbox-background mt-4 mb-3"></div>
+      </div>
+      <div *ngIf="messages.length > 0">
+        <div *ngFor="let message of messages">
+          <app-message-element [message]="message"> </app-message-element>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

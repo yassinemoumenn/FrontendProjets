@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-end align-items-center">
+  <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+  <mat-paginator
+    #paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPaginationChanged()"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

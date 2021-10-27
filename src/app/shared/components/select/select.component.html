@@ -1,0 +1,125 @@
+<ng-container
+  *ngTemplateOutlet="ref === 'Observable' ? ObservableRef : noneRef"
+>
+</ng-container>
+<ng-template #ObservableRef>
+  <mat-form-field
+    [ngClass]="cssClasses"
+    class="example-full-width"
+    [appearance]="appearance"
+  >
+    <mat-label>{{ label | lowercase | capitalizeFirstLetter }}</mat-label>
+    <mat-select
+      [formControl]="control"
+      [placeholder]="placeholder"
+      [multiple]="isMultiple"
+      [required]="isRequired"
+      [disabled]="isDisabled"
+      (selectionChange)="selectionChanged($event)"
+    >
+      <mat-option
+        *ngFor="let item of itemsObservable | async"
+        [value]="item.id"
+        [disabled]="item.name?.disabled"
+      >
+        <ng-container *ngIf="values; else items">
+          <ng-container *ngFor="let value of values">
+            {{
+              item.name[value] ||
+                item.firstname[value] + ' ' + item.lastname[value]
+                | lowercase
+                | capitalizeFirstLetter
+            }}
+          </ng-container>
+        </ng-container>
+
+        <ng-template #items>
+          <ng-container>
+            <div
+              class="d-flex align-items-center"
+              *ngIf="item.firstname && item.lastname"
+            >
+              <div class="mr-3">
+                <img
+                  *ngIf="item.picture; else NoPic"
+                  class="pic"
+                  style="width: 40px; height: 40px"
+                  src="{{ item.picture }}"
+                  alt="photo"
+                />
+                <ng-template #NoPic>
+                  <span
+                    class="
+                      no-pic
+                      bg-light-success
+                      text-success
+                      font-weight-bold font-size-h6
+                    "
+                  >
+                    {{
+                      item.firstname.charAt(0).toUpperCase() +
+                        '' +
+                        item.lastname.charAt(0).toUpperCase()
+                    }}
+                  </span>
+                </ng-template>
+              </div>
+              <div class="d-flex flex-column">
+                <span
+                  appHighlight
+                  [content]="item.firstname + ' ' + item.lastname"
+                  [classToApply]="'font-weight-bold'"
+                >
+                </span>
+              </div>
+            </div>
+            <span *ngIf="item.name">
+              {{ item.name }}
+            </span>
+          </ng-container>
+        </ng-template>
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="control.hasError('required')"
+      >Please choose an item</mat-error
+    >
+  </mat-form-field>
+</ng-template>
+<ng-template #noneRef>
+  <mat-form-field
+    [ngClass]="cssClasses"
+    class="example-full-width"
+    [appearance]="appearance"
+  >
+    <mat-label>{{ label | lowercase | capitalizeFirstLetter }}</mat-label>
+    <mat-select
+      [formControl]="control"
+      [placeholder]="placeholder"
+      [multiple]="isMultiple"
+      [required]="isRequired"
+      [disabled]="isDisabled"
+      (selectionChange)="selectionChanged($event)"
+    >
+      <mat-option
+        *ngFor="let item of items"
+        [value]="item"
+        [disabled]="item?.disabled"
+      >
+        <ng-container *ngIf="values; else items">
+          <ng-container *ngFor="let value of values">
+            {{ item[value] | lowercase | capitalizeFirstLetter }}
+          </ng-container>
+        </ng-container>
+
+        <ng-template #items>
+          <ng-container>
+            {{ item | lowercase | capitalizeFirstLetter }}
+          </ng-container>
+        </ng-template>
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="control.hasError('required')"
+      >Please choose an item</mat-error
+    >
+  </mat-form-field>
+</ng-template>

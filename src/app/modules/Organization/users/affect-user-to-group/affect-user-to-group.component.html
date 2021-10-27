@@ -1,0 +1,94 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{ 'ORGANIZATION.USERS.AFFECT.TITLE' | translate }}</b
+  >
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+
+<div class="modal-body" style="padding: 2.25rem !important">
+  <form class="row" [formGroup]="UserForm">
+    <div class="col-12 col-md-5 mt-4">
+      <h5 class="mb-3">
+        {{ 'ORGANIZATION.USERS.AFFECT.INFOS' | translate }} :
+      </h5>
+      <div class="d-flex align-items-center mt-3 mb-3">
+        <div class="mr-5">
+          <img
+            *ngIf="user.picture; else NoPic"
+            class="pic"
+            style="width: 40px; height: 40px"
+            src="{{ user.picture }}"
+            alt="photo"
+          />
+          <ng-template #NoPic>
+            <h5
+              class="
+                no-pic
+                bg-light-success
+                text-success
+                font-weight-bold font-size-h6
+              "
+            >
+              {{
+                user.firstname.charAt(0).toUpperCase() +
+                  '' +
+                  user.lastname.charAt(0).toUpperCase()
+              }}
+            </h5>
+          </ng-template>
+        </div>
+        <div class="d-flex flex-column style-text style-cell">
+          <h6>{{ user.firstname + ' ' + user.lastname | titlecase }}</h6>
+          <a
+            class="
+              text-muted
+              font-weight-bold
+              text-hover-primary
+              cursor-pointer
+              style-email style-cell
+            "
+          >
+            {{ user.email }}</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-7 mt-4">
+      <h5 class="mb-5">
+        {{ 'ORGANIZATION.USERS.ADDUSER.SELECTGROUP' | translate }}
+      </h5>
+      <app-select
+        [label]="'ORGANIZATION.USERS.ADDUSER.SELECTGROUP' | translate"
+        [placeholder]="'ORGANIZATION.USERS.ADDUSER.SELECTGROUP' | translate"
+        [ref]="'Observable'"
+        [itemsObservable]="groups$"
+        formControlName="groupesCL"
+        [required]="true"
+        [isMultiple]="user.role !== 'ISSUER'"
+      ></app-select>
+    </div>
+  </form>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    label="{{ 'ORGANIZATION.CANCELBUTTON' | translate }}"
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [isDisabled]="!(UserForm.value.groupesCL !== '')"
+    [isLoading]="isLoading"
+    label="{{ 'ORGANIZATION.SUBMITBUTTON' | translate }}"
+    [color]="'primary'"
+    [cssClasses]="['ml-2', 'px-5']"
+    (buttonClick)="AffectUser()"
+  >
+  </app-button>
+</div>

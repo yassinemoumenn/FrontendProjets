@@ -1,0 +1,102 @@
+<h4 id="xx" class="text-center">Verify Certificate</h4>
+<hr>
+<div>
+    <div class="row justify-content-center align-items-center">
+        <button *ngIf="MongoCertificate.transaction?.privateNetwork && !MongoCertificate.transaction?.publicNetwork" type="button" class="btn btn-success btn-bold btn-upper btn-font-sm" (click)="ValidateCertificates('private')">Verify in
+            Private</button>
+    
+        <button *ngIf="MongoCertificate.transaction?.publicNetwork && !MongoCertificate.transaction?.privateNetwork" type="button" class="btn btn-success btn-bold btn-upper btn-font-sm" (click)="ValidateCertificates('public')">Verify in
+            Public</button>
+    
+        <div *ngIf="MongoCertificate.transaction?.privateNetwork && MongoCertificate.transaction?.publicNetwork">
+            <button type="button" class="btn btn-success btn-bold btn-upper btn-font-sm" (click)="ValidateCertificates('public')">Verify
+                in Public</button>
+            &nbsp;
+            <button type="button" class="btn btn-success btn-bold btn-upper btn-font-sm" (click)="ValidateCertificates('private')">Verify
+                in Private</button>
+    
+        </div>
+    
+    </div>
+
+    <br>
+
+    <ul *ngIf="viewProgress" class="steps">
+		<li class="step step--incomplete step--active" id="one">
+			<span *ngIf="step1" class="step__icon__valid"></span>
+			<span *ngIf="!step1" class="step__icon__notvalid"></span>
+			<span class="step__label">Step 1</span>
+		</li>
+		<li class="step step--incomplete step--inactive" id="two">
+			<span *ngIf="step2" class="step__icon__valid"></span>
+			<span *ngIf="!step2" class="step__icon__notvalid"></span>
+			<span class="step__label">Step 2</span>
+		</li>
+		<li class="step step--incomplete step--inactive" id="three">
+			<span *ngIf="step3" class="step__icon__valid"></span>
+			<span *ngIf="!step3" class="step__icon__notvalid"></span>
+			<span class="step__label">Step 3</span>
+		</li>
+		<li class="step step--incomplete step--inactive" id="four">
+			<span *ngIf="step4" class="step__icon__valid"></span>
+			<span *ngIf="!step4" class="step__icon__notvalid"></span>
+			<span class="step__label">Step 4</span>
+		</li>
+    </ul> 
+    <br>
+    <table style="width: 75%; margin: auto;" class="isNotPrinting">
+		<tr *ngIf="isStep1Visivle">
+			<td style="font-weight: 400;">
+				<label *ngIf="step1" style="color: #0abb87;width: 20px;font-size: initial;">&#10003;</label>
+				<label *ngIf="!step1" style="color: #f44336;width: 20px;font-size: initial;">&#10005;</label>
+				Step 1 of 4... Checking certificate has not been tampered with
+				<div *ngIf="!isStep1Visivle" class="spinner-grow text-success spinner-grow-sm list-hidden" role="status">
+					<span class="sr-only">Loading...</span></div>
+			</td>
+			<td>
+				<span *ngIf="step1" class="badge badge-success">Verified</span>
+				<span *ngIf="!step1" class="badge badge-danger">Failed</span>
+			</td>
+		</tr>
+		<tr *ngIf="isStep2Visivle">
+			<td style="font-weight: 400;">
+				<label *ngIf="step2" style="color: #0abb87;width: 20px;font-size: initial;">&#10003;</label>
+				<label *ngIf="!step2" style="color: #f44336;width: 20px;font-size: initial;">&#10005;</label>
+				Step 2 of 4... Checking certificate has not expired
+				<div *ngIf="!isStep2Visivle" class="spinner-grow text-success spinner-grow-sm list-hidden" role="status">
+					<span class="sr-only">Loading...</span></div>
+			</td>
+			<td>
+				<span *ngIf="step2" class="badge badge-success">Verified</span>
+				<span *ngIf="!step2" class="badge badge-danger">Failed</span>
+			</td>
+		</tr>
+		<tr *ngIf="isStep3Visivle">
+			<td style="font-weight: 400;">
+				<label *ngIf="step3" style="color: #0abb87;width: 20px;font-size: initial;">&#10003;</label>
+				<label *ngIf="!step3" style="color: #f44336;width: 20px;font-size: initial;">&#10005;</label>
+				Step 3 of 4... Checking not revoked by issuer
+				<div *ngIf="!isStep3Visivle" class="spinner-grow text-success spinner-grow-sm list-hidden" role="status">
+					<span class="sr-only">Loading...</span></div>
+			</td>
+			<td>
+				<span *ngIf="step3" class="badge badge-success">Verified</span>
+				<span *ngIf="!step3" class="badge badge-danger">Failed</span>
+			</td>
+		</tr>
+		<tr *ngIf="isStep4Visivle">
+			<td style="font-weight: 400;">
+				<label *ngIf="step4" style="color: #0abb87;width: 20px;font-size: initial;">&#10003;</label>
+				<label *ngIf="!step4" style="color: #f44336;width: 20px;font-size: initial;">&#10005;</label>
+				Step 4 of 4... Checking authenticity
+				<div *ngIf="!isStep4Visivle" class="spinner-grow text-success spinner-grow-sm list-hidden" role="status">
+					<span class="sr-only">Loading...</span></div>
+			</td>
+			<td>
+				<span *ngIf="step4" class="badge badge-success">Verified</span>
+				<span *ngIf="!step4" class="badge badge-danger">Failed</span>
+			</td>
+		</tr>
+	</table>
+</div>
+

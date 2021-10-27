@@ -1,0 +1,95 @@
+<!-- Modal Title -->
+<h1 mat-dialog-title class="d-flex align-items-center justify-content-between">
+  <h5>
+    {{ 'ISSUER.CERTIFICATE.ADD.HEADER.Title' | translate }} &nbsp;<small>{{
+      'ISSUER.CERTIFICATE.ADD.HEADER.SubTitle' | translate
+    }}</small>
+  </h5>
+  <app-button
+    [ref]="'icon'"
+    [icon]="'close'"
+    class="buttonClose"
+    mat-dialog-close
+  >
+  </app-button>
+</h1>
+<!-- End Modal Title -->
+<!-- Separator -->
+<hr />
+<!-- End Separator -->
+<!-- Modal Content-->
+<div mat-dialog-content>
+  <form class="form" [formGroup]="certificateForm">
+    <div class="row" *ngIf="categorySelected$ | async; let categorySelected">
+      <!-- check if idGenerationTypes is existing -->
+      <ng-container
+        *ngIf="categorySelected['data'].idGenerationType == 'FIELD'"
+      >
+        <app-input
+          class="col-md-12"
+          [label]="'ISSUER.CERTIFICATE.ADD.BODY.ExistingID' | translate"
+          [placeholder]="'ISSUER.CERTIFICATE.ADD.BODY.ExistingID' | translate"
+          formControlName="existingID"
+          [type]="'text'"
+          [appearance]="'outline'"
+        >
+        </app-input>
+      </ng-container>
+      <!-- Design-->
+      <app-select
+        class="col-md-12"
+        [label]="'ISSUER.CERTIFICATE.ADD.BODY.Design' | translate"
+        [placeholder]="'ISSUER.CERTIFICATE.ADD.BODY.Design' | translate"
+        [itemsObservable]="designs$"
+        [ref]="'Observable'"
+        formControlName="design"
+      ></app-select>
+      <!-- Loop over certificate fields -->
+      <ng-container
+        *ngFor="let field of categorySelected['data'].fields.certificate"
+      >
+        <app-datepicker
+          *ngIf="field.type === 'date'; else anotherType"
+          class="col-md-12"
+          [label]="field.name"
+          formControlName="{{ field.name }}"
+          [placeholder]="'dd/mm/yyyy'"
+        ></app-datepicker>
+        <ng-template #anotherType>
+          <app-input
+            class="col-md-12"
+            [label]="field.name"
+            placeholder="{{ field.name }}"
+            formControlName="{{ field.name }}"
+            [type]="field.type"
+            [appearance]="'outline'"
+          >
+          </app-input>
+        </ng-template>
+      </ng-container>
+    </div>
+  </form>
+</div>
+<!-- End Modal Content-->
+<!-- Modal Actions-->
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    mat-raised-button
+    mat-dialog-close
+    [label]="'ISSUER.CERTIFICATE.ADD.FOOTER.CancelButton' | translate"
+    [backgroundColor]="'#f3f6f9'"
+    [fontColor]="'#7e8299'"
+  >
+  </app-button>
+  <app-button
+    color="primary"
+    [label]="'ISSUER.CERTIFICATE.ADD.FOOTER.SubmitButton' | translate"
+    [isDisabled]="certificateForm.invalid"
+    (buttonClick)="addCertificate()"
+    [isLoading]="loading"
+  >
+  </app-button>
+</div>
+<!--   End Modal Actions-->

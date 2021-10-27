@@ -1,0 +1,8 @@
+<app-multiple-upload
+  [categoriesObservable]="category$"
+  [title]="'RECIPIENTORGANIZATION.BODY.UploadRecipient.Title' | translate"
+  [UploadFor]="'recipient'"
+  [_multipleUploadForm]="uploadRecipientsForm"
+  (uploadDataEvent)="UploadDataEvent($event)"
+  (dismissDialog)="Dismiss($event)"
+></app-multiple-upload>

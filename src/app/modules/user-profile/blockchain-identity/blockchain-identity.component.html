@@ -1,0 +1,244 @@
+<!-- <ng-container *ngIf="user"> -->
+<ng-container>
+  <div class="card card-custom pb-5">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="progress progress-modal">
+        <div
+          class="
+            progress-bar progress-bar-striped progress-bar-animated
+            bg-primary
+          "
+          role="progressbar"
+          style="width: 100%"
+          aria-valuenow="100"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+    </ng-container>
+
+    <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark">
+          {{ 'USER_PROFILE.BLOCKCHAIN_IDENTITY.HEADER.title' | translate }}
+        </h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1"
+          >{{ 'USER_PROFILE.BLOCKCHAIN_IDENTITY.HEADER.subTitle' | translate }}
+        </span>
+      </div>
+    </div>
+    <!--end::Header-->
+    <!--begin::Form-->
+    <div class="form">
+      <div class="card-body">
+        <div class="row w-100">
+          <div class="col-12">
+            <fieldset>
+              <legend class="font-weight-bold">
+                {{
+                  'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PRIVATE.title'
+                    | translate
+                }}
+              </legend>
+              <div class="row" *ngIf="GetPrivateKey">
+                <div class="col-12 p-1">
+                  <label class="font-weight-bolder">
+                    {{
+                      'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PRIVATE.key'
+                        | translate
+                    }}
+                  </label>
+                </div>
+              </div>
+              <div class="row" *ngIf="!GetPrivateKey">
+                <div class="col-12 p-1">
+                  <label class="font-weight-bold">{{
+                    'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PRIVATE.subTitle'
+                      | translate
+                  }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 p-1" *ngIf="GetPrivateKey">
+                  <div
+                    [ngClass]="
+                      GetPrivateKey ? 'cursor-pointer' : 'cursor-default'
+                    "
+                    [title]="
+                      GetPrivateKey
+                        ? ('USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PRIVATE.textCopy'
+                          | translate)
+                        : ''
+                    "
+                    (click)="copyInputMessage(idPri)"
+                  >
+                    <div class="input-group mb-3" style="height: 50px">
+                      <input
+                        style="height: 50px; border: 2px dashed #c5c5c5"
+                        type="text"
+                        class="form-control font-weight-bold"
+                        [readonly]="true"
+                        [ngClass]="{
+                          'cursor-pointer': GetPrivateKey,
+                          'cursor-default': !GetPrivateKey,
+                          mouseOver: showHoverPri && GetPrivateKey,
+                          mouseOut: !showHoverPri
+                        }"
+                        (mouseover)="changeClipboardColorPri($event)"
+                        (mouseout)="changeClipboardColorPri($event)"
+                        type="text"
+                        [value]="
+                          GetPrivateKey ??
+                            'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PRIVATE.noKey'
+                            | translate
+                        "
+                        formControlName="identity"
+                        #idPri
+                      />
+                      <div
+                        class="input-group-append"
+                        (mouseover)="changeClipboardColorPri($event)"
+                        (mouseout)="changeClipboardColorPri($event)"
+                      >
+                        <span
+                          class="input-group-text"
+                          style="border: 2px dashed #c5c5c5; border-left: none"
+                          ><i class="fa fa-copy"></i
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-auto p-1 d-none"
+                  [ngClass]="!GetPrivateKey ? 'd-block' : 'd-none'"
+                >
+                  <div class="d-flex align-items-center">
+                    <app-button
+                      [cssClasses]="['px-5', 'py-2']"
+                      [label]="'Generate'"
+                      [isLoading]="isLoadingPrivate"
+                      (buttonClick)="GeneratePrivateKey()"
+                    ></app-button>
+                    <span class="ml-2" *ngIf="isLoadingPrivate">
+                      {{
+                        'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PRIVATE.pleaseWait'
+                          | translate
+                      }}
+                    </span>
+                    <span class="ml-2" *ngIf="!isLoadingPrivate">
+                      {{ msg | translate }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="row w-100" style="margin-top: 30px">
+          <div class="col-12">
+            <fieldset>
+              <legend class="font-weight-bold">
+                {{
+                  'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PUBLIC.title'
+                    | translate
+                }}
+              </legend>
+              <div class="row" *ngIf="GetPublicKey">
+                <div class="col-12 p-1">
+                  <label class="font-weight-bolder">
+                    {{
+                      'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PUBLIC.key'
+                        | translate
+                    }}
+                  </label>
+                </div>
+              </div>
+              <div class="row" *ngIf="!GetPublicKey">
+                <div class="col-12 p-1">
+                  <label class="font-weight-bold">
+                    {{
+                      'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PUBLIC.subTitle'
+                        | translate
+                    }}</label
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 p-1" *ngIf="GetPublicKey">
+                  <div
+                    [ngClass]="
+                      GetPublicKey ? 'cursor-pointer' : 'cursor-default'
+                    "
+                    [title]="
+                      GetPublicKey
+                        ? ('USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PUBLIC.textCopy'
+                          | translate)
+                        : ''
+                    "
+                    (click)="copyInputMessage(idPub)"
+                  >
+                    <div class="input-group mb-3" style="height: 50px">
+                      <input
+                        style="height: 50px; border: 2px dashed #c5c5c5"
+                        type="text"
+                        class="form-control font-weight-bold"
+                        [readonly]="true"
+                        [ngClass]="{
+                          'cursor-pointer': GetPublicKey,
+                          'cursor-default': !GetPublicKey,
+                          mouseOver: showHoverPub && GetPublicKey,
+                          mouseOut: !showHoverPub
+                        }"
+                        (mouseover)="changeClipboardColorPub($event)"
+                        (mouseout)="changeClipboardColorPub($event)"
+                        type="text"
+                        [value]="GetPublicKey ?? 'no key'"
+                        formControlName="identity"
+                        #idPub
+                      />
+                      <div
+                        class="input-group-append"
+                        (mouseover)="changeClipboardColorPub($event)"
+                        (mouseout)="changeClipboardColorPub($event)"
+                      >
+                        <span
+                          class="input-group-text"
+                          style="border: 2px dashed #c5c5c5; border-left: none"
+                          ><i class="fa fa-copy"></i
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-auto p-1 d-none"
+                  [ngClass]="!GetPublicKey ? 'd-block' : 'd-none'"
+                >
+                  <div class="d-flex align-items-center">
+                    <app-button
+                      [cssClasses]="['px-5', 'py-2']"
+                      [label]="
+                        'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PUBLIC.btnGenerate'
+                          | translate
+                      "
+                      [isLoading]="isLoadingPublic"
+                      (buttonClick)="GeneratePublicKey()"
+                    ></app-button>
+                    <span class="ml-2" *ngIf="isLoadingPublic">
+                      {{
+                        'USER_PROFILE.BLOCKCHAIN_IDENTITY.BODY.PUBLIC.pleaseWait'
+                          | translate
+                      }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

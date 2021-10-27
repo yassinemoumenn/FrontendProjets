@@ -1,0 +1,18 @@
+.services-box {
+  padding: 15px 10px;
+} 
+.services-box > i {
+    font-size: 32px;
+    height: 68px;
+    width: 68px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 1.25rem rgba(108, 118, 134, 0.1) !important;
+    line-height: 68px;
+    margin-bottom: 15px;
+  }
+  .services-box:hover i {
+      background-color: #fb3e3e !important;
+      color: #ffffff !important;
+      transition: all 0.3s ease-in-out;
+  }

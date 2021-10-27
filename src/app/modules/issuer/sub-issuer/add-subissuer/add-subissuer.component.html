@@ -1,0 +1,94 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{ title | translate }}
+    {{ data?.id }}
+  </b>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<div class="modal-body p-md-5">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="subIssuerFG">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="'SUBUSER.FNAME' | translate"
+              [placeholder]="'SUBUSER.FNAME' | translate"
+              [formControl]="FirstName"
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="'SUBUSER.LNAME' | translate"
+              [placeholder]="'SUBUSER.LNAME' | translate"
+              [formControl]="LastName"
+            >
+            </app-input>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="'SUBUSER.EMAIL' | translate"
+              [placeholder]="'SUBUSER.EMAIL' | translate"
+              [type]="'email'"
+              [formControl]="Email"
+            >
+            </app-input>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-input
+              [label]="'SUBUSER.PHONE' | translate"
+              [ref]="'phone'"
+              [formControl]="Phone"
+            >
+            </app-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <app-select
+              [label]="'SUBUSER.POSITION' | translate"
+              [placeholder]="'SUBUSER.POSITION' | translate"
+              [items]="positions"
+              [formControl]="Position"
+            ></app-select>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-select
+              [label]="'SUBUSER.PERMISSIONS' | translate"
+              [placeholder]="'SUBUSER.PERMISSIONS' | translate"
+              [items]="permissions"
+              [formControl]="Permissions"
+              [isMultiple]="true"
+            ></app-select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="'SUBUSER.BTNCANCEL' | translate"
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [isDisabled]="!subIssuerFG.valid"
+    [label]="'SUBUSER.BTNCONFIRM' | translate"
+    [color]="'primary'"
+    [isLoading]="isLoading"
+    (buttonClick)="Submit($event)"
+  >
+  </app-button>
+</div>

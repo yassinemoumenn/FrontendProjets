@@ -1,0 +1,54 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "parser": "babel-eslint",
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true,
+        "sourceType": "module"
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "no-var": "error",
+        "eqeqeq": "error",
+        "no-return-await": "warn",
+        "no-unused-expressions": "error",
+        "no-useless-return": "error",
+        "getter-return": "warn",
+        "no-console": "warn",
+        "no-empty": "error",
+        "no-irregular-whitespace": "error",
+        "valid-typeof": "error",
+        "prefer-arrow-callback": "warn",
+        "no-restricted-imports": ["error", "rxjs/Rx", "rxjs/Observable"]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}

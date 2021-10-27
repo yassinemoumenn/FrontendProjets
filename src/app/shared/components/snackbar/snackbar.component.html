@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="snackbar">
+    <div
+      [@fadeInOut]
+      *ngFor="let message of messages"
+      class="snackbar-style snackbar-style-{{
+        message.type
+      }} snackbar-animation"
+    >
+      <div class="snackbar-message">
+        <span class="snackbar-text">{{ message.message | translate }}</span>
+      </div>
+      <div *ngIf="message.action" class="snackbar-button">
+        <button class="btn-class-1 btn-class-2 btn-class-3">
+          {{ message.action | titlecase }}
+        </button>
+      </div>
+      <svg
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        class="snackbar-dismiss"
+        (click)="dismiss(message)"
+      >
+        <polygon
+          fill="inherit"
+          points="11.649 9.882 18.262 3.267 16.495 1.5 9.881 8.114 3.267 1.5 1.5 3.267 8.114 9.883 1.5 16.497 3.267 18.264 9.881 11.65 16.495 18.264 18.262 16.497"
+        ></polygon>
+      </svg>
+    </div>
+  </div>
+</div>

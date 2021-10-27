@@ -1,0 +1,125 @@
+<form>
+  <div class="row">
+    <!-- Filter -->
+    <div class="col-12 col-sm-4 col-md-3 p-0 pr-sm-1">
+      <app-select
+        [label]="'ISSUER.CERTIFICATE.RECIPIENT.FILTER' | translate"
+        [placeholder]="'ISSUER.CERTIFICATE.RECIPIENT.FILTER' | translate"
+        [itemsObservable]="category$"
+        [ref]="'Observable'"
+        (optionSelected)="OptionSelectedFilterAddCertificate($event)"
+      ></app-select>
+    </div>
+    <!-- Search -->
+    <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+      <app-input
+        [label]="'ISSUER.CERTIFICATE.SEARCH' | translate"
+        [placeholder]="'ISSUER.CERTIFICATE.SEARCH' | translate"
+        [ref]="'suffix'"
+        [icon]="'search'"
+        (typingStopped)="ApplySearchAddCertificate($event)"
+      >
+      </app-input>
+    </div>
+  </div>
+</form>
+<div class="table-responsive angular-bootstrap-table">
+  <table
+    mat-table
+    [dataSource]="RecipientDataSource"
+    class="table table-head-custom table-vertical-center overflow-hidden"
+  >
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? AllChecked() : null"
+          color="primary"
+          [checked]="selection.hasValue() && IsAllSelected()"
+          [indeterminate]="selection.hasValue() && !IsAllSelected()"
+          [aria-label]="CheckboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let recipient">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          color="primary"
+          (change)="RecipientChecked(recipient)"
+          [checked]="selection.isSelected(recipient)"
+          [aria-label]="CheckboxLabel(recipient)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Recipient Column -->
+    <ng-container matColumnDef="Recipient">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.RECIPIENT.BODY.Recipient' | translate }}
+      </th>
+      <td class="style-cell" mat-cell *matCellDef="let recipient">
+        <div class="d-flex align-items-center">
+          <div class="mr-3">
+            <img
+              *ngIf="recipient.picture; else NoPic"
+              src="{{ recipient.picture }}"
+              class="pic"
+              style="width: 40px; height: 40px"
+              alt="photo"
+            />
+            <ng-template #NoPic>
+              <span
+                class="
+                  no-pic
+                  bg-light-success
+                  text-success
+                  font-weight-bold font-size-h6
+                "
+              >
+                {{
+                  recipient.firstname.charAt(0).toUpperCase() +
+                    '' +
+                    recipient.lastname.charAt(0).toUpperCase()
+                }}
+              </span>
+            </ng-template>
+          </div>
+          <div class="d-flex flex-column style-text">
+            <a> {{ recipient.firstname + ' ' + recipient.lastname }}</a>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <!-- Email Column-->
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.RECIPIENT.BODY.Email' | translate }}
+      </th>
+      <td class="style-cell" mat-cell *matCellDef="let recipient">
+        <span *ngIf="recipient.email != ''; else noData">{{
+          recipient.email | capitalizeFirstLetter
+        }}</span>
+      </td>
+    </ng-container>
+    <!-- phone Column -->
+    <ng-container matColumnDef="Phone">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ISSUER.CERTIFICATE.RECIPIENT.BODY.Phone' | translate }}
+      </th>
+      <td class="style-cell" mat-cell *matCellDef="let recipient">
+        {{
+          recipient.phone.placeHolder === '' ||
+          recipient.phone.placeHolder === null
+            ? '- - - No Phone - - -'
+            : recipient.phone.placeHolder
+        }}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsAddCertificate"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsAddCertificate"></tr>
+  </table>
+  <div class="table-responsive angular-bootstrap-table"></div>
+</div>
+<ng-template #noData>
+  <span class="text-muted">none</span>
+</ng-template>

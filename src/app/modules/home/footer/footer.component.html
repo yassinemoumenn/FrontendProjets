@@ -1,0 +1,46 @@
+<footer class="footer1">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 margin-t-20">
+        <h4>Subscribe</h4>
+        <div class="text-muted margin-t-20">
+          <p>Signup to Receive Updates.</p>
+        </div>
+
+        <form
+          class="form subscribe"
+          [formGroup]="Subscribeform"
+          (ngSubmit)="subscribeTonewsLetter()"
+        >
+          <input
+            placeholder="Email"
+            class="form-control"
+            formControlName="email"
+            required
+          />
+          <a class="submit">
+            <app-button
+              [ref]="'icon'"
+              [icon]="'send'"
+              (buttonClick)="subscribeTonewsLetter()"
+              [isDisabled]="Subscribeform.invalid"
+            >
+            </app-button>
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="footer-alt">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="float-right pull-none">
+          <p class="copy-rights text-muted">{{ cur_year }} © DocCerts</p>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

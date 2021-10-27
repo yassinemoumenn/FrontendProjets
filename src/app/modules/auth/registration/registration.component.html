@@ -1,0 +1,199 @@
+<div class="current" data-kt-stepper-element="content">
+  <!--begin::Wrapper-->
+  <div class="w-100">
+    <!--begin::Heading-->
+    <div class="pb-10 pb-lg-15">
+      <!--begin::Title-->
+      <h2 class="fw-bolder d-flex align-items-center text-dark">
+        Choose Account Type
+        <i
+          class="fas fa-exclamation-circle ms-2 fs-7"
+          data-bs-toggle="tooltip"
+          title=""
+          data-bs-original-title="Billing is issued based on your selected account type"
+          aria-label="Billing is issued based on your selected account type"
+        ></i>
+      </h2>
+      <!--end::Title-->
+      <!--begin::Notice-->
+      <div class="text-gray-400 fw-bold fs-6">
+        <b> If you need more info, please check out </b>
+      </div>
+      <!--end::Notice-->
+    </div>
+    <!--end::Heading-->
+    <!--begin::Input group-->
+    <div
+      class="
+        fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-valid
+        mb-5
+      "
+    >
+      <!--begin::Row-->
+      <div class="row">
+        <!--begin::Col-->
+        <div class="col-lg-6">
+          <!--begin::Option-->
+          <input
+            type="radio"
+            class="btn-check"
+            name="account_type"
+            value="personal"
+            checked="checked"
+            id="kt_create_account_form_account_type_personal"
+          />
+          <label
+            class="
+              btn btn-outline btn-outline-dashed btn-outline-default
+              p-7
+              d-flex
+              align-items-center
+              mb-10
+            "
+            (click)="changeAccount('organizationTypes')"
+            for="kt_create_account_form_account_type_personal"
+          >
+            <!--begin::Svg Icon | path: icons/duotone/Interface/Briefcase.svg-->
+            <span class="svg-icon svg-icon-3x me-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  opacity="0.25"
+                  d="M2 10C2 8.34315 3.34315 7 5 7H19C20.6569 7 22 8.34315 22 10V19C22 20.6569 20.6569 22 19 22H5C3.34315 22 2 20.6569 2 19V10Z"
+                  fill="#12131A"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M9 4C8.44772 4 8 4.44772 8 5V8C8 8.55228 7.55228 9 7 9C6.44772 9 6 8.55228 6 8V5C6 3.34315 7.34315 2 9 2H15C16.6569 2 18 3.34315 18 5V8C18 8.55228 17.5523 9 17 9C16.4477 9 16 8.55228 16 8V5C16 4.44772 15.5523 4 15 4H9Z"
+                  fill="#12131A"
+                ></path>
+              </svg>
+            </span>
+            <!--end::Svg Icon-->
+            <!--begin::Info-->
+            <span class="d-block fw-bold text-start">
+              <span class="text-dark fw-bolder d-block fs-4 mb-2"
+                >Organization Account</span
+              >
+              <span class="text-gray-400 fw-bold fs-6"
+                ><b>Create Institution account<br /> </b
+              ></span>
+            </span>
+            <!--end::Info-->
+          </label>
+          <!--end::Option-->
+          <div class="fv-plugins-message-container invalid-feedback"></div>
+        </div>
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-lg-6">
+          <!--begin::Option-->
+          <input
+            type="radio"
+            class="btn-check"
+            name="account_type"
+            value="corporate"
+            id="kt_create_account_form_account_type_corporate"
+          />
+          <label
+            class="
+              btn btn-outline btn-outline-dashed btn-outline-default
+              p-7
+              d-flex
+              align-items-center
+            "
+            for="kt_create_account_form_account_type_corporate"
+            (click)="changeAccount('user')"
+          >
+            <!--begin::Svg Icon | path: icons/duotone/Interface/User.svg-->
+            <span class="svg-icon svg-icon-3x me-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M17 6C17 8.76142 14.7614 11 12 11C9.23858 11 7 8.76142 7 6C7 3.23858 9.23858 1 12 1C14.7614 1 17 3.23858 17 6Z"
+                  fill="#121319"
+                ></path>
+                <path
+                  opacity="0.25"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M18.818 14.1248C18.2016 13.4101 17.1428 13.4469 16.3149 13.9001C15.0338 14.6013 13.5635 15 12 15C10.4365 15 8.96618 14.6013 7.68505 13.9001C6.85717 13.4469 5.79841 13.4101 5.182 14.1248C3.82222 15.7014 3 17.7547 3 20V21C3 22.1045 3.89543 23 5 23H19C20.1046 23 21 22.1045 21 21V20C21 17.7547 20.1778 15.7014 18.818 14.1248Z"
+                  fill="#191213"
+                ></path>
+              </svg>
+            </span>
+            <!--end::Svg Icon-->
+            <!--begin::Info-->
+            <span class="d-block fw-bold text-start">
+              <span class="text-dark fw-bolder d-block fs-4 mb-2"
+                >Personal Account</span
+              >
+              <span class="text-gray-400 fw-bold fs-6"
+                ><b>Create Personnal account<br /> </b
+              ></span>
+            </span>
+            <!--end::Info-->
+          </label>
+          <!--end::Option-->
+        </div>
+        <!--end::Col-->
+
+        <button
+          type="button"
+          class="btn btn-lg btn-primary mt-5"
+          style="margin-left: auto"
+          data-kt-stepper-action="next"
+          routerLink="/auth/register/{{ account }}"
+        >
+          Continue
+          <!--begin::Svg Icon | path: icons/duotone/Navigation/Right-2.svg-->
+          <span class="svg-icon svg-icon-4 ms-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              version="1.1"
+            >
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <polygon points="0 0 24 0 24 24 0 24" />
+                <rect
+                  fill="#000000"
+                  opacity="0.5"
+                  transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000)"
+                  x="7.5"
+                  y="7.5"
+                  width="2"
+                  height="9"
+                  rx="1"
+                />
+                <path
+                  d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
+                  fill="#000000"
+                  fill-rule="nonzero"
+                  transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"
+                />
+              </g>
+            </svg>
+          </span>
+          <!--end::Svg Icon-->
+        </button>
+      </div>
+      <!--end::Row-->
+    </div>
+    <!--end::Input group-->
+  </div>
+  <!--end::Wrapper-->
+</div>

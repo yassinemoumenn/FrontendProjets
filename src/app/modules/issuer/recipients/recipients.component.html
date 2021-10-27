@@ -1,0 +1,450 @@
+<div
+  class="container-fluid d-none"
+  [ngClass]="resultsLength > 0 || search !== '' ? 'd-block' : 'd-none'"
+>
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-custom gutter-b">
+        <div class="card-header">
+          <div class="card-title">
+            <h3 class="card-label">
+              {{ 'ISSUER.RECIPIENT.HEADER.Title' | translate }}
+            </h3>
+          </div>
+          <div class="card-toolbar">
+            <div class="dropdown dropdown-inline" ngbDropdown>
+              <button
+                class="btn btn-info"
+                ngbDropdownToggle
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="mdi mdi-format-list-bulleted-type"></i>
+                {{ 'ISSUER.RECIPIENT.HEADER.ExportButton.Title' | translate }}
+                <i class="mdi mdi-chevron-down"></i>
+              </button>
+              <div
+                class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+                ngbDropdownMenu
+              >
+                <ul class="navi">
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="ExportData('exel')"
+                    >
+                      <span class="navi-icon"
+                        ><i class="fas fa-file-excel"></i
+                      ></span>
+                      <span class="navi-text">
+                        {{
+                          'ISSUER.RECIPIENT.HEADER.ExportButton.SubTitle.Excel'
+                            | translate
+                        }}
+                      </span>
+                    </a>
+                  </li>
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="ExportData('csv')"
+                    >
+                      <span class="navi-icon"
+                        ><i class="navi-icon fas fa-file-csv"></i
+                      ></span>
+                      <span class="navi-text">
+                        {{
+                          'ISSUER.RECIPIENT.HEADER.ExportButton.SubTitle.Csv'
+                            | translate
+                        }}
+                      </span>
+                    </a>
+                  </li>
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="ExportData('pdf')"
+                    >
+                      <span class="navi-icon"
+                        ><i class="navi-icon fas fa-file-pdf"></i
+                      ></span>
+                      <span class="navi-text">
+                        {{
+                          'ISSUER.RECIPIENT.HEADER.ExportButton.SubTitle.Pdf'
+                            | translate
+                        }}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            &nbsp;&nbsp;
+
+            <div class="dropdown dropdown-inline" ngbDropdown>
+              <div
+                class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center"
+              >
+                <button
+                  class="btn btn-info"
+                  ngbDropdownToggle
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-format-list-bulleted-type"></i>
+                  {{ 'ISSUER.RECIPIENT.HEADER.ActionButton.Title' | translate }}
+                  <i class="mdi mdi-chevron-down"></i>
+                </button>
+                <i
+                  *ngIf="resultsLengthRequest > 0"
+                  class="symbol-badge bg-danger blink"
+                ></i>
+              </div>
+
+              <div
+                class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+                ngbDropdownMenu
+              >
+                <ul class="navi">
+                  <li class="navi-item">
+                    <a
+                      (click)="OpenDialogAdd()"
+                      class="navi-link cursor-pointer"
+                    >
+                      <span class="navi-icon"
+                        ><i class="flaticon2-plus"></i
+                      ></span>
+                      <span class="navi-text">
+                        {{
+                          'ISSUER.RECIPIENT.HEADER.ActionButton.SubTitle.NewRecipient'
+                            | translate
+                        }}
+                      </span>
+                    </a>
+                  </li>
+                  <li class="navi-item">
+                    <a
+                      (click)="OpenDialogToInviteRecipients()"
+                      class="navi-link cursor-pointer"
+                    >
+                      <span class="navi-icon"
+                        ><i class="fas fa-user-plus"></i
+                      ></span>
+                      <span class="navi-text">
+                        {{
+                          'ISSUER.RECIPIENT.HEADER.ActionButton.SubTitle.InviteRecipients'
+                            | translate
+                        }}
+                      </span>
+                    </a>
+                  </li>
+                  <li class="navi-item">
+                    <a
+                      class="navi-link cursor-pointer"
+                      (click)="OpenDialogToUploadRecipient()"
+                    >
+                      <span class="navi-icon"
+                        ><i class="navi-icon flaticon-upload"></i
+                      ></span>
+                      <span class="navi-text">
+                        {{
+                          'ISSUER.RECIPIENT.HEADER.ActionButton.SubTitle.UploadRecipients'
+                            | translate
+                        }}
+                      </span>
+                    </a>
+                  </li>
+                  <li class="navi-item">
+                    <a
+                      (click)="OpenDialogRequests()"
+                      [ngClass]="resultsLengthRequest > 0 ? '' : 'disbale'"
+                      class="navi-link cursor-pointer"
+                    >
+                      <span class="navi-icon"
+                        ><i class="navi-icon flaticon2-pen"></i
+                      ></span>
+                      <span class="navi-text">
+                        {{
+                          'ISSUER.RECIPIENT.HEADER.ActionButton.SubTitle.RecipientRequests'
+                            | translate
+                        }}
+                      </span>
+                      <span class="navi-label">
+                        <span
+                          class="label label-light-danger label-rounded font-weight-bold"
+                          [ngClass]="resultsLengthRequest > 0 ? '' : 'd-none'"
+                          >{{ resultsLengthRequest }}</span
+                        >
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Add - Edit Recipient Template -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateAddEdit>
+                <app-add-edit-recipient
+                  [data]="dataSendToEditAddCompo.data"
+                  [categories]="dataSendToEditAddCompo.categories"
+                  [title]="dataSendToEditAddCompo.title"
+                  [action]="dataSendToEditAddCompo.action"
+                  [_recipientFG]="recipientFG"
+                  [showSpinnerEmail]="showSpinnerEmail"
+                  [showSpinnerUsername]="showSpinnerUsername"
+                  [showSpinnerPhone]="showSpinnerPhone"
+                  (dismissDialog)="Dismiss($event)"
+                  (addRecipient)="AddRecipient($event)"
+                  (editRecipient)="EditRecipient($event)"
+                  (countryChanged)="CountryChanged($event)"
+                ></app-add-edit-recipient>
+              </ng-template>
+            </div>
+          </div>
+
+          <!-- Display Recipients -->
+          <div class="row">
+            <div class="col-12">
+              <app-view-recipient
+                [recipients]="recipients"
+                [_paginator]="paginator"
+                [events]="subjetDeleteMuti | async"
+                (applySearch)="ApplySearch($event)"
+                (openDialiogToEdit)="OpenDialogToEdit($event)"
+                (openDialiogToDelete)="OpenDialiogToDelete($event)"
+                (openDialiogToAssignCategory)="
+                  OpenDialiogToAssignCategory($event)
+                "
+                (openDialiogToFullRecipientFields)="
+                  OpenDialogToFullRecipientFields($event)
+                "
+              ></app-view-recipient>
+            </div>
+          </div>
+          <!-- If there is no data -->
+          <div class="row" *ngIf="resultsLength === 0 && search !== ''">
+            <div
+              class="col-12 d-flex justify-content-center p-3 font-weight-bold"
+            >
+              no records found !
+            </div>
+          </div>
+
+          <!-- Assign Categories -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateAsssignCategories>
+                <app-assign-categories
+                  [recipient]="recipientIDToAssignCatCompo"
+                  [recipientName]="recipientNameToAssignCatCompo"
+                  [_categories]="_categories"
+                  (assignCategory)="AssignCategory($event)"
+                  (dismissDialog)="Dismiss($event)"
+                ></app-assign-categories>
+              </ng-template>
+            </div>
+          </div>
+
+          <!-- Upload Recipients -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateUploadRecipients>
+                <app-multiple-upload
+                  [categoriesObservable]="categoriesAsObservable$"
+                  [title]="'Upload recipients'"
+                  [UploadFor]="'recipient'"
+                  [_multipleUploadForm]="uploadRecipientsForm"
+                  (uploadDataEvent)="UploadDataEvent($event)"
+                  (dismissDialog)="Dismiss($event)"
+                ></app-multiple-upload>
+              </ng-template>
+            </div>
+          </div>
+
+          <!-- Export recipients -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateExportRecipients>
+                <app-export
+                  [exportTo]="exportTo"
+                  [DATA]="recipientsObs$"
+                  [fileName]="'Recipients'"
+                  [headers]="[
+                    'firstname',
+                    'lastname',
+                    'email',
+                    'phone',
+                    'Date of birth'
+                  ]"
+                  (dismissDialog)="Dismiss($event)"
+                >
+                </app-export>
+              </ng-template>
+            </div>
+          </div>
+          <!-- Recipient Requests -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateRecipientRequest>
+                <app-request-recipient
+                  [recipientRequests]="recipientRequests"
+                  (acceptRecipient)="AcceptRecipient($event)"
+                  (rejectRecipient)="RejectRecipient($event)"
+                  (dismissDialog)="Dismiss($event)"
+                ></app-request-recipient>
+                <app-pagination
+                  #PaginationComponent2
+                  [length]="resultsLengthRequest"
+                  [isLoading]="isLoadingRequests"
+                  [pageSizeOptions]="[5]"
+                  (pageEvent)="OnPaginatonRequestsPaged($event)"
+                ></app-pagination>
+              </ng-template>
+            </div>
+          </div>
+
+          <!-- Invite Recipients -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateInviteRecipients>
+                <app-invite-recipients
+                  [categories]="categories"
+                  (inviteRecipients)="InviteRecipients($event)"
+                  (searchRecipient)="SearchRecipient($event)"
+                  [events]="eventsSubject | async"
+                  (dismissDialog)="Dismiss($event)"
+                ></app-invite-recipients>
+              </ng-template>
+            </div>
+          </div>
+          <!-- Full recipient fields -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateFullRecipientsFields>
+                <app-full-recipient-fields
+                  [recipientDataToFull]="recipientDataToFull"
+                  (fullRecipientFieldForm)="fullRecipientFields($event)"
+                ></app-full-recipient-fields>
+              </ng-template>
+            </div>
+          </div>
+          <!-- Send credentials -->
+          <div class="row">
+            <div class="col-12">
+              <ng-template #templateSendCredentials>
+                <div
+                  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+                >
+                  <b class="modal-title">
+                    {{
+                      'ISSUER.RECIPIENT.BODY.SendCredentials.Title' | translate
+                    }}
+                  </b>
+                  <app-button
+                    [ref]="'icon'"
+                    [icon]="'close'"
+                    (buttonClick)="Dismiss($event)"
+                  >
+                  </app-button>
+                </div>
+
+                <div class="modal-body p-md-5">
+                  <div class="row">
+                    <div class="col-12">
+                      <h5>
+                        {{
+                          'ISSUER.RECIPIENT.BODY.SendCredentials.Question'
+                            | translate
+                        }}
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-12">
+                      <mat-slide-toggle
+                        class="example-margin"
+                        color="primary"
+                        [checked]="false"
+                        #slideT
+                      >
+                        <span *ngIf="!slideT.checked">
+                          {{
+                            'ISSUER.RECIPIENT.BODY.SendCredentials.ResponseNo'
+                              | translate
+                          }}
+                        </span>
+                        <span *ngIf="slideT.checked">
+                          {{
+                            'ISSUER.RECIPIENT.BODY.SendCredentials.ResponseYes'
+                              | translate
+                          }}
+                        </span>
+                      </mat-slide-toggle>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+                >
+                  <app-button
+                    [label]="
+                      'ISSUER.RECIPIENT.BODY.SendCredentials.CancelButton'
+                        | translate
+                    "
+                    [backgroundColor]="'#fff'"
+                    [fontColor]="'#000'"
+                    (buttonClick)="Dismiss($event)"
+                  >
+                  </app-button>
+                  <app-button
+                    [isDisabled]="!slideT.checked"
+                    [label]="
+                      'ISSUER.RECIPIENT.BODY.SendCredentials.ConfirmButton'
+                        | translate
+                    "
+                    [color]="'primary'"
+                    [cssClasses]="['px-5']"
+                    (buttonClick)="SendCredentials()"
+                  >
+                  </app-button>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <!-- Pagination -->
+          <div class="row" [ngClass]="resultsLength > 0 ? 'd-block' : 'd-none'">
+            <div class="col-12">
+              <app-pagination
+                #PaginationComponent1
+                [length]="resultsLength"
+                [isLoading]="isLoading"
+                (pageEvent)="OnPaginatonPaged($event)"
+              ></app-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- If there isn't data -->
+<div
+  class="row d-none"
+  [ngClass]="resultsLength === 0 && search === '' ? 'd-block' : 'd-none'"
+>
+  <div class="col-12">
+    <app-empty-list
+      [Title]="'ISSUER.RECIPIENT.BODY.EmptyList.Title' | translate"
+      [Description]="'ISSUER.RECIPIENT.BODY.EmptyList.Description' | translate"
+      [LabelButton]="'ISSUER.RECIPIENT.BODY.EmptyList.LabelButton' | translate"
+      [Image]="'../../../../../assets/media/svg/misc/Recipient.svg'"
+      (ButtonClickEvent)="OpenDialogAdd()"
+    ></app-empty-list>
+  </div>
+</div>

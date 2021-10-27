@@ -1,0 +1,836 @@
+<div>
+  <!-- <pre>{{ categoryForm.value | json }}</pre> -->
+  <form [formGroup]="categoryForm">
+    <div class="modal-body" *ngIf="!step2">
+      <label for="Delegate_firstname" class="form-control-label">
+        {{ 'ISSUER.CATEGORY.TYPE_CERTIF_ID' | translate }}
+      </label>
+      <div class="input-group row">
+        <br />
+        <mat-radio-group
+          formControlName="idGenerationType"
+          value="idGenerationType"
+        >
+          <div class="row">
+            <div class="col-md-3">
+              <mat-radio-button class="example-radio-button" value="AUTOMATIC">
+                Automatic
+              </mat-radio-button>
+            </div>
+            <div class="col-md-3">
+              <mat-radio-button class="example-radio-button" value="CUSTOM">
+                Custom
+              </mat-radio-button>
+            </div>
+            <div class="col-md-3">
+              <mat-radio-button class="example-radio-button" value="FIELD">
+                Existing
+              </mat-radio-button>
+            </div>
+          </div>
+        </mat-radio-group>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-4">
+          <app-input
+            [label]="'ISSUER.CATEGORY.CATEGORYNAME' | translate"
+            [cssClasses]="['inputWhidth']"
+            placeholder="Enter a category name"
+            formControlName="name"
+          >
+          </app-input>
+        </div>
+        <!-- Signers-->
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>{{ 'ISSUER.CATEGORY.SIGNERS' | translate }}</mat-label>
+            <mat-select
+              id="select"
+              formControlName="signers"
+              multiple
+              (closed)="onPanelSinersClose()"
+            >
+              <mat-form-field class="example-full-width">
+                <mat-icon matSuffix style="margin-right: 15px">search</mat-icon>
+
+                <input
+                  matInput
+                  [formControl]="filtersignersControl"
+                  type="text"
+                  name="filter-options"
+                  id="filter-options"
+                  placeholder="Search"
+                  autocomplete="off"
+                  style="text-indent: 15px"
+                />
+              </mat-form-field>
+              <mat-option
+                *ngFor="let option of filteredsignersOptions | async"
+                [value]="option.id"
+                [hidden]="option.show == false"
+              >
+                <img
+                  *ngIf="option.picture; else NoPic"
+                  class="pic"
+                  style="width: 40px; height: 40px"
+                  src="{{ option.picture }}"
+                  alt="photo"
+                />
+                <ng-template #NoPic>
+                  <span class="pic text-success bg-light-success">
+                    {{
+                      option.firstname.charAt(0).toUpperCase() +
+                        '' +
+                        option.lastname.charAt(0).toUpperCase()
+                    }}
+                  </span>
+                </ng-template>
+
+                <span>
+                  {{ option.firstname + ' ' + option.lastname }}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!--  -------- -->
+
+        <!-- Verifiers-->
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>{{ 'ISSUER.CATEGORY.VERIFIERS' | translate }}</mat-label>
+
+            <mat-select
+              id="select"
+              formControlName="verifiers"
+              multiple
+              (closed)="onPanelClose()"
+            >
+              <mat-form-field class="example-full-width">
+                <mat-icon matSuffix style="margin-right: 15px">search</mat-icon>
+
+                <input
+                  matInput
+                  [formControl]="filterControl"
+                  type="text"
+                  name="filter-options"
+                  id="filter-options"
+                  placeholder="Search"
+                  autocomplete="off"
+                  style="text-indent: 15px"
+                />
+              </mat-form-field>
+              <mat-option
+                *ngFor="let option of filteredOptions | async"
+                [value]="option.id"
+                [hidden]="option.show == false"
+              >
+                <img
+                  *ngIf="option.picture; else NoPic"
+                  class="pic"
+                  style="width: 40px; height: 40px"
+                  src="{{ option.picture }}"
+                  alt="photo"
+                />
+                <ng-template #NoPic>
+                  <span class="pic text-success bg-light-success">
+                    {{
+                      option.firstname.charAt(0).toUpperCase() +
+                        '' +
+                        option.lastname.charAt(0).toUpperCase()
+                    }}
+                  </span>
+                </ng-template>
+
+                <span>
+                  {{ option.firstname + ' ' + option.lastname }}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!--  -------- -->
+      </div>
+
+      <!-- <form id="BOX">
+        <div class="myform-group row">
+          <label>List of verifiers</label>
+          <div class="row Box" id="verifiers"></div>
+        </div>
+      </form>
+      <br />
+
+      <form id="BOXsigners">
+        <div class="myform-group row">
+          <label>List of signers</label>
+          <div class="row Box" id="signers"></div>
+        </div>
+      </form>
+      <br /> -->
+      <!-- </div> -->
+
+      <div class="row">
+        <div class="col-md-6">
+          <app-select
+            [label]="'ISSUER.CATEGORY.CATEGORY_FIELD' | translate"
+            [placeholder]="'ISSUER.CATEGORY.CATEGORY_FIELD' | translate"
+            [items]="certificateFieldsNames"
+            [isMultiple]="true"
+            formControlName="certificateFields"
+          ></app-select>
+        </div>
+
+        <div class="col-md-3">
+          <app-button
+            color="primary"
+            [label]="'Blockchain'"
+            (buttonClick)="open(content)"
+            [isDisabled]="categoryForm.controls['certificateFields'].invalid"
+            [cssClasses]="['REmoveBtn']"
+          >
+          </app-button>
+        </div>
+
+        <div class="col-md-3">
+          <app-button
+            [label]="'ISSUER.CATEGORY.NEWFIELD' | translate"
+            (buttonClick)="open(content2)"
+            backgroundColor="white"
+            fontColor="#3662f4"
+            [cssClasses]="['REmoveBtn']"
+          >
+          </app-button>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="row">
+        <div class="col-md-6">
+          <app-select
+            [label]="'ISSUER.CATEGORY.RECIPIENT_FIELD' | translate"
+            [placeholder]="'ISSUER.CATEGORY.RECIPIENT_FIELD' | translate"
+            [items]="recipientFieldsNames"
+            [isMultiple]="true"
+            formControlName="recipientFields"
+          ></app-select>
+        </div>
+        <div class="col-md-3">
+          <app-button
+            color="primary"
+            [label]="'Blockchain'"
+            (buttonClick)="open(content1)"
+            [isDisabled]="categoryForm.controls['recipientFields'].invalid"
+            [cssClasses]="['REmoveBtn']"
+          >
+          </app-button>
+        </div>
+
+        <div class="col-md-3">
+          <app-button
+            [label]="'ISSUER.CATEGORY.NEWFIELD' | translate"
+            (buttonClick)="open(content3)"
+            backgroundColor="white"
+            fontColor="#3662f4"
+            [cssClasses]="['REmoveBtn']"
+          >
+          </app-button>
+        </div>
+      </div>
+
+      <br />
+    </div>
+
+    <div *ngIf="step2">
+      <div>
+        <!-- IdChamp
+        <pre>{{ IdChamp.value | json }}</pre>
+
+        SaveIDChamp
+        <pre>{{ SaveIDChamp.value | json }}</pre> -->
+        <form [formGroup]="IdChamp">
+          <div formArrayName="Nchamp" class="col-sm-12">
+            <div>
+              <label
+                ><b> {{ 'ISSUER.CATEGORY.GENERATE_ID_TITEL' | translate }} </b
+                ><br />
+              </label>
+              <div align="right" style="float: right">
+                <app-button
+                  ref="icon"
+                  icon="add_box"
+                  (buttonClick)="ajouterUnchampPassword()"
+                  backgroundColor="#3699ff"
+                  fontColor="#ffffff "
+                >
+                </app-button>
+              </div>
+            </div>
+            <div>
+              <div
+                *ngFor="
+                  let row of IdChamp.controls.Nchamp['controls'];
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
+                <div class="row">
+                  <div>
+                    <div class="text-center" style="height: 73px">
+                      <app-button
+                        ref="icon"
+                        icon="delete_forever"
+                        (buttonClick)="DeleteUnchampPassword(row, i)"
+                        backgroundColor="#ffffff"
+                        fontColor="#f64e60"
+                        [cssClasses]="['sizDelet']"
+                      >
+                      </app-button>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field
+                      class="example-full-width"
+                      appearance="outline"
+                    >
+                      <mat-label>
+                        {{
+                          SaveIDChamp.value.Nchamp[i].value === ''
+                            ? 'Value'
+                            : SaveIDChamp.value.Nchamp[i].value.name
+                        }}
+                      </mat-label>
+                      <mat-select
+                        mat-button
+                        formControlName="value"
+                        [matMenuTriggerFor]="options"
+                      >
+                        <mat-menu #options="matMenu">
+                          <button
+                            mat-menu-item
+                            [matMenuTriggerFor]="OPtionsToChoos"
+                            (mouseenter)="IDOption('IssuerProfile')"
+                          >
+                            Issuer Profile
+                          </button>
+                          <button
+                            mat-menu-item
+                            [matMenuTriggerFor]="OPtionsToChoos"
+                            (mouseenter)="IDOption('Certificatefields')"
+                          >
+                            Certificate fields
+                          </button>
+                          <button
+                            mat-menu-item
+                            [matMenuTriggerFor]="OPtionsToChoos"
+                            (mouseenter)="IDOption('Recipientfields')"
+                          >
+                            Recipient fields
+                          </button>
+                          <button
+                            mat-menu-item
+                            [matMenuTriggerFor]="OPtionsToChoos"
+                            (mouseenter)="IDOption('organizationProfile')"
+                          >
+                            Organization Profile
+                          </button>
+                          <button
+                            mat-menu-item
+                            [matMenuTriggerFor]="OPtionsToChoos"
+                            (mouseenter)="IDOption('IssueDate')"
+                          >
+                            Issue date
+                          </button>
+                        </mat-menu>
+
+                        <mat-menu #OPtionsToChoos="matMenu">
+                          <mat-radio-group formControlName="value">
+                            <div *ngIf="List.length !== 0; else noData">
+                              <div *ngFor="let option of List">
+                                <mat-radio-button
+                                  [value]="option.value"
+                                  (change)="radioChange(option, i)"
+                                  style="
+                                    margin-left: 12px;
+                                    font-size: 18px;
+                                    height: 35px;
+                                  "
+                                >
+                                  {{ option.name }}
+                                </mat-radio-button>
+                              </div>
+                            </div>
+                          </mat-radio-group>
+                        </mat-menu>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div
+                    class="col-md-3"
+                    *ngIf="SaveIDChamp.value.Nchamp[i].value.type !== 'date'"
+                  >
+                    <app-input
+                      [label]="'Length'"
+                      placeholder="Length"
+                      type="number"
+                      [cssClasses]="['inputField']"
+                      formControlName="Ncaracter"
+                      (typingStopped)="lengthchange(i)"
+                    >
+                    </app-input>
+                  </div>
+                  <div
+                    class="row"
+                    style="padding-top: 20px"
+                    *ngIf="SaveIDChamp.value.Nchamp[i].value.type === 'date'"
+                  >
+                    <mat-checkbox
+                      [value]="'day'"
+                      formControlName="day"
+                      class="dateStyle"
+                      (change)="checkboxDateChange($event, i)"
+                    >
+                      Day
+                    </mat-checkbox>
+                    <mat-checkbox
+                      [value]="'mounth'"
+                      formControlName="month"
+                      class="dateStyle"
+                      (change)="checkboxDateChange($event, i)"
+                    >
+                      Mounth
+                    </mat-checkbox>
+                    <mat-checkbox
+                      [value]="'year'"
+                      formControlName="year"
+                      class="dateStyle"
+                      (change)="checkboxDateChange($event, i)"
+                    >
+                      Year
+                    </mat-checkbox>
+                  </div>
+
+                  <br />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-12 ID" id="ID" align="left"></div>
+      <!-- <div class="p-3 d-flex justify-content-center justify-content-md-end">
+        <app-button
+          [isDisabled]="IdChamp.invalid"
+          [label]="'generate Custom ID '"
+          [color]="'primary'"
+          [cssClasses]="['px-5']"
+          (buttonClick)="generateID()"
+        >
+        </app-button>
+      </div> -->
+    </div>
+    <div
+      class="
+        modal-footer
+        p-3
+        d-flex
+        justify-content-center justify-content-md-end
+      "
+    >
+      <app-button
+        [label]="'ISSUER.CATEGORY.CANCEL' | translate"
+        [backgroundColor]="'#fff'"
+        [fontColor]="'#000'"
+        (buttonClick)="close()"
+      >
+      </app-button>
+      <div *ngIf="step2">
+        <app-button
+          [isDisabled]="categoryForm.invalid"
+          label="Previeus"
+          [color]="'primary'"
+          [cssClasses]="['px-5']"
+          (buttonClick)="previeus()"
+        >
+        </app-button>
+      </div>
+      <div *ngIf="categoryForm.value.idGenerationType === 'CUSTOM' && !step2">
+        <app-button
+          [isDisabled]="categoryForm.invalid"
+          label="Next"
+          [color]="'primary'"
+          [cssClasses]="['px-5']"
+          (buttonClick)="nextStep()"
+        >
+        </app-button>
+      </div>
+      <div *ngIf="categoryForm.value.idGenerationType !== 'CUSTOM' || step2">
+        <app-button
+          [isDisabled]="categoryForm.invalid"
+          [label]="'ISSUER.CATEGORY.CONFIRM' | translate"
+          [color]="'primary'"
+          [cssClasses]="['px-5']"
+          (buttonClick)="onConfirmClick()"
+        >
+        </app-button>
+      </div>
+    </div>
+  </form>
+
+  <ng-template #content let-c="close" let-d="dismiss" style="overflow: auto">
+    <div class="modal-header">
+      <h4 class="modal-title" style="padding-right: 70px">
+        {{ 'ISSUER.CATEGORY.Add_Certificate_Fields_in_Blockchain' | translate }}
+      </h4>
+
+      <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="closePupUp()">
+      </app-button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="categoryForm">
+        <div class="form-group">
+          <label for=""
+            ><b>
+              {{ 'ISSUER.CATEGORY.Category_Certificate' | translate }}</b
+            ></label
+          >
+
+          <mat-selection-list
+            formControlName="certificateblockchainFields"
+            #shoes
+          >
+            <div>
+              <mat-list-option
+                *ngFor="let Field of categoryForm.value.certificateFields"
+                [value]="Field"
+              >
+                {{ Field }}
+              </mat-list-option>
+            </div>
+          </mat-selection-list>
+
+          <small id="helpId" class="text-muted">
+            {{ 'ISSUER.CATEGORY.Options_selected' | translate }}:
+            {{ shoes.selectedOptions.selected.length }}</small
+          >
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <app-button
+        [label]="'ISSUER.CATEGORY.CLOSE' | translate"
+        (buttonClick)="closePupUp()"
+        backgroundColor="#ffffff"
+        fontColor="#000000"
+      >
+      </app-button>
+
+      <app-button
+        color="primary"
+        [label]="'ISSUER.CATEGORY.SAVE' | translate"
+        (buttonClick)="closePupUp()"
+      >
+      </app-button>
+    </div>
+  </ng-template>
+
+  <ng-template #content1 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" style="padding-right: 70px">
+        {{ 'ISSUER.CATEGORY.Add_Recipient_Fields_in_Blockchain' | translate }}
+      </h4>
+
+      <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="closePupUp()">
+      </app-button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="categoryForm">
+        <div class="form-group">
+          <label for=""
+            ><b>
+              {{ 'ISSUER.CATEGORY.Category_Recipient' | translate }}
+            </b></label
+          >
+          <mat-selection-list
+            formControlName="recipientblockchainFields"
+            #shoes
+          >
+            <div>
+              <mat-list-option
+                *ngFor="let Field of categoryForm.value.recipientFields"
+                [value]="Field"
+              >
+                {{ Field }}
+              </mat-list-option>
+            </div>
+          </mat-selection-list>
+
+          <small id="helpId" class="text-muted"
+            >{{ 'ISSUER.CATEGORY.Options_selected' | translate }} :
+            {{ shoes.selectedOptions.selected.length }}
+          </small>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <app-button
+        [label]="'ISSUER.CATEGORY.CLOSE' | translate"
+        (buttonClick)="closePupUp()"
+        backgroundColor="#ffffff"
+        fontColor="#000000"
+      >
+      </app-button>
+
+      <app-button
+        color="primary"
+        [label]="'ISSUER.CATEGORY.SAVE' | translate"
+        (buttonClick)="closePupUp()"
+      >
+      </app-button>
+    </div>
+  </ng-template>
+
+  <ng-template #content2 let-c="close" let-d="dismiss" style="overflow: auto">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        {{ 'ISSUER.CATEGORY.Add_Certificate_Fields' | translate }}
+      </h4>
+
+      <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="closePupUp()">
+      </app-button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addFileds">
+        <div
+          formArrayName="certificate"
+          class="col-sm-12"
+          #addCertificateFiledRow
+        >
+          <label
+            ><b>{{
+              'ISSUER.CATEGORY.Add_Certificate_Fields_TITEL' | translate
+            }}</b></label
+          >
+          <div class="button-row" align="right">
+            <p>
+              <app-button
+                ref="icon"
+                icon="add_box"
+                (buttonClick)="NewCertificateFiledRow()"
+                backgroundColor="#3699ff"
+                fontColor="#ffffff "
+              >
+              </app-button>
+            </p>
+          </div>
+
+          <table
+            *ngFor="
+              let row of addFileds.controls.certificate['controls'];
+              let i = index
+            "
+            [formGroupName]="i"
+          >
+            <thead>
+              <tr>
+                <th>{{ 'ISSUER.CATEGORY.FieldsNAME' | translate }}</th>
+                <th>{{ 'ISSUER.CATEGORY.FieldsTIPE' | translate }}</th>
+
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <app-input
+                        [cssClasses]="['inputField']"
+                        placeholder="Name"
+                        formControlName="name"
+                      >
+                      </app-input>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <app-select
+                        formControlName="type"
+                        placeholder="Type"
+                        [cssClasses]="['TYPE']"
+                        [items]="fieldTypes"
+                      ></app-select>
+                    </div>
+                  </div>
+                </td>
+
+                <td style="padding-bottom: 12px">
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <div class="text-center" style="height: 73px">
+                        <app-button
+                          [label]="'ISSUER.CATEGORY.REMOVE' | translate"
+                          (buttonClick)="DeleteCertifFiled(row, i)"
+                          backgroundColor="#ffffff"
+                          fontColor="#f64e60"
+                          [cssClasses]="['REmoveBtn']"
+                        >
+                        </app-button>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <br />
+                <br />
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <app-button
+        [label]="'ISSUER.CATEGORY.CLOSE' | translate"
+        (buttonClick)="closePupUp()"
+        backgroundColor="#ffffff"
+        fontColor="#000000"
+      >
+      </app-button>
+
+      <app-button
+        color="primary"
+        [label]="'ISSUER.CATEGORY.SAVE' | translate"
+        (buttonClick)="AddCertificatFields()"
+        [isDisabled]="addFileds.get('certificate')!.invalid"
+      >
+      </app-button>
+    </div>
+  </ng-template>
+
+  <ng-template #content3 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        {{ 'ISSUER.CATEGORY.Add_Recipient_Fields' | translate }}
+      </h4>
+
+      <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="closePupUp()">
+      </app-button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addFileds">
+        <div
+          formArrayName="recipient"
+          class="col-sm-12"
+          #addCertificateFiledRow
+        >
+          <label
+            ><b>{{
+              'ISSUER.CATEGORY.Add_RecipientFields_TITEL' | translate
+            }}</b></label
+          >
+          <div class="button-row" align="right">
+            <p>
+              <app-button
+                ref="icon"
+                icon="add_box"
+                (buttonClick)="NewRecipientFiledRow()"
+                backgroundColor="#3699ff "
+                fontColor="#ffffff"
+              >
+              </app-button>
+            </p>
+          </div>
+
+          <table
+            *ngFor="
+              let row of addFileds.controls.recipient['controls'];
+              let i = index
+            "
+            [formGroupName]="i"
+          >
+            <thead>
+              <tr>
+                <th>{{ 'ISSUER.CATEGORY.FieldsNAME' | translate }}</th>
+                <th>{{ 'ISSUER.CATEGORY.FieldsTIPE' | translate }}</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <app-input
+                        [cssClasses]="['inputField']"
+                        placeholder="Name"
+                        formControlName="name"
+                      >
+                      </app-input>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <app-select
+                        [cssClasses]="['selectTypes']"
+                        placeholder="'Type'"
+                        formControlName="type"
+                        [cssClasses]="['TYPE']"
+                        [items]="fieldTypes"
+                      ></app-select>
+                    </div>
+                  </div>
+                </td>
+
+                <td style="padding-bottom: 12px">
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <div class="text-center" style="height: 73px">
+                        <app-button
+                          [label]="'ISSUER.CATEGORY.REMOVE' | translate"
+                          (buttonClick)="DeleteRecipientFiled(row, i)"
+                          backgroundColor="#ffffff"
+                          fontColor="#f64e60"
+                          [cssClasses]="['REmoveBtn']"
+                        >
+                        </app-button>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <br />
+                <br />
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <app-button
+        [label]="'ISSUER.CATEGORY.CLOSE' | translate"
+        (buttonClick)="closePupUp()"
+        backgroundColor="#ffffff"
+        fontColor="#000000"
+      >
+      </app-button>
+      <app-button
+        color="primary"
+        [label]="'ISSUER.CATEGORY.SAVE' | translate"
+        (buttonClick)="AddRecipientFields()"
+        [isDisabled]="addFileds.get('recipient')!.invalid"
+      >
+      </app-button>
+    </div>
+  </ng-template>
+  <ng-template #noData>
+    <span class="text-muted">none</span>
+  </ng-template>
+</div>

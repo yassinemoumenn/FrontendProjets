@@ -1,0 +1,162 @@
+<div class="responsivStyle">
+  <table
+    id="#my-table"
+    mat-table
+    [dataSource]="Groups$"
+    matSort
+    matSortDirection="desc"
+    (matSortChange)="sortData($event)"
+    class="table table-head-custom table-vertical-center overflow-hidden"
+  >
+    <!--  Name -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="name">
+        {{ 'ORGANIZATION.GROUPS.LISTING.NAME' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let group">
+        <span *ngIf="group.name">
+          {{ group.name | capitalizeFirstLetter }}</span
+        >
+      </td>
+    </ng-container>
+    <!-- -------------------------------------- -->
+    <!-- Issuer -->
+    <ng-container matColumnDef="issuer">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ORGANIZATION.GROUPS.LISTING.ISSUER' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let group">
+        <span *ngIf="group.issuer; else noData">
+          {{ group.issuer }}
+        </span>
+      </td>
+    </ng-container>
+    <!-- -------------------------------------- -->
+
+    <!-- recipients -->
+    <ng-container matColumnDef="recipients">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ORGANIZATION.GROUPS.LISTING.RECIPIENTS' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let group" class="text-align:center">
+        <span *ngIf="group.recipients.length > 0; else noData">
+          {{ group.recipients.length }}
+        </span>
+      </td>
+    </ng-container>
+    <!-- -------------------------------------- -->
+
+    <!-- signers -->
+    <ng-container matColumnDef="signers">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ORGANIZATION.GROUPS.LISTING.SIGNERS' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let group" class="text-align:center">
+        <span *ngIf="group.signers.length > 0; else noData" \>
+          {{ group.signers.length }}
+        </span>
+      </td>
+    </ng-container>
+    <!-- -------------------------------------- -->
+
+    <!-- signers -->
+    <ng-container matColumnDef="credit">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ 'ORGANIZATION.GROUPS.LISTING.CREDIT' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let group">
+        <span
+          *ngIf="group.credits < 5"
+          class="text-center badge badge-danger pl-4 pr-4"
+        >
+          {{ group.credits }}
+        </span>
+
+        <span
+          *ngIf="group.credits >= 5 && group.credits < 10"
+          class="badge badge-warning pl-4 pr-4"
+        >
+          {{ group.credits }}</span
+        >
+        <span *ngIf="group.credits >= 10" class="badge badge-primary pl-4 pr-4">
+          {{ group.credits }}</span
+        >
+      </td>
+    </ng-container>
+    <!-- -------------------------------------- -->
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center">
+        Actions
+      </th>
+      <td mat-cell *matCellDef="let group">
+        <div class="text-center d-flex justify-content-center">
+          <div>
+            <a
+              class="
+                btn btn-icon btn-light btn-hover-primary btn-sm
+                mx-3
+                edlitIcon
+              "
+              matTooltip="{{
+                'ORGANIZATION.GROUPS.LISTING.EDITGROUP' | translate
+              }}"
+              (click)="Edit(group)"
+            >
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
+                class="svg-icon svg-icon-md svg-icon-primary"
+              ></span>
+            </a>
+          </div>
+          <div>
+            <a
+              class="
+                btn btn-icon btn-light btn-hover-danger btn-sm
+                mx-3
+                edlitIcon
+              "
+              matTooltip="{{
+                'ORGANIZATION.GROUPS.LISTING.DELETEGROUP' | translate
+              }}"
+              (click)="Delete(group.id)"
+            >
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                class="svg-icon svg-icon-md svg-icon-danger"
+              ></span>
+            </a>
+          </div>
+          <div>
+            <a
+              class="
+                btn btn-icon btn-light btn-hover-success btn-sm
+                mx-3
+                edlitIcon
+              "
+              [matTooltipDisabled]="orgCredit === 0 && group.credits === 0"
+              [class.disabled]="
+                orgCredit === 0 && group.credits === 0 ? true : null
+              "
+              matTooltip="{{ 'ORGANIZATION.GROUPS.LISTING.SEND' | translate }}"
+              (click)="SendCredit(group)"
+            >
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/Communication/Share.svg'"
+                class="svg-icon svg-icon-md svg-icon-success"
+              ></span>
+            </a>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <!-- -------------------------------------- -->
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+  <ng-template #noData>
+    <span class="text-muted">none</span>
+  </ng-template>
+</div>

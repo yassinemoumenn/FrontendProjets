@@ -1,0 +1,123 @@
+::ng-deep .mat-form-field-flex {
+  margin-top: auto !important;
+}
+::ng-deep .mat-form-field-flex {
+  margin-top: auto !important;
+}
+
+%picPlaceholder {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 100%;
+  line-height: 40px;
+  text-align: center;
+}
+.pic {
+  @extend %picPlaceholder;
+}
+
+::ng-deep .mat-action-row {
+  border-top-style: none !important;
+  border-top-width: 0px !important;
+  display: flex !important;
+  width: 100% !important;
+  flex-direction: row !important;
+  justify-content: space-evenly !important;
+  padding: 0px 0px 0px 24px !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0px 0px !important;
+}
+
+::ng-deep .mat-expansion-panel-spacing {
+  margin: 0px 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 0px !important;
+}
+
+::ng-deep .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  //  box-shadow: 0px !important;
+}
+
+::ng-deep .example-tree-invisible {
+  display: none !important;
+}
+
+::ng-deep .example-tree ul,
+.example-tree li {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  list-style-type: none !important;
+}
+
+::ng-deep .example-tree .mat-nested-tree-node div[role="group"] {
+  padding-left: 40px !important;
+}
+
+::ng-deep .example-tree div[role="group"] > .mat-tree-node {
+  padding-left: 40px !important;
+}
+
+// ::ng-deep .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+//   // box-shadow: 0 0 black !important;
+// }
+
+::ng-deep .mySelect > .mat-select-trigger > .mat-select-arrow-wrapper {
+  display: none;
+}
+
+.padding {
+  padding-top: 10px;
+}
+.edit {
+  cursor: pointer;
+
+  position: relative;
+  top: 5px;
+}
+
+::ng-deep .mat-select-panel {
+  position: relative !important;
+  right: 79px !important;
+  min-width: calc(100% + 48px) !important;
+}
+.option-font-size {
+  font-size: large;
+
+  font-weight: bold;
+}
+ul {
+  padding: 0;
+  li:not(:first-child) {
+    margin-top: 20px;
+  }
+  li {
+    .parent {
+      margin: 0;
+    }
+    .parent:first-child {
+      background-color: #fff;
+      .border-left-status {
+        border-left: solid 1px #c2c3c7;
+      }
+    }
+    .parent:hover:first-child {
+      background-color: #e2e3e5;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .mat-menu-panel {
+  min-width: 240px !important;
+  margin-left: 25% !important;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-top: 5px !important;
+  padding-bottom: 10px !important;
+}

@@ -1,0 +1,120 @@
+<section class="section" id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <h1 class="section-title text-center">CONTACT US</h1>
+        <div class="section-title-border margin-t-20"></div>
+        <p
+          class="
+            section-subtitle
+            text-muted text-center
+            font-secondary
+            padding-t-30
+            landFont
+          "
+        >
+          Reach out for a new project or just say hello
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="custom-form mt-4 pt-4">
+          <div id="message"></div>
+          <form [formGroup]="Contactform" (ngSubmit)="sendMessage()">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group mt-2">
+                  <input
+                    name="name"
+                    formControlName="name"
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    placeholder="Your name*"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group mt-2">
+                  <input
+                    name="email"
+                    formControlName="email"
+                    id="email"
+                    type="email"
+                    class="form-control"
+                    placeholder="Your email*"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group mt-2">
+                  <input
+                    type="text"
+                    formControlName="subject"
+                    class="form-control"
+                    id="subject"
+                    placeholder="Your Subject.."
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group mt-2">
+                  <textarea
+                    name="comments"
+                    id="comments"
+                    formControlName="message"
+                    rows="4"
+                    class="form-control"
+                    placeholder="Your message..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 text-right" style="margin-left: auto">
+                <app-button
+                  [backgroundColor]="'#f85f89'"
+                  [fontColor]="'#fff'"
+                  [label]="'Send Message'"
+                  (buttonClick)="sendMessage()"
+                  [isDisabled]="Contactform.invalid"
+                  [isLoading]="isLoading"
+                >
+                </app-button>
+
+                <div id="simple-msg"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 margin-t-30">
+        <p class="margin-b-0 contact-title">
+          <i class="pe-7s-call"></i> &nbsp;+966554408447
+        </p>
+      </div>
+      <div class="col-lg-3 margin-t-30 text-right">
+        <p class="contact-title">
+          <i class="pe-7s-mail-open"></i>&nbsp; info@doccerts.com
+        </p>
+      </div>
+      <div class="col-lg-6 margin-t-30 text-left">
+        <p class="margin-b-0 contact-title">
+          <i class="pe-7s-map-marker"></i> &nbsp;King Fahd University of
+          Petroleum and Minerals First floor Dhahran 34464
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

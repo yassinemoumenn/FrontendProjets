@@ -1,0 +1,525 @@
+<ng-template #Data>
+  <div class="card card-custom gutter-b">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">
+          {{ 'ISSUER.CERTIFICATE.VIEW.HEADER.Title' | translate }}
+        </h3>
+      </div>
+      <div class="card-toolbar">
+        <div class="dropdown dropdown-inline" ngbDropdown>
+          <button
+            class="btn btn-info"
+            ngbDropdownToggle
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="mdi mdi-format-list-bulleted-type"></i>
+            {{
+              'ISSUER.CERTIFICATE.VIEW.HEADER.ExportButton.Title' | translate
+            }}
+            <i class="mdi mdi-chevron-down"></i>
+          </button>
+          <div
+            class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+            ngbDropdownMenu
+          >
+            <ul class="navi">
+              <li class="navi-item">
+                <a
+                  (click)="openExportExcelDialog(exportExcel)"
+                  class="navi-link cursor-pointer"
+                >
+                  <span class="navi-icon"
+                    ><i class="fas fa-file-excel"></i
+                  ></span>
+                  <span class="navi-text">
+                    {{
+                      'ISSUER.CERTIFICATE.VIEW.HEADER.ExportButton.SubTitle.Excel'
+                        | translate
+                    }}</span
+                  >
+                </a>
+              </li>
+              <li class="navi-item">
+                <a
+                  (click)="openExportCsvDialog(exportCsv)"
+                  class="navi-link cursor-pointer"
+                >
+                  <span class="navi-icon"
+                    ><i class="navi-icon fas fa-file-csv"></i
+                  ></span>
+                  <span class="navi-text">
+                    {{
+                      'ISSUER.CERTIFICATE.VIEW.HEADER.ExportButton.SubTitle.Csv'
+                        | translate
+                    }}</span
+                  >
+                </a>
+              </li>
+              <li class="navi-item">
+                <a
+                  (click)="openExportPdfDialog(exportPdf)"
+                  class="navi-link cursor-pointer"
+                >
+                  <span class="navi-icon"
+                    ><i class="navi-icon fas fa-file-pdf"></i
+                  ></span>
+                  <span class="navi-text">
+                    {{
+                      'ISSUER.CERTIFICATE.VIEW.HEADER.ExportButton.SubTitle.Pdf'
+                        | translate
+                    }}</span
+                  >
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        &nbsp;&nbsp;
+        <div class="dropdown dropdown-inline" ngbDropdown>
+          <div
+            class="
+              symbol symbol-60 symbol-xxl-100
+              mr-5
+              align-self-start align-self-xxl-center
+            "
+            *ngIf="filteredCertificates$; let filteredCertificates"
+          >
+            <button
+              class="btn btn-info"
+              ngbDropdownToggle
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-format-list-bulleted-type"></i>
+              {{
+                'ISSUER.CERTIFICATE.VIEW.HEADER.ActionButton.Title' | translate
+              }}
+              <i class="mdi mdi-chevron-down"></i>
+            </button>
+            <i
+              *ngIf="filteredCertificates.length > 0"
+              class="symbol-badge bg-danger blink"
+            ></i>
+          </div>
+          <div
+            class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+            ngbDropdownMenu
+          >
+            <ul class="navi">
+              <li class="navi-item">
+                <a
+                  (click)="openNewCertificateDialog(addCertificateContent)"
+                  class="navi-link cursor-pointer"
+                >
+                  <span class="navi-icon"><i class="flaticon2-plus"></i></span>
+                  <span class="navi-text">
+                    {{
+                      'ISSUER.CERTIFICATE.VIEW.HEADER.ActionButton.SubTitle.NewCertificate'
+                        | translate
+                    }}</span
+                  >
+                </a>
+              </li>
+              <li class="navi-item">
+                <a
+                  (click)="openUploadDialog(uploadContent)"
+                  class="navi-link cursor-pointer"
+                >
+                  <span class="navi-icon"
+                    ><i class="navi-icon flaticon-upload"></i
+                  ></span>
+                  <span class="navi-text">
+                    {{
+                      'ISSUER.CERTIFICATE.VIEW.HEADER.ActionButton.SubTitle.UploadCertificates'
+                        | translate
+                    }}</span
+                  >
+                </a>
+              </li>
+              <li
+                class="navi-item"
+                *ngIf="filteredCertificates$; let filteredCertificates"
+              >
+                <a
+                  *ngIf="
+                    filteredCertificates.length > 0;
+                    else NoSignedCertificate
+                  "
+                  (click)="openIssueDialog(issueCertificateContent)"
+                  class="navi-link cursor-pointer"
+                >
+                  <span class="navi-icon"
+                    ><i class="navi-icon flaticon2-pen"></i
+                  ></span>
+                  <span class="navi-text">
+                    {{
+                      'ISSUER.CERTIFICATE.VIEW.HEADER.ActionButton.SubTitle.IssueCertificates'
+                        | translate
+                    }}</span
+                  >
+                  <span class="navi-label">
+                    <span
+                      *ngIf="filteredCertificates.length > 0"
+                      class="
+                        label label-light-danger label-rounded
+                        font-weight-bold
+                      "
+                      >{{ filteredCertificates.length }}</span
+                    >
+                  </span>
+                </a>
+                <ng-template #NoSignedCertificate>
+                  <a class="navi-link" disabled>
+                    <span class="navi-icon"
+                      ><i class="navi-icon flaticon2-pen"></i
+                    ></span>
+                    <span class="navi-text">
+                      {{
+                        'ISSUER.CERTIFICATE.VIEW.HEADER.ActionButton.SubTitle.IssueCertificates'
+                          | translate
+                      }}</span
+                    >
+                  </a>
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="certificates$; let certificate" class="card-body">
+      <!-- Begin View Certificate-->
+      <app-view-certificate
+        [dialog]="dialog"
+        [certificateData$]="certificates$"
+        [_paginator]="paginator"
+        (revokeClicked)="revokeCertificate({ reason: $event })"
+        (deleteClicked)="deleteCertificate({ certificateID: $event })"
+        (optionSelectedFilterViewCertificate)="
+          OptionSelectedFilterViewCertificate($event)
+        "
+        (applySearchViewCertificate)="ApplySearchViewCertificate($event)"
+      ></app-view-certificate>
+      <!-- end View Certificate -->
+    </div>
+    <app-pagination
+      #view
+      [length]="certificates$.length ?? 0"
+      [isLoading]="isLoading"
+      (pageEvent)="OnPaginatonPagedViewCertificate($event)"
+    ></app-pagination>
+  </div>
+</ng-template>
+<!-- Begin Modal of add certificate-->
+<ng-template #addCertificateContent let-c="close" let-d="dismiss">
+  <!-- Modal Title -->
+  <h1
+    mat-dialog-title
+    class="d-flex align-items-center justify-content-between"
+  >
+    <h5>
+      {{ 'ISSUER.CERTIFICATE.RECIPIENT.HEADER.Title' | translate }} &nbsp;
+      <small>
+        {{ 'ISSUER.CERTIFICATE.RECIPIENT.HEADER.SubTitle' | translate }}</small
+      >
+    </h5>
+    <app-button
+      [ref]="'icon'"
+      [icon]="'close'"
+      class="buttonClose"
+      mat-dialog-close
+    >
+    </app-button>
+  </h1>
+  <!-- End Modal Title -->
+  <!-- Separator -->
+  <hr />
+  <!-- End Separator -->
+  <!-- Modal Content-->
+  <div mat-dialog-content>
+    <app-add-certificate
+      [RecipientData]="recipient"
+      [selection]="selection"
+      [category$]="category$"
+      [_paginator]="paginator_Add"
+      (optionSelectedFilterAddCertificate)="
+        OptionSelectedFilterAddCertificate($event)
+      "
+      (applySearchAddCertificate)="ApplySearchAddCertificate($event)"
+    ></app-add-certificate>
+    <app-pagination
+      #add
+      [length]="resultsLengthRecipient"
+      [isLoading]="isLoading"
+      [pageSizeOptions]="[5]"
+      (pageEvent)="OnPaginatonPagedRecipient($event)"
+    ></app-pagination>
+  </div>
+  <!-- End Modal Content-->
+  <!-- Modal Actions-->
+  <!-- <mat-dialog-actions align="end"> -->
+  <div
+    class="
+      modal-footer
+      p-3
+      d-flex
+      justify-content-center justify-content-md-end
+    "
+  >
+    <app-button
+      mat-dialog-close
+      [label]="'ISSUER.CERTIFICATE.RECIPIENT.FOOTER.CancelButton' | translate"
+      [backgroundColor]="'#f3f6f9'"
+      [fontColor]="'#7e8299'"
+    >
+    </app-button>
+    <app-button
+      [color]="'primary'"
+      [label]="'ISSUER.CERTIFICATE.RECIPIENT.FOOTER.NextButton' | translate"
+      [isDisabled]="selection.selected?.length === 0"
+      (buttonClick)="openFieldCertificateDialog(fieldContent)"
+    >
+    </app-button>
+  </div>
+  <!-- </mat-dialog-actions> -->
+  <!--   End Modal Actions-->
+</ng-template>
+<!-- End  Modal of add certificate-->
+<!-- Begin Modal of field certificate-->
+<ng-template #fieldContent let-c="close" let-d="dismiss">
+  <app-field-certificate
+    [designs$]="designs$"
+    [categorySelected$]="categorySelected$"
+    (addCertificateForm)="OnAddClicked({ formAdd: $event })"
+  ></app-field-certificate>
+</ng-template>
+<!-- End Modal of field certificate-->
+
+<!-- Begin Modal of upload certificate-->
+<ng-template #uploadContent let-c="close" let-d="dismiss">
+  <app-upload-certificate
+    [category$]="category$"
+    [AllDesigns$]="AllDesigns$"
+    [recipientToUpload$]="recipientToUpload$"
+    (dismissDialog)="Dismiss($event)"
+    (uploadCertificateData)="uploadCertificate($event)"
+  ></app-upload-certificate>
+</ng-template>
+<!-- End Modal of upload certificate-->
+
+<!-- Begin Modal of issue certificate-->
+<ng-template #issueCertificateContent let-c="close" let-d="dismiss">
+  <!-- Modal Title -->
+  <h1
+    mat-dialog-title
+    class="d-flex align-items-center justify-content-between"
+  >
+    <h5>
+      {{ 'ISSUER.CERTIFICATE.ISSUE.HEADER.Title' | translate }} &nbsp;
+      <small>
+        {{ 'ISSUER.CERTIFICATE.ISSUE.HEADER.SubTitle.Sub' | translate }}
+        <label style="color: #3699ff">
+          {{
+            'ISSUER.CERTIFICATE.ISSUE.HEADER.SubTitle.Public' | translate
+          }}</label
+        >
+        {{ 'ISSUER.CERTIFICATE.ISSUE.HEADER.SubTitle.And' | translate }}
+        <label style="color: #ff4081">
+          {{
+            'ISSUER.CERTIFICATE.ISSUE.HEADER.SubTitle.Private' | translate
+          }}</label
+        >
+        {{
+          'ISSUER.CERTIFICATE.ISSUE.HEADER.SubTitle.Network' | translate
+        }}</small
+      >
+    </h5>
+    <app-button
+      [ref]="'icon'"
+      [icon]="'close'"
+      class="buttonClose"
+      mat-dialog-close
+    >
+    </app-button>
+  </h1>
+  <!-- End Modal Title -->
+  <!-- Separator -->
+  <hr />
+  <!-- End Separator -->
+  <!-- Modal Content-->
+  <div
+    *ngIf="filteredCertificates$; let filteredCertificates"
+    mat-dialog-content
+  >
+    <app-issue-certificate
+      [filteredCertificates]="filteredCertificates$ ?? undefined"
+      [selectionIssuePrivate]="selectionIssuePrivate"
+      [selectionIssuePublic]="selectionIssuePublic"
+      [selectionCounter]="selectionCounter"
+      [category$]="category$"
+      [_paginator]="paginator_Issue"
+      (prepareSelectedCertificates)="
+        prepareSelectedCertificatesForCreditTransactions({ Counter: $event })
+      "
+      (optionSelectedFilterIssueCertificate)="
+        OptionSelectedFilterIssueCertificate($event)
+      "
+      (applySearchIssueCertificate)="ApplySearchIssueCertificate($event)"
+    ></app-issue-certificate>
+  </div>
+  <app-pagination
+    #issue
+    [length]="filteredCertificates$?.length ?? 0"
+    [isLoading]="isLoading"
+    [pageSizeOptions]="[10]"
+    (pageEvent)="OnPaginatonPagedIssue($event)"
+  ></app-pagination>
+  <!-- End Modal Content-->
+  <!-- Separator -->
+  <hr />
+  <!-- End Separator -->
+  <!-- Modal Footer-->
+  <!-- Modal Actions-->
+  <mat-dialog-actions align="end">
+    <app-button
+      mat-raised-button
+      mat-dialog-close
+      [label]="'ISSUER.CERTIFICATE.ISSUE.FOOTER.CancelButton' | translate"
+      [backgroundColor]="'#f3f6f9'"
+      [fontColor]="'#7e8299'"
+    >
+    </app-button>
+    &nbsp;&nbsp;
+    <app-button
+      color="primary"
+      [label]="'ISSUER.CERTIFICATE.ISSUE.FOOTER.IssueButton' | translate"
+      [isDisabled]="
+        (selectionIssuePublic.selected?.length === 0 &&
+          selectionIssuePrivate.selected?.length === 0) ||
+        loading
+      "
+      (buttonClick)="IssueCertificate()"
+    >
+    </app-button>
+  </mat-dialog-actions>
+  <!--   End Modal Actions-->
+  <!-- End Modal Footer-->
+</ng-template>
+<!-- End Modal of issue certificate-->
+<!--Begin Modal export excel-->
+<ng-template #exportExcel let-c="close" let-d="dismiss">
+  <app-export
+    [exportTo]="'exel'"
+    [DATA]="dataToExport$"
+    [headers]="[
+      'certificateID',
+      'recipient.firstname',
+      'recipient.lastname',
+      'recipient.email',
+      'category.name',
+      'design.name',
+      'state.status',
+      'state.createdAt'
+    ]"
+    [displayedHeaders]="[
+      'Certificate ID',
+      'Recipients`s First Name',
+      'Recipients`s Last Name',
+      'Recipient`s Email',
+      'Category Name',
+      'Design Name',
+      'Status',
+      'Date Created'
+    ]"
+    [fileName]="'Certificate'"
+    (dismissDialog)="Dismiss($event)"
+    (CancelClick)="Dismiss($event)"
+  ></app-export>
+</ng-template>
+<!-- End modal export excel-->
+<!--Begin Modal export Csv-->
+<ng-template #exportCsv let-c="close" let-d="dismiss">
+  <app-export
+    [exportTo]="'csv'"
+    [DATA]="dataToExport$"
+    [headers]="[
+      'certificateID',
+      'recipient.firstname',
+      'recipient.lastname',
+      'recipient.email',
+      'category.name',
+      'design.name',
+      'state.status',
+      'state.createdAt'
+    ]"
+    [displayedHeaders]="[
+      'Certificate ID',
+      'Recipients`s First Name',
+      'Recipients`s Last Name',
+      'Recipient`s Email',
+      'Category Name',
+      'Design Name',
+      'Status',
+      'Date Created'
+    ]"
+    [fileName]="'Certificate'"
+    (dismissDialog)="Dismiss($event)"
+    (CancelClick)="Dismiss($event)"
+  ></app-export>
+</ng-template>
+<!-- End modal export Csv-->
+<!--Begin Modal export Pdf-->
+<ng-template #exportPdf let-c="close" let-d="dismiss">
+  <app-export
+    [exportTo]="'pdf'"
+    [DATA]="dataToExport$"
+    [headers]="[
+      'certificateID',
+      'recipient.firstname',
+      'recipient.lastname',
+      'recipient.email',
+      'category.name',
+      'design.name',
+      'state.status',
+      'state.createdAt'
+    ]"
+    [displayedHeaders]="[
+      'Certificate ID',
+      'Recipients`s First Name',
+      'Recipients`s Last Name',
+      'Recipient`s Email',
+      'Category Name',
+      'Design Name',
+      'Status',
+      'Date Created'
+    ]"
+    [fileName]="'Certificate'"
+    (dismissDialog)="Dismiss($event)"
+    (CancelClick)="Dismiss($event)"
+  ></app-export>
+</ng-template>
+<!-- End modal export Pdf-->
+<!-- If there isn't data -->
+<div
+  *ngIf="
+      certificates$.length === 0 &&
+      searchViewCertificate === '' &&
+      filterViewCertificate === '';
+    else Data
+  "
+  class="card card-custom gutter-b"
+>
+  <app-empty-list
+    [Image]="'../../../../assets/media/svg/misc/Certificate.svg'"
+    [Title]="'ISSUER.CERTIFICATE.NODATA.Title' | translate"
+    [Description]="'ISSUER.CERTIFICATE.NODATA.Description' | translate"
+    [LabelButton]="'ISSUER.CERTIFICATE.NODATA.Button' | translate"
+    (ButtonClickEvent)="openNewCertificateDialog(addCertificateContent)"
+  >
+  </app-empty-list>
+</div>

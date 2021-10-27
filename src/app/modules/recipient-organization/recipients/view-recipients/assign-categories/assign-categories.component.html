@@ -1,0 +1,266 @@
+<div
+  class="modal-header p-md-5 d-flex align-items-center justify-content-between"
+>
+  <b class="modal-title">
+    {{
+      this.recipientIDs.length === 1
+        ? ('RECIPIENTORGANIZATION.BODY.RequestsCategories.Title' | translate)
+        : ('RECIPIENTORGANIZATION.BODY.ViewRecipients.Title_' | translate)
+    }}
+  </b>
+  <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="Dismiss($event)">
+  </app-button>
+</div>
+<div class="modal-body p-md-5">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <div class="row w-100">
+        <div class="col border" style="min-height: 300px">
+          <div class="row">
+            <div
+              class="
+                col-12
+                border-bottom
+                text-center
+                p-3
+                font-weight-bold
+                _header
+              "
+            >
+              {{
+                'RECIPIENTORGANIZATION.BODY.RequestsCategories.Organizations'
+                  | translate
+              }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <form>
+                  <app-input
+                    [placeholder]="
+                      'RECIPIENTORGANIZATION.BODY.RequestsCategories.Search'
+                        | translate
+                    "
+                    [type]="'text'"
+                    [ref]="'suffix'"
+                    [icon]="'search'"
+                    (typingStopped)="SearchOrganization($event)"
+                  >
+                  </app-input>
+                </form>
+              </div>
+              <div>
+                <ul
+                  class="list"
+                  *ngIf="
+                    organizationsDataSource.filteredData.length > 0;
+                    else noOrgs
+                  "
+                >
+                  <li
+                    *ngFor="let org of organizationsDataSource.filteredData"
+                    (click)="ClickedOrganization(org)"
+                    [ngClass]="clickedOrg === org.id ? '_selected' : ''"
+                  >
+                    <span class="_content">
+                      {{ org.name }}
+                    </span>
+                    <span
+                      class="_indicator"
+                      [ngStyle]="
+                        clickedOrg === org.id
+                          ? { transform: 'rotate(-90deg)' }
+                          : { transform: 'rotate(0deg)' }
+                      "
+                    ></span>
+                  </li>
+                </ul>
+                <ng-template #noOrgs>
+                  <div class="text-center font-weight-bold">
+                    {{
+                      'RECIPIENTORGANIZATION.BODY.RequestsCategories.NoData'
+                        | translate
+                    }}
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col border">
+          <div class="row">
+            <div
+              class="
+                col-12
+                border-bottom
+                text-center
+                p-3
+                font-weight-bold
+                _header
+              "
+            >
+              {{
+                'RECIPIENTORGANIZATION.BODY.RequestsCategories.Groups'
+                  | translate
+              }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <form>
+                  <app-input
+                    [label]="
+                      'RECIPIENTORGANIZATION.BODY.RequestsCategories.Search'
+                        | translate
+                    "
+                    [placeholder]="
+                      'RECIPIENTORGANIZATION.BODY.RequestsCategories.Search'
+                        | translate
+                    "
+                    [type]="'text'"
+                    [ref]="'suffix'"
+                    [icon]="'search'"
+                    (typingStopped)="SearchGroup($event)"
+                  >
+                  </app-input>
+                </form>
+              </div>
+              <div>
+                <ul
+                  class="list"
+                  *ngIf="groupsDataSource.filteredData.length > 0; else noGrps"
+                >
+                  <li
+                    *ngFor="let grp of groupsDataSource.filteredData"
+                    (click)="ClickedGroup(grp.id)"
+                    [ngClass]="clickedGrp === grp.id ? '_selected' : ''"
+                  >
+                    <span class="_content">
+                      {{ grp.name }}
+                    </span>
+                    <span
+                      class="_indicator"
+                      [ngStyle]="
+                        clickedGrp === grp.id
+                          ? { transform: 'rotate(-90deg)' }
+                          : { transform: 'rotate(0deg)' }
+                      "
+                    ></span>
+                  </li>
+                </ul>
+                <ng-template #noGrps>
+                  <div class="text-center font-weight-bold">
+                    {{
+                      'RECIPIENTORGANIZATION.BODY.RequestsCategories.NoData'
+                        | translate
+                    }}
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col border">
+          <div class="row">
+            <div
+              class="
+                col-12
+                border-bottom
+                text-center
+                p-3
+                font-weight-bold
+                _header
+              "
+            >
+              {{
+                'RECIPIENTORGANIZATION.BODY.RequestsCategories.Categories'
+                  | translate
+              }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <form>
+                  <app-input
+                    [label]="
+                      'RECIPIENTORGANIZATION.BODY.RequestsCategories.Search'
+                        | translate
+                    "
+                    [placeholder]="
+                      'RECIPIENTORGANIZATION.BODY.RequestsCategories.Search'
+                        | translate
+                    "
+                    [type]="'text'"
+                    [ref]="'suffix'"
+                    [icon]="'search'"
+                    (typingStopped)="SearchCategory($event)"
+                  >
+                  </app-input>
+                </form>
+              </div>
+              <div>
+                <ul *ngIf="categoriesDataSource.filteredData.length > 0">
+                  <li
+                    *ngFor="let cat of categoriesDataSource.filteredData"
+                    class="mt-2"
+                  >
+                    <mat-checkbox
+                      id="{{ cat.id }}"
+                      #check
+                      [checked]="checkedCats.indexOf(check.id) >= 0"
+                      (change)="CatChecked(check.id, check.checked)"
+                    >
+                      <span style="display: block; position: relative">
+                        {{ cat.name }}
+                      </span>
+                    </mat-checkbox>
+                  </li>
+                </ul>
+                <div
+                  class="text-center font-weight-bold"
+                  [ngClass]="
+                    categoriesDataSource.filteredData.length === 0
+                      ? 'd-block'
+                      : 'd-none'
+                  "
+                >
+                  {{
+                    'RECIPIENTORGANIZATION.BODY.RequestsCategories.NoData'
+                      | translate
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    [label]="
+      'RECIPIENTORGANIZATION.BODY.RequestsCategories.CancelButton' | translate
+    "
+    [backgroundColor]="'#fff'"
+    [fontColor]="'#000'"
+    (buttonClick)="Dismiss($event)"
+  >
+  </app-button>
+  <app-button
+    [label]="
+      'RECIPIENTORGANIZATION.BODY.RequestsCategories.ConfirmButton' | translate
+    "
+    [isDisabled]="checkedCats.length === 0"
+    [color]="'primary'"
+    [isLoading]="isLoading"
+    [cssClasses]="['px-4']"
+    (buttonClick)="SaveChange()"
+  >
+  </app-button>
+</div>

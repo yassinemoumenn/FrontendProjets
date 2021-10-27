@@ -1,0 +1,71 @@
+.forma {
+  width: 145%;
+  padding: 0.5rem 0.75rem;
+}
+
+.mouseOver {
+  font-size: 1.12rem;
+  background-color: #dbffdb;
+}
+
+.mouseOut {
+  background-color: none;
+}
+
+.input-group.input-group-lg i {
+  margin-left: 120px;
+}
+
+.input-group.input-group-solid.input-group-lg {
+  width: 110%;
+}
+
+.public-private-key {
+  cursor: pointer;
+}
+.public-private-key:hover {
+  background-color: rgb(216, 220, 221);
+}
+.isActive {
+  background-color: rgb(216, 220, 221);
+}
+.body {
+  min-height: 120px;
+}
+.cursor-copy {
+  cursor: copy;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-wait {
+  cursor: wait;
+}
+
+::ng-deep .form-control:focus {
+  border: 1px solid #e4e6ee;
+}
+
+.width-btn-100 {
+  width: 100px;
+}
+
+fieldset {
+  font-family: sans-serif;
+  border: 2px solid #ddd;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 15px;
+}
+
+fieldset legend {
+  background: rgb(255, 255, 255);
+  width: 160px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  box-shadow: 0 0 0 2px #ddd;
+  margin-left: 0px;
+}

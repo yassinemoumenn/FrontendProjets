@@ -1,0 +1,104 @@
+<ng-container *ngTemplateOutlet="ref === 'DropDown' ? DropDownRef : ButtonRef">
+</ng-container>
+
+<ng-template #ButtonRef
+  ><section class="card p-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto text-center pt-10 pb-5">
+          <h2 class="fs-2x fw-bolder mb-5">{{ Title }}</h2>
+          <p
+            class="text-gray-400 fs-4 fw-bold mb-10"
+            style="white-space: pre-line"
+          >
+            {{ Description }}
+          </p>
+          <button class="btn mb-10" (click)="BtnCkick()" *ngIf="LabelButton">
+            {{ LabelButton }}
+          </button>
+          <img [src]="Image" />
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+<ng-template #DropDownRef>
+  <section class="card p-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto text-center pt-10 pb-5">
+          <h2 class="fs-2x fw-bolder mb-5">{{ Title }}</h2>
+          <p
+            class="text-gray-400 fs-4 fw-bold mb-10"
+            style="white-space: pre-line"
+          >
+            {{ Description }}
+          </p>
+
+          <div
+            class="card-toolbar"
+            style="display: flex; align-items: center; justify-content: center"
+          >
+            <div class="row">
+              <!-- request modal -->
+
+              <div>
+                <div class="dropdown dropdown-inline" ngbDropdown>
+                  <button
+                    class="btn btn-info"
+                    ngbDropdownToggle
+                    data-toggle="dropdown"
+                    aria-haspopup="false"
+                    aria-expanded="false"
+                  >
+                    <i class="mdi mdi-format-list-bulleted-type"></i>
+                    {{ LabelButton }}
+                    <i class="mdi mdi-chevron-down"></i>
+                  </button>
+
+                  <div
+                    class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+                    ngbDropdownMenu
+                  >
+                    <ul class="navi dropdown-menu dropdown-primary">
+                      <li
+                        *ngFor="let opt of options; let i = index"
+                        class="navi-item"
+                      >
+                        <a
+                          (click)="DDCkick(opt)"
+                          class="navi-link cursor-pointer"
+                        >
+                          <span class="navi-icon">
+                            <mat-icon> {{ opt.icon }}</mat-icon>
+                          </span>
+                          <span class="navi-text"> {{ opt.value }}</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <img [src]="Image" />
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+<!-- how yo use -->
+
+<!-- <app-empty-list
+ [Title]="'ISSUER.RECIPIENT.BODY.EmptyList.Title' | translate"
+ [Description]="'ISSUER.RECIPIENT.BODY.EmptyList.Description' | translate"
+ [LabelButton]="'ISSUER.RECIPIENT.BODY.EmptyList.LabelButton' | translate"
+ [Image]="'../../../../../assets/media/svg/misc/Recipient.svg'"
+ (ButtonClickEvent)="OpenDialogAdd()"
+ [ref]="'DropDown'"
+ [options]="[
+   { key: 'xxx', value: 'xxx', icon: 'xxx' },
+   { key: 'yyy', value: 'yyy', icon: 'yyy' }
+ ]"
+ (DropDownClickEvent)="DbcLick($event)"
+></app-empty-list> -->

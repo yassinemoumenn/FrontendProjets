@@ -1,0 +1,84 @@
+<div class="card card-custom card-stretch gutter-b">
+  <!-- Header -->
+  <div class="card-header align-items-center border-0 mt-4">
+    <a class="navi-item cursor-pointer" routerLink="/my-activity">
+      <h3 class="card-title align-items-start flex-column">
+        <span class="font-weight-bolder text-dark">My Activity</span>
+      </h3>
+    </a>
+    <div class="card-toolbar">
+      <div
+        ngbDropdown
+        placement="bottom-right"
+        class="dropdown dropdown-inline"
+        title="Quick actions"
+      >
+        <a
+          ngbDropdownToggle
+          class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="ki ki-bold-more-hor"></i>
+        </a>
+        <div
+          ngbDropdownMenu
+          class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+        >
+          <app-dropdown-menu1></app-dropdown-menu1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="card-body pt-4 ScrollBar">
+    <div class="timeline timeline-6 mt-3">
+      <!--begin::Item-->
+      <div
+        class="timeline-item align-items-start"
+        *ngFor="let item of userActivities"
+      >
+        <!--begin::Label-->
+        <div
+          class="timeline-label font-weight-bolder text-dark-75 font-size-lg"
+        >
+          {{ item.timestamp }}
+        </div>
+        <!--end::Label-->
+
+        <!--begin::Badge-->
+        <div class="timeline-badge" [ngSwitch]="item.activityType">
+          <i class="fa fa-gender" *ngSwitchCase="0"></i>
+          <i
+            class="fa fa-genderless text-primary icon-xl"
+            *ngSwitchCase="1"
+          ></i>
+          <i class="fa fa-genderless text-danger icon-xl" *ngSwitchCase="2"></i>
+          <i
+            class="fa fa-genderless text-secondary icon-xl"
+            *ngSwitchDefault
+          ></i>
+        </div>
+        <!--end::Badge-->
+
+        <!--begin::Text-->
+        <div
+          class="
+            font-weight-bolder font-size-lg
+            timeline-content
+            text-dark-75
+            pl-3
+          "
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+          numquam veritatis rem! Assumenda provident aliquam ullam sunt placeat
+          esse modi corrupti, minima, voluptates quaerat asperiores! Eligendi
+          accusantium velit dolor ratione?
+        </div>
+        <!--end::Text-->
+      </div>
+      <!--end::Item-->
+    </div>
+  </div>
+</div>

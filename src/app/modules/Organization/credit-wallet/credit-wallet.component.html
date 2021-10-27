@@ -1,0 +1,667 @@
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+  <!--begin::Container-->
+  <div id="kt_content_container" class="container">
+    <!--begin::Pricing card-->
+    <div class="card" id="kt_pricing">
+      <!--begin::Card body-->
+      <div class="card-body p-lg-17">
+        <!--begin::Plans-->
+        <div class="d-flex flex-column">
+          <!--begin::Heading-->
+          <div class="mb-13 text-center">
+            <h1 class="fs-2hx fw-bolder mb-5">
+              {{ 'ORGANIZATION.WALLET.TITLE' | translate }}
+            </h1>
+            <div class="text-gray-400 fw-bold fs-5">
+              {{ 'ORGANIZATION.WALLET.SUBTITLE' | translate }}
+              <a href="#" class="link-primary fw-bolder">{{
+                'ORGANIZATION.WALLET.LINK' | translate
+              }}</a
+              >.
+            </div>
+          </div>
+          <!--end::Heading-->
+
+          <!--begin::Nav group-->
+          <div
+            class="nav-group nav-group-outline mx-auto mb-15"
+            data-kt-buttons="true"
+          >
+            <a
+              [ngStyle]="styleM()"
+              class="
+                btn btn-color-gray-400 btn-active btn-active-secondary
+                px-6
+                py-3
+                me-2
+                active
+              "
+              data-kt-plan="month"
+              (click)="month()"
+              >{{ 'ORGANIZATION.WALLET.MONTHLY' | translate }}</a
+            >
+
+            <a
+              [ngStyle]="styleY()"
+              class="
+                btn btn-color-gray-400 btn-active btn-active-secondary
+                px-6
+                py-3
+              "
+              data-kt-plan="annual"
+              (click)="year()"
+              >{{ 'ORGANIZATION.WALLET.ANNUAL' | translate }}</a
+            >
+          </div>
+          <!--end::Nav group-->
+
+          <!--begin::Row-->
+          <div class="row g-10" *ngIf="CreditType">
+            <!--begin::Col-->
+            <div class="col-xl-4" *ngFor="let CredY of annuelCredits | async">
+              <!-- <div class="col-xl-4" *ngFor="let CredY of credParAnnee"> -->
+              <div class="d-flex h-100 align-items-center">
+                <!--begin::Option-->
+                <div
+                  class="
+                    w-100
+                    d-flex
+                    flex-column flex-center
+                    rounded-3
+                    bg-light bg-opacity-75
+                    py-15
+                    px-10
+                  "
+                >
+                  <!--begin::Heading-->
+                  <div class="mb-7 text-center">
+                    <!--begin::Title-->
+                    <h1 class="text-dark mb-5 fw-boldest">{{ CredY.titel }}</h1>
+                    <!--end::Title-->
+                    <!--begin::Description-->
+                    <div class="text-gray-400 fw-bold mb-5">
+                      {{ CredY.desc }}
+                    </div>
+                    <!--end::Description-->
+                    <!--begin::Price-->
+                    <div class="text-center">
+                      <span class="mb-2 text-primary">$</span>
+                      <span
+                        class="fs-3x fw-bolder text-primary"
+                        data-kt-plan-price-month="39"
+                        data-kt-plan-price-annual="399"
+                        >{{ CredY.Prix }}</span
+                      >
+                      <span class="fs-7 fw-bold opacity-50"
+                        >/
+                        <span data-kt-element="period">
+                          {{ 'ORGANIZATION.WALLET.YEAR' | translate }}</span
+                        ></span
+                      >
+                    </div>
+                    <!--end::Price-->
+                  </div>
+                  <!--end::Heading-->
+                  <!--begin::Features-->
+                  <div class="w-100 mb-10">
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3">
+                        {{ CredY.Number_of_Certificates }}
+                        {{
+                          'ORGANIZATION.WALLET.CERTIFICATE' | translate
+                        }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3">
+                        {{ CredY.Recipient_Accounts }}
+                        {{
+                          'ORGANIZATION.WALLET.RECIPIENTACCOUNTS' | translate
+                        }}
+                      </span>
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Signer_Accounts }}
+                        {{
+                          'ORGANIZATION.WALLET.SIGNERACCOUNTS' | translate
+                        }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Blokchain_Network }}
+                        {{ 'ORGANIZATION.WALLET.BLOCKCHAIN' | translate }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Storage }}
+                        {{ 'ORGANIZATION.WALLET.STORAGE' | translate }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Backup }}
+                        {{
+                          'ORGANIZATION.WALLET.CUSTOMARSUPPORT' | translate
+                        }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Customer_support }}
+                        {{ 'ORGANIZATION.WALLET.BACKUP' | translate }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                  </div>
+                  <!--end::Features-->
+                  <!--begin::Select-->
+                  <app-button
+                    [backgroundColor]="'#3699FF'"
+                    [fontColor]="'#fff'"
+                    label="{{ 'ORGANIZATION.WALLET.SELECT' | translate }}"
+                  >
+                  </app-button>
+                  <!--end::Select-->
+                </div>
+                <!--end::Option-->
+              </div>
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Row-->
+
+          <!--begin::Row-->
+          <div class="row g-10" *ngIf="!CreditType">
+            <!--begin::Col-->
+            <!-- <div class="col-xl-4" *ngFor="let CredY of credParMois"> -->
+            <div class="col-xl-4" *ngFor="let CredY of monthlyCredits | async">
+              <div class="d-flex h-100 align-items-center">
+                <!--begin::Option-->
+                <div
+                  class="
+                    w-100
+                    d-flex
+                    flex-column flex-center
+                    rounded-3
+                    bg-light bg-opacity-75
+                    py-15
+                    px-10
+                  "
+                >
+                  <!--begin::Heading-->
+                  <div class="mb-7 text-center">
+                    <!--begin::Title-->
+                    <h1 class="text-dark mb-5 fw-boldest">{{ CredY.titel }}</h1>
+                    <!--end::Title-->
+                    <!--begin::Description-->
+                    <div class="text-gray-400 fw-bold mb-5">
+                      {{ CredY.desc }}
+                    </div>
+                    <!--end::Description-->
+                    <!--begin::Price-->
+                    <div class="text-center">
+                      <span class="mb-2 text-primary">$</span>
+                      <span
+                        class="fs-3x fw-bolder text-primary"
+                        data-kt-plan-price-month="39"
+                        data-kt-plan-price-annual="399"
+                        >{{ CredY.Prix }}</span
+                      >
+                      <span class="fs-7 fw-bold opacity-50"
+                        >/
+                        <span data-kt-element="period">
+                          {{ 'ORGANIZATION.WALLET.MONTH' | translate }}</span
+                        ></span
+                      >
+                    </div>
+                    <!--end::Price-->
+                  </div>
+                  <!--end::Heading-->
+                  <!--begin::Features-->
+                  <div class="w-100 mb-10">
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3">
+                        {{ CredY.Number_of_Certificates }}
+                        {{
+                          'ORGANIZATION.WALLET.CERTIFICATE' | translate
+                        }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3">
+                        {{ CredY.Recipient_Accounts }}
+                        {{
+                          'ORGANIZATION.WALLET.RECIPIENTACCOUNTS' | translate
+                        }}
+                      </span>
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Signer_Accounts }}
+                        {{
+                          'ORGANIZATION.WALLET.SIGNERACCOUNTS' | translate
+                        }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Blokchain_Network }}
+                        {{ 'ORGANIZATION.WALLET.BLOCKCHAIN' | translate }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Storage }}
+                        {{ 'ORGANIZATION.WALLET.STORAGE' | translate }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center mb-5">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Backup }}
+                        {{
+                          'ORGANIZATION.WALLET.CUSTOMARSUPPORT' | translate
+                        }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <div class="d-flex align-items-center">
+                      <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"
+                        >{{ CredY.Customer_support }}
+                        {{ 'ORGANIZATION.WALLET.BACKUP' | translate }}</span
+                      >
+                      <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
+                      <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 24 24"
+                          version="1.1"
+                        >
+                          <circle
+                            fill="#000000"
+                            opacity="0.3"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                          />
+                          <path
+                            d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z"
+                            fill="#000000"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </span>
+                      <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Item-->
+                  </div>
+                  <!--end::Features-->
+                  <!--begin::Select-->
+                  <app-button
+                    [backgroundColor]="'#3699FF'"
+                    [fontColor]="'#fff'"
+                    label="{{ 'ORGANIZATION.WALLET.SELECT' | translate }}"
+                  >
+                  </app-button>
+                  <!--end::Select-->
+                </div>
+                <!--end::Option-->
+              </div>
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Row-->
+        </div>
+        <!--end::Plans-->
+      </div>
+      <!--end::Card body-->
+    </div>
+    <!--end::Pricing card-->
+  </div>
+  <!--end::Container-->
+</div>
+<!--end::Post-->

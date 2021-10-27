@@ -1,0 +1,57 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">
+        {{ 'RECIPIENT.CERTIFICATES.LISTITEL' | translate }}
+      </h3>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="row">
+            <!-- Filter -->
+            <div class="col-12 col-sm-4 col-md-3 p-0 pr-sm-1">
+              <app-select
+                [label]="'Status'"
+                [placeholder]="'Select Status'"
+                [items]="status"
+                (optionSelected)="optionSelected($event)"
+              ></app-select>
+            </div>
+            <!-- Search -->
+            <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+              <app-input
+                [label]="'RECIPIENT.CERTIFICATES.SEARCH' | translate"
+                [placeholder]="'SEARCH'"
+                [ref]="'suffix'"
+                [icon]="'search'"
+                (typingStopped)="ApplySearch($event)"
+              >
+              </app-input>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="NoData" style="text-align: center; background-color: #f7f7f7">
+      <!-- <img src="src/assets/media/img/NoDataFaound.png" /> -->
+      <img src="../../../../assets/media/img/NoDataFaound.png" />
+    </div>
+
+    <div *ngIf="!NoData">
+      <app-listing-certificates
+        [certificates$]="displayedRows$"
+        [dialog]="dialog"
+        [Verifiers]="Verifiers"
+      ></app-listing-certificates>
+
+      <app-pagination
+        [length]="length"
+        [pageSizeOptions]="[5, 10, 15, 20]"
+        [pageSize]="5"
+      ></app-pagination>
+    </div>
+  </div>
+</div>

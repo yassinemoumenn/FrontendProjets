@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <div
+      class="col-12"
+      *ngIf="resultsLength === 0 && emptyList; else CertificatesList"
+    >
+      <app-empty-list
+        [Image]="'assets/media/svg/misc/Certificate.svg'"
+        [Title]="'Certificates List '"
+        [Description]="'there are no certificates '"
+      >
+      </app-empty-list>
+    </div>
+    <ng-template #CertificatesList>
+      <div class="col-12">
+        <div class="card card-custom gutter-b">
+          <div class="card-header">
+            <div class="card-title">
+              <h3 class="card-label">Certificates</h3>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12"></div>
+            </div>
+            <!-- Display Certificates -->
+            <div class="row">
+              <div class="col-12">
+                <app-view-certificates
+                  [certificates]="certificates"
+                  [dialog]="dialog"
+                  [events]="eventsSubject.asObservable()"
+                  [status]="FillStatusFromSource()"
+                  [ConnectedUser]="ConnectedUser | async"
+                  (applySearch)="ApplySearch($event)"
+                  (optionSelectedFilter)="OptionSelectedFilter($event)"
+                  (unSignCertificate)="UnSignCertificate($event)"
+                  (rejectClicked)="rejectCertificate({ reason: $event })"
+                  (signCertificate)="SignCertificate($event)"
+                  (signCertificates)="SignCertificates($event)"
+                  (unSignCertificates)="UnSignCertificates($event)"
+                  (viewCertificates)="ViewCertificates($event)"
+                  (sortDataEvent)="SortData($event)"
+                ></app-view-certificates>
+              </div>
+            </div>
+            <!-- Pagination -->
+            <div class="row">
+              <div class="col-12">
+                <app-pagination
+                  [length]="resultsLength"
+                  [isLoading]="isLoading"
+                  (pageEvent)="OnPaginatonPaged($event)"
+                >
+                </app-pagination>
+              </div>
+            </div>
+
+            <!-- View certificate design -->
+            <div class="row">
+              <div class="col-12">
+                <ng-template #templateViewCertificate>
+                  <app-certificate-view-modal
+                    [_data]="certificateToShow"
+                    (closeModal)="Dismiss($event)"
+                  ></app-certificate-view-modal>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

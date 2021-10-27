@@ -1,0 +1,53 @@
+<!-- Modal Title -->
+<h1 mat-dialog-title class="d-flex align-items-center justify-content-between">
+  <h5>Request organization</h5>
+  <app-button
+    [ref]="'icon'"
+    [icon]="'close'"
+    class="buttonClose"
+    mat-dialog-close
+  >
+  </app-button>
+</h1>
+<!-- End Modal Title -->
+<!-- Separator -->
+<hr />
+<!-- End Separator -->
+<!-- Modal Content-->
+<div mat-dialog-content>
+  <form [formGroup]="organization">
+    <div class="row">
+      <div class="col-md-3">
+        <app-select
+          [label]="' organizations'"
+          [placeholder]="'Choose organization'"
+          [itemsObservable]="ListeOrganizations"
+          [values]="['name']"
+          formControlName="organization"
+        ></app-select>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- End Modal Content-->
+<!-- Modal Actions-->
+<div
+  class="modal-footer p-3 d-flex justify-content-center justify-content-md-end"
+>
+  <app-button
+    mat-raised-button
+    mat-dialog-close
+    [label]="'Cancel'"
+    [backgroundColor]="'#f3f6f9'"
+    [fontColor]="'#7e8299'"
+  >
+  </app-button>
+  <app-button
+    color="primary"
+    label="Send Request"
+    [isDisabled]="organization.get('organization')!.invalid"
+    (click)="SendRequest()"
+  >
+  </app-button>
+</div>
+<!--   End Modal Actions-->

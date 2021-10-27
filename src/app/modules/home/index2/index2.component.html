@@ -1,0 +1,184 @@
+<!-- STRAT NAVBAR -->
+<div id="theme_id" class="">
+  <nav
+    class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark"
+    (window:scroll)="windowScroll()"
+    id="navbar"
+  >
+    <div class="container">
+      <!-- LOGO -->
+      <img
+        class="navbar-brand logo"
+        src="../../../assets/media/logos/logoDocWhite.png"
+        style="width: 12%"
+      />
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        (click)="toggleMenu()"
+      >
+        <i class="mdi mdi-menu"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav navbar-center" id="mySidenav">
+          <li
+            class="nav-item"
+            [ngClass]="{ active: currentSection === 'home' }"
+          >
+            <a
+              [ngxScrollTo]="'#home'"
+              href="javascript: void(0);"
+              class="nav-link"
+              >Home</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            [ngClass]="{ active: currentSection === 'services' }"
+          >
+            <a
+              [ngxScrollTo]="'#services'"
+              href="javascript: void(0);"
+              class="nav-link"
+              >About</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            [ngClass]="{ active: currentSection === 'features' }"
+          >
+            <a
+              [ngxScrollTo]="'#features'"
+              href="javascript: void(0);"
+              class="nav-link"
+              >How It Works</a
+            >
+          </li>
+
+          <li
+            class="nav-item"
+            [ngClass]="{ active: currentSection === 'contact' }"
+          >
+            <a
+              [ngxScrollTo]="'#contact'"
+              href="javascript: void(0);"
+              class="nav-link"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <div class="nav-button ml-auto">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <button
+                [routerLink]="['/auth/login']"
+                type="button"
+                class="
+                  btn btn-custom1
+                  margin-t-30
+                  waves-effect waves-light
+                  mr-3
+                "
+              >
+                Sign In <i class="mdi mdi-account-lock"></i>
+              </button>
+            </li>
+            <li>
+              <button
+                [routerLink]="['/auth/register']"
+                type="button"
+                class="btn btn-custom1 margin-t-30 waves-effect waves-light"
+              >
+                Sign Up <i class="mdi mdi-account-plus"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+  <!--START HOME-->
+  <section class="section home-half" id="home">
+    <div class="bg-overlay"></div>
+    <div class="display-table">
+      <div class="display-table-cell">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-white text-center">
+              <p class="padding-t-15 home-desc landFont">WELCOME TO DOCCERTS</p>
+              <br />
+              <h1 class="home-title">
+                The Cutting Edge Smart Certification System
+              </h1>
+            </div>
+          </div>
+          <br />
+          <form #form="ngForm">
+            <div class="row">
+              <div class="col-lg-12 text-white text-center">
+                <input
+                  type="text"
+                  class="form-control1"
+                  placeholder="Please Enter Certificate ID or Recipient Information"
+                />
+              </div>
+              <div class="col-lg-12 text-white text-center">
+                <button
+                  type="submit"
+                  class="btn btn1 btn-custom waves-effect waves-light"
+                >
+                  Search <i class="mdi mdi-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="wave-effect wave-anim">
+      <div class="waves-shape shape-one">
+        <div
+          class="wave1 wave-one"
+          style="
+            background-image: url('../../../assets/media/wave-shape/wave1.png');
+          "
+        ></div>
+      </div>
+      <div class="waves-shape shape-two">
+        <div
+          class="wave1 wave-two"
+          style="
+            background-image: url('../../../assets/media/wave-shape/wave2.png');
+          "
+        ></div>
+      </div>
+      <div class="waves-shape shape-three">
+        <div
+          class="wave1 wave-three"
+          style="
+            background-image: url('../../../assets/media/wave-shape/wave3.png');
+          "
+        ></div>
+      </div>
+    </div>
+  </section>
+  <!--END HOME-->
+  <div
+    appScrollspy
+    [spiedTags]="['SECTION']"
+    (sectionChange)="onSectionChange($event)"
+  >
+    <app-services></app-services>
+    <app-pricing></app-pricing>
+    <app-features></app-features>
+    <app-blog></app-blog>
+    <app-contact></app-contact>
+    <app-footer-home></app-footer-home>
+  </div>
+</div>

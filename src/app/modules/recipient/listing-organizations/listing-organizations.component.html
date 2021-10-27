@@ -1,0 +1,195 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Organizations</h3>
+    </div>
+    <div class="card-toolbar">
+      <div class="row">
+        <!-- request modal -->
+
+        <div class="col-md-6">
+          <div class="dropdown dropdown-inline" ngbDropdown>
+            <button
+              class="btn btn-info"
+              ngbDropdownToggle
+              data-toggle="dropdown"
+              aria-haspopup="false"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-format-list-bulleted-type"></i>
+              {{
+                'ISSUER.CERTIFICATE.VIEW.HEADER.ActionButton.Title' | translate
+              }}
+              <i class="mdi mdi-chevron-down"></i>
+            </button>
+
+            <div
+              class="dropdown-menu dropdown-menu-md dropdown-menu-right"
+              ngbDropdownMenu
+            >
+              <ul class="navi">
+                <li class="navi-item">
+                  <a
+                    (click)="OpenDialogAdd('issuer')"
+                    class="navi-link cursor-pointer"
+                  >
+                    <span class="navi-icon"
+                      ><i class="flaticon2-plus"></i
+                    ></span>
+                    <span class="navi-text"> request Issuer organization</span>
+                  </a>
+                </li>
+                <li class="navi-item">
+                  <a
+                    (click)="OpenDialogAdd('recipient')"
+                    class="navi-link cursor-pointer"
+                  >
+                    <span class="navi-icon"
+                      ><i class="flaticon2-plus"></i
+                    ></span>
+                    <span class="navi-text">
+                      request Recipient organization</span
+                    >
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body p-lg-15">
+    <!-- Filer & Search Bloc -->
+    <div class="row mt-2">
+      <div class="col-12">
+        <form>
+          <div class="row">
+            <div class="col-12 col-sm-4 col-md-3 p-0 pl-sm-1">
+              <app-input
+                [label]="'Search'"
+                [placeholder]="'Search'"
+                [ref]="'suffix'"
+                [icon]="'search'"
+                (typingStopped)="ApplySearch($event)"
+              >
+              </app-input>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!---->
+    <div
+      *ngIf="false; else DataTable"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+      "
+    >
+      <mat-progress-spinner color="primary" mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
+    <ng-template #DataTable>
+      <app-view-organization
+        [displayedRows$]="displayedRows$"
+        [organizationCategories]="organizationCategories"
+        (EditCategoryFilds)="openEditCategoryFilds({ catToUpdat: $event })"
+        [DATA]="DATA"
+        (openDialiogToFullRecipientFields)="
+          OpenDialogToFullRecipientFields($event)
+        "
+      ></app-view-organization>
+      <app-pagination
+        [length]="length"
+        [pageSizeOptions]="[5, 10, 15, 20]"
+        [pageSize]="nbrElementinPage"
+        (pageEvent)="pagination({ pageEvent: $event })"
+      ></app-pagination>
+    </ng-template>
+  </div>
+</div>
+<ng-template #request>
+  <app-request-organization
+    [title]="titel"
+    [organizations]="organizations"
+    [organizationsName]="organizationsNames"
+    [groups]="Groups"
+    [groupsName]="groupsNames"
+    [categories]="categories"
+    [categoriesName]="categoriesName"
+    [_requestFrom]="fm"
+    (dismissDialog)="Dismiss($event)"
+    (requestOrganization)="requestOrganization($event)"
+    [organizationType]="organizationType"
+    [ListOrganizations]="listOfOrganizations"
+    [listGroups]="listGroups"
+    [listCategories]="listCategories"
+    [listOrganization]="listOrganization"
+    [DATA]="DATA"
+    [RecipientOrganizations]="RecipientOrganizations"
+    [IssuerOrganization]="IssuerOrganization"
+    (groupID)="GetCatergoryBygroupID($event)"
+    [GetListOfCategories]="GetListOfCategories"
+  ></app-request-organization>
+</ng-template>
+
+<ng-template #content let-c="close " let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Update Category Fields</h4>
+    <app-button [ref]="'icon'" [icon]="'close'" (buttonClick)="close()">
+    </app-button>
+  </div>
+
+  <div class="card">
+    <div class="card-body p-lg-15">
+      <h1 mat-dialog-title>{{ OrganizationToubdate.value.name }}.</h1>
+      <div
+        class="modal-body"
+        style="
+          max-height: 600px;
+          overflow: auto !important ;
+          display: flex;
+          justify-content: space-around;
+        "
+      >
+        <form [formGroup]="RECfilds">
+          <h4 class="modal-title">Recipient Fields</h4>
+          <br />
+          <div *ngFor="let item of OrganizationToubdate.value.recipientFields">
+            <label class="font-size-h6 font-weight-bolder text-dark">{{
+              item.name
+            }}</label>
+            <input
+              type="text"
+              class="form-control"
+              [formControlName]="item.name"
+              style="width: 268px; font-size: 17px; height: 60px"
+            /><br />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <app-button
+      label="  Close"
+      (buttonClick)="close()"
+      backgroundColor="#ffffff"
+      fontColor="#000000"
+    >
+    </app-button>
+    <app-button color="primary" label=" Save" (buttonClick)="UpdateFields()">
+    </app-button>
+  </div>
+</ng-template>
+<ng-template #templateFullRecipientsFields>
+  <app-full-recipient-fields
+    [recipientDataToFull]="recipientDataToFull"
+    (fullRecipientFieldForm)="fullRecipientFields($event)"
+  ></app-full-recipient-fields>
+</ng-template>
